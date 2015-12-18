@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAn-j6-IRx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ROj-Q1-egT"/>
+                                </connections>
+                            </webView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bah-MO-y8k">
+                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Me" image="Me" selectedImage="Me Selected" id="FYK-qj-4EQ"/>
+                                    <tabBarItem title="Notifications" image="Notifications" badgeValue="99" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
+                                    <tabBarItem title="Activity" image="Activity" selectedImage="Activity Selected" id="2f1-wH-UNo"/>
+                                    <tabBarItem title="News" image="News" selectedImage="News Selected" id="JU3-4S-xZH"/>
+                                    <tabBarItem title="Search" image="Search" selectedImage="Search Selected" id="XdG-rl-5Lz"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="iwQ-1y-OKa"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="4Xd-2h-cJ0"/>
+                            <constraint firstItem="AAn-j6-IRx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8qJ-ZE-dtM"/>
+                            <constraint firstItem="AAn-j6-IRx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AdP-KQ-Pef"/>
+                            <constraint firstAttribute="trailing" secondItem="Bah-MO-y8k" secondAttribute="trailing" id="Cc4-pR-xVi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
+                            <constraint firstAttribute="trailing" secondItem="AAn-j6-IRx" secondAttribute="trailing" id="WLL-Y1-57c"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="dAQ-2g-BXY"/>
+                            <constraint firstItem="Bah-MO-y8k" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="gD5-NM-5NI"/>
+                            <constraint firstItem="Bah-MO-y8k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oKl-Vi-BbQ"/>
+                            <constraint firstAttribute="bottom" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="y9Y-eI-Kcr"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="y9Y-eI-Kcr"/>
+                                <exclude reference="4Xd-2h-cJ0"/>
+                                <exclude reference="dAQ-2g-BXY"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tabBar" destination="Bah-MO-y8k" id="dmF-4y-fkn"/>
+                        <outlet property="webView" destination="AAn-j6-IRx" id="Kw7-aM-YEc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="262" y="181"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Activity" width="25" height="25"/>
+        <image name="Activity Selected" width="25" height="25"/>
+        <image name="Me" width="25" height="25"/>
+        <image name="Me Selected" width="25" height="25"/>
+        <image name="News" width="25" height="25"/>
+        <image name="News Selected" width="25" height="25"/>
+        <image name="Notifications" width="25" height="25"/>
+        <image name="Notifications Selected" width="25" height="25"/>
+        <image name="Search" width="25" height="25"/>
+        <image name="Search Selected" width="25" height="25"/>
+    </resources>
+</document>
