@@ -56,7 +56,7 @@ bool webViewDidLoad = false;
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     NSString *lowercaseTitle = item.title.lowercaseString;
-    NSString *path = [NSString stringWithFormat:"/%@", lowercaseTitle];
+    NSString *path = [NSString stringWithFormat:@"/%@", lowercaseTitle];
     
     if ([lowercaseTitle isEqualToString:@"me"]) {
         path = @"/";
