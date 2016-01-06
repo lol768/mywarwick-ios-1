@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Start" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -62,8 +62,8 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="tabBar" destination="Bah-MO-y8k" id="dmF-4y-fkn"/>
-                        <outlet property="webView" destination="AAn-j6-IRx" id="Kw7-aM-YEc"/>
+                        <outlet property="tabBar" destination="Bah-MO-y8k" id="UFj-Je-tDq"/>
+                        <outlet property="webView" destination="AAn-j6-IRx" id="IZF-Vx-fpA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
