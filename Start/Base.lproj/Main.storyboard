@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAn-j6-IRx">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            <webView contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" suppressesIncrementalRendering="YES" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAn-j6-IRx">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
                                 <connections>
@@ -30,7 +31,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem title="Me" image="Me" selectedImage="Me Selected" id="FYK-qj-4EQ"/>
-                                    <tabBarItem title="Notifications" image="Notifications" badgeValue="99" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
+                                    <tabBarItem title="Notifications" image="Notifications" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
                                     <tabBarItem title="Activity" image="Activity" selectedImage="Activity Selected" id="2f1-wH-UNo"/>
                                     <tabBarItem title="News" image="News" selectedImage="News Selected" id="JU3-4S-xZH"/>
                                     <tabBarItem title="Search" image="Search" selectedImage="Search Selected" id="XdG-rl-5Lz"/>
@@ -39,29 +40,30 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="iwQ-1y-OKa"/>
                                 </connections>
                             </tabBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-yM-le3">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Emz-UV-Bt8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="4Xd-2h-cJ0"/>
-                            <constraint firstItem="AAn-j6-IRx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8qJ-ZE-dtM"/>
-                            <constraint firstItem="AAn-j6-IRx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AdP-KQ-Pef"/>
+                            <constraint firstAttribute="trailing" secondItem="AAn-j6-IRx" secondAttribute="trailing" id="3xH-Ln-J3b"/>
                             <constraint firstAttribute="trailing" secondItem="Bah-MO-y8k" secondAttribute="trailing" id="Cc4-pR-xVi"/>
+                            <constraint firstItem="AAn-j6-IRx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EUm-92-AZ4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
-                            <constraint firstAttribute="trailing" secondItem="AAn-j6-IRx" secondAttribute="trailing" id="WLL-Y1-57c"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="dAQ-2g-BXY"/>
-                            <constraint firstItem="Bah-MO-y8k" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="gD5-NM-5NI"/>
+                            <constraint firstItem="AAn-j6-IRx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="a54-Dl-A39"/>
+                            <constraint firstItem="dWW-yM-le3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eqo-y1-zia"/>
+                            <constraint firstItem="dWW-yM-le3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oIV-v5-KCJ"/>
                             <constraint firstItem="Bah-MO-y8k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oKl-Vi-BbQ"/>
-                            <constraint firstAttribute="bottom" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="y9Y-eI-Kcr"/>
+                            <constraint firstAttribute="trailing" secondItem="dWW-yM-le3" secondAttribute="trailing" id="plY-rd-Njk"/>
+                            <constraint firstItem="Bah-MO-y8k" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="yfv-rm-XSU"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="y9Y-eI-Kcr"/>
-                                <exclude reference="4Xd-2h-cJ0"/>
-                                <exclude reference="dAQ-2g-BXY"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
+                        <outlet property="behindStatusBarView" destination="dWW-yM-le3" id="4Nv-Jh-fYg"/>
                         <outlet property="tabBar" destination="Bah-MO-y8k" id="UFj-Je-tDq"/>
                         <outlet property="webView" destination="AAn-j6-IRx" id="IZF-Vx-fpA"/>
                     </connections>
@@ -69,6 +71,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="262" y="181"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="W1M-G8-Lsc">
+            <objects>
+                <viewController storyboardIdentifier="CannotConnect" id="xf1-Ge-Lpr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fuM-qY-fgR"/>
+                        <viewControllerLayoutGuide type="bottom" id="SIC-1n-qRW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ka5-WQ-n7N">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" text="Start.Warwick needs to download some data before launching for the first time. Please connect to the Internet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-0c-TX9">
+                                <rect key="frame" x="40" y="278" width="520" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9jM-ES-5o2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cannot Connect to Start.Warwick" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEn-EK-LYJ">
+                                <rect key="frame" x="60" y="230" width="480" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="pdM-Zm-PX5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SIC-1n-qRW" firstAttribute="top" secondItem="0MN-0c-TX9" secondAttribute="bottom" id="I6a-87-Bil"/>
+                            <constraint firstItem="SIC-1n-qRW" firstAttribute="top" secondItem="pEn-EK-LYJ" secondAttribute="bottom" constant="400" id="JZX-WV-zL3"/>
+                            <constraint firstItem="pEn-EK-LYJ" firstAttribute="top" secondItem="fuM-qY-fgR" secondAttribute="bottom" id="Lma-No-RBs"/>
+                            <constraint firstItem="0MN-0c-TX9" firstAttribute="trailing" secondItem="Ka5-WQ-n7N" secondAttribute="trailingMargin" constant="-20" id="M9H-WT-E0p"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pEn-EK-LYJ" secondAttribute="trailing" constant="40" id="UAs-kV-6Xq"/>
+                            <constraint firstItem="pEn-EK-LYJ" firstAttribute="leading" secondItem="Ka5-WQ-n7N" secondAttribute="leadingMargin" constant="40" id="Z5Y-6E-mUR"/>
+                            <constraint firstItem="0MN-0c-TX9" firstAttribute="top" secondItem="pEn-EK-LYJ" secondAttribute="bottom" constant="8" symbolic="YES" id="q8k-AY-3ot"/>
+                            <constraint firstItem="pEn-EK-LYJ" firstAttribute="centerY" secondItem="Ka5-WQ-n7N" secondAttribute="centerY" constant="-50" id="tbo-Rt-BFd"/>
+                            <constraint firstItem="0MN-0c-TX9" firstAttribute="leading" secondItem="Ka5-WQ-n7N" secondAttribute="leadingMargin" constant="20" id="ur7-zB-119"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Lma-No-RBs"/>
+                                <exclude reference="I6a-87-Bil"/>
+                                <exclude reference="JZX-WV-zL3"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wt8-Um-fwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="962" y="181"/>
         </scene>
     </scenes>
     <resources>

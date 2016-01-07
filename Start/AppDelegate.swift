@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let body = ["deviceToken": deviceToken.description]
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://swordfish.warwick.ac.uk/api/push/ios")!)
+        let request = NSMutableURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/api/push/ios"))
         
         request.HTTPMethod = "POST";
         
@@ -42,12 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert]
-        let settings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
-        
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
         
         return true
     }
