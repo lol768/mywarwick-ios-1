@@ -45,7 +45,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        if launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
+             // TODO
+        }
+        
         return true
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        NSNotificationCenter.defaultCenter().postNotificationName("DidReceiveRemoteNotification", object: self, userInfo: nil)
     }
     
     func applicationWillResignActive(application: UIApplication) {

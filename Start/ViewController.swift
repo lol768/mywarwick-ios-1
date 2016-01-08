@@ -20,6 +20,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     
     var canWorkOffline = false
     var hasRegisteredForNotifications = false
+    var webViewHasLoaded = false
     
     var reachability: Reachability?
     
@@ -33,6 +34,14 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
         hasRegisteredForNotifications = NSUserDefaults.standardUserDefaults().boolForKey("RegisteredForRemoteNotifications")
+        
+        NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
+            if self.webViewHasLoaded {
+                self.webView.stringByEvaluatingJavaScriptFromString(String(format: "Store.dispatch({type: 'path.navigate', path: '%@'})", "/notifications"))
+            } else {
+                self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -121,6 +130,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
         if let url = webView.request?.URL {
             if url.host == Config.startURL.host {
                 webView.stringByEvaluatingJavaScriptFromString(bridgeScript!)
+                webViewHasLoaded = true
                 
                 tabBar.hidden = false
             } else {
