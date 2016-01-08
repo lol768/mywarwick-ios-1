@@ -15,29 +15,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         
-        NSLog("registered for remote notifications %@", deviceToken)
+        let tok = deviceToken.description
         
-        let body = ["deviceToken": deviceToken.description]
+        let token = tok.substringWithRange(Range(start: tok.startIndex.successor(), end: tok.endIndex.predecessor())).stringByReplacingOccurrencesOfString(" ", withString: "")
         
-        let request = NSMutableURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/api/push/ios"))
+        let request = NSMutableURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/api/push/apns/subscribe"))
         
         request.HTTPMethod = "POST";
-        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(body, options: [])
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(["deviceToken": token], options: [])
         } catch {
             print(error)
         }
         
-        NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: request.HTTPBody!).resume()
-    }
-    
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        
-        NSLog("failed to register for remote notifications %@", error)
-        
+        NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: request.HTTPBody!) { (data, response, error ) -> Void in
+            let httpResponse = response as! NSHTTPURLResponse
+            
+            if httpResponse.statusCode == 200 {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "RegisteredForRemoteNotifications")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                print("Successfully registered for remote notifications")
+            }
+        }.resume()
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -45,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
