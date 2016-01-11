@@ -100,7 +100,13 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     }
     
     func loadWebView() {
-        webView.loadRequest(NSURLRequest(URL: Config.startURL))
+        var url = Config.startURL
+        
+        if Global.didLaunchFromRemoteNotification {
+            url = Config.startURL.URLByAppendingPathComponent("/notifications")
+        }
+        
+        webView.loadRequest(NSURLRequest(URL: url))
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {

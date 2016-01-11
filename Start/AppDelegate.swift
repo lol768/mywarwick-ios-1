@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         if launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
-             // TODO
+             Global.didLaunchFromRemoteNotification = true
         }
         
         return true

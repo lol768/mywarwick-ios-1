@@ -15,6 +15,7 @@
 		702CC1D11C3D61CA0088BF34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1CF1C3D61CA0088BF34 /* Main.storyboard */; };
 		702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D21C3D61CA0088BF34 /* Assets.xcassets */; };
 		702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */; };
+		7042C3901C43B0BD0060C76A /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		702CC1D21C3D61CA0088BF34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		702CC1D51C3D61CA0088BF34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		702CC1D71C3D61CA0088BF34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7042C38F1C43B0BD0060C76A /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */,
 				702CC1D71C3D61CA0088BF34 /* Info.plist */,
 				702047011C3E8DAC004487FE /* Bridge.js */,
+				7042C38F1C43B0BD0060C76A /* Global.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
+				7042C3901C43B0BD0060C76A /* Global.swift in Sources */,
 				702047041C3EC8D8004487FE /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

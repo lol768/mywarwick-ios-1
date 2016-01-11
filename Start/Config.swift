@@ -10,7 +10,7 @@ import Foundation
 
 class Config {
     
-    static var startURL = NSURL(string: "https://swordfish.warwick.ac.uk")!
+    static var startURL = NSURL(string: "https://start-dev.warwick.ac.uk")!
     
     static var ssoURL = NSURL(string: "https://websignon.warwick.ac.uk")!
     
