@@ -18,8 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-yM-le3">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Emz-UV-Bt8"/>
+                                </constraints>
+                            </view>
                             <webView contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" suppressesIncrementalRendering="YES" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAn-j6-IRx">
-                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
                                 <connections>
@@ -40,13 +47,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="iwQ-1y-OKa"/>
                                 </connections>
                             </tabBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-yM-le3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Emz-UV-Bt8"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -54,12 +54,12 @@
                             <constraint firstAttribute="trailing" secondItem="Bah-MO-y8k" secondAttribute="trailing" id="Cc4-pR-xVi"/>
                             <constraint firstItem="AAn-j6-IRx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EUm-92-AZ4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="PSk-2m-OgH"/>
                             <constraint firstItem="AAn-j6-IRx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="a54-Dl-A39"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eqo-y1-zia"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oIV-v5-KCJ"/>
                             <constraint firstItem="Bah-MO-y8k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oKl-Vi-BbQ"/>
                             <constraint firstAttribute="trailing" secondItem="dWW-yM-le3" secondAttribute="trailing" id="plY-rd-Njk"/>
-                            <constraint firstItem="Bah-MO-y8k" firstAttribute="top" secondItem="AAn-j6-IRx" secondAttribute="bottom" id="yfv-rm-XSU"/>
                         </constraints>
                     </view>
                     <connections>

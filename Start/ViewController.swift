@@ -58,6 +58,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
         loadWebView()
         
         webView.scrollView.bounces = false
+        webView.scrollView.backgroundColor = UIColor(white: 1, alpha: 1)
         
         behindStatusBarView.backgroundColor = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     }
@@ -139,8 +140,12 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
                 webViewHasLoaded = true
                 
                 tabBar.hidden = false
+                webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
+                webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 91, left: 0, bottom: 48, right: 0)
             } else {
                 tabBar.hidden = true
+                webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             }
         }
         
