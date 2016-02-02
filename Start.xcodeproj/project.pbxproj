@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		702047021C3E8DAC004487FE /* Bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 702047011C3E8DAC004487FE /* Bridge.js */; };
 		702047041C3EC8D8004487FE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047031C3EC8D8004487FE /* Reachability.swift */; };
 		702047061C3ED6B9004487FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047051C3ED6B9004487FE /* Config.swift */; };
 		702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		702047011C3E8DAC004487FE /* Bridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Bridge.js; sourceTree = "<group>"; };
 		702047031C3EC8D8004487FE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		702047051C3ED6B9004487FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		702CC1C81C3D61CA0088BF34 /* Start.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Start.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +68,6 @@
 				702CC1D21C3D61CA0088BF34 /* Assets.xcassets */,
 				702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */,
 				702CC1D71C3D61CA0088BF34 /* Info.plist */,
-				702047011C3E8DAC004487FE /* Bridge.js */,
 				7042C38F1C43B0BD0060C76A /* Global.swift */,
 			);
 			path = Start;
@@ -141,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */,
-				702047021C3E8DAC004487FE /* Bridge.js in Resources */,
 				702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */,
 				702CC1D11C3D61CA0088BF34 /* Main.storyboard in Resources */,
 			);

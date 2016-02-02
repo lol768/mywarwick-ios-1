@@ -14,8 +14,6 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var behindStatusBarView: UIView!
     
-    var bridgeScript: String?
-    
     var unreachableViewController: UIViewController = UIViewController()
     
     var canWorkOffline = false
@@ -26,9 +24,6 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        let path = NSBundle.mainBundle().pathForResource("Bridge", ofType: "js")
-        bridgeScript = try? String(contentsOfFile: path!)
         
         unarchiveCookies()
         
@@ -46,12 +41,12 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        unreachableViewController = storyboard!.instantiateViewControllerWithIdentifier("CannotConnect")
-        
+       
         NSUserDefaults.standardUserDefaults().registerDefaults([
-            "UserAgent": Config.webViewUserAgent
-            ]);
+        "UserAgent": Config.webViewUserAgent
+        ]);
+
+        unreachableViewController = storyboard!.instantiateViewControllerWithIdentifier("CannotConnect")
         
         tabBar.selectedItem = tabBar.items?.first
         
@@ -113,7 +108,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.URL {
             if url.description.hasPrefix("start://") {
-                let json = webView.stringByEvaluatingJavaScriptFromString("JSON.stringify(window.app)")!
+                let json = webView.stringByEvaluatingJavaScriptFromString("JSON.stringify(window.APP)")!
                 
                 let state = try? NSJSONSerialization.JSONObjectWithData(json.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
                 
@@ -136,7 +131,6 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
     func webViewDidFinishLoad(webView: UIWebView) {
         if let url = webView.request?.URL {
             if url.host == Config.startURL.host {
-                webView.stringByEvaluatingJavaScriptFromString(bridgeScript!)
                 webViewHasLoaded = true
                 
                 tabBar.hidden = false
@@ -158,10 +152,12 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
         }
         
         tabBar.items![1].badgeValue = badgeValueForInt(state["unreadNotificationCount"] as! Int)
+        
+        
         tabBar.items![2].badgeValue = badgeValueForInt(state["unreadActivityCount"] as! Int)
         tabBar.items![3].badgeValue = badgeValueForInt(state["unreadNewsCount"] as! Int)
         
-        if !canWorkOffline && state["isAppCached"] as! Bool == true {
+        if !canWorkOffline && state["isAppCached"] as? Bool == true {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "AppCached")
             NSUserDefaults.standardUserDefaults().synchronize()
             canWorkOffline = true
@@ -170,6 +166,12 @@ class ViewController: UIViewController, UIWebViewDelegate, UITabBarDelegate {
         
         if state["isUserLoggedIn"] as! Bool == true {
             registerForNotifications()
+            
+            tabBar.items![1].enabled = true
+            tabBar.items![2].enabled = true
+        } else {
+            tabBar.items![1].enabled = false
+            tabBar.items![2].enabled = false
         }
     }
     
