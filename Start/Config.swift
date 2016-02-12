@@ -10,10 +10,10 @@ import Foundation
 
 class Config {
     
-    static var startURL = NSURL(string: "https://start-dev.warwick.ac.uk")!
+    static let startURL = NSURL(string: "https://start-dev.warwick.ac.uk")!
     
-    static var ssoURL = NSURL(string: "https://websignon.warwick.ac.uk")!
+    static let ssoURL = NSURL(string: "https://websignon.warwick.ac.uk")!
     
-    static var webViewUserAgent = "Mobile Safari/App Start/1.0"
+    static let applicationNameForUserAgent = "Start/1.0"
     
 }
