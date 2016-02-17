@@ -34,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        
+        if (application.applicationState == .Inactive || application.applicationState == .Background) {
+            NSNotificationCenter.defaultCenter().postNotificationName("DidReceiveRemoteNotification", object: self, userInfo: nil)
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {

@@ -43,6 +43,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
         
+        NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
+            if self.webViewHasLoaded {
+                self.webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '/notifications'})", completionHandler: nil)
+            } else {
+                self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
+            }
+        }
+        
         NSNotificationCenter.defaultCenter().addObserverForName("DidRegisterForRemoteNotifications", object: nil, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
             if let deviceToken = notification.userInfo?["deviceToken"] as? String {
                 self.deviceToken = deviceToken
