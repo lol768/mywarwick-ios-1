@@ -23,25 +23,29 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     var hasRegisteredForNotifications = false
     var webViewHasLoaded = false
     
+    var deviceToken: String?
+    
     var reachability: Reachability?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        let preferences = WKPreferences()
+        preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
 
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
         configuration.suppressesIncrementalRendering = true
+        configuration.preferences = preferences
         
         webView = WKWebView(frame: CGRectZero, configuration: configuration)
         webView.navigationDelegate = self
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
-        hasRegisteredForNotifications = NSUserDefaults.standardUserDefaults().boolForKey("RegisteredForRemoteNotifications")
-        NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
-            if self.webViewHasLoaded {
-                self.webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '/notifications'})", completionHandler: nil)
-            } else {
-                self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
+        
+        NSNotificationCenter.defaultCenter().addObserverForName("DidRegisterForRemoteNotifications", object: nil, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
+            if let deviceToken = notification.userInfo?["deviceToken"] as? String {
+                self.deviceToken = deviceToken
             }
         }
     }
@@ -209,6 +213,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             tabBar.selectedItem = selectedTabBarItem
         }
         
+        UIApplication.sharedApplication().applicationIconBadgeNumber = state["unreadNotificationCount"] as! Int
+        
         items[1].badgeValue = badgeValueForInt(state["unreadNotificationCount"] as! Int)
         items[2].badgeValue = badgeValueForInt(state["unreadActivityCount"] as! Int)
         items[3].badgeValue = badgeValueForInt(state["unreadNewsCount"] as! Int)
@@ -228,6 +234,19 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         } else {
             items[1].enabled = false
             items[2].enabled = false
+        }
+        
+        if let deviceToken = self.deviceToken {
+            print("Registering for APNs with device token \(deviceToken)")
+            
+            self.webView.evaluateJavaScript("window.registerForAPNs(\"\(deviceToken)\")", completionHandler: { (data, error) -> Void in
+                if error == nil {
+                    self.deviceToken = nil
+                } else {
+                    print("Error registering for APNs: \(error!)")
+                }
+            })
+            
         }
     }
     

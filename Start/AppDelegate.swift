@@ -16,30 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         
         let tok = deviceToken.description
-        
         let token = tok.substringWithRange(Range(start: tok.startIndex.successor(), end: tok.endIndex.predecessor())).stringByReplacingOccurrencesOfString(" ", withString: "")
         
-        let request = NSMutableURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/api/push/apns/subscribe"))
-        
-        request.HTTPMethod = "POST";
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(["deviceToken": token], options: [])
-        } catch {
-            print(error)
-        }
-        
-        NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: request.HTTPBody!) { (data, response, error ) -> Void in
-            let httpResponse = response as! NSHTTPURLResponse
-            
-            if httpResponse.statusCode == 200 {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "RegisteredForRemoteNotifications")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                
-                print("Successfully registered for remote notifications")
-            }
-        }.resume()
+    NSNotificationCenter.defaultCenter().postNotificationName("DidRegisterForRemoteNotifications", object: self, userInfo: [
+            "deviceToken": token
+        ])
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -53,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        NSNotificationCenter.defaultCenter().postNotificationName("DidReceiveRemoteNotification", object: self, userInfo: nil)
+        
     }
     
     func applicationWillResignActive(application: UIApplication) {
