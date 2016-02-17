@@ -14,6 +14,6 @@ class Config {
     
     static let ssoURL = NSURL(string: "https://websignon.warwick.ac.uk")!
     
-    static let customUserAgent = "Safari/Start/1.0"
+    static let applicationNameForUserAgent = "Start/1.0"
     
 }

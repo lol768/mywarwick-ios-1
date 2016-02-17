@@ -10,12 +10,12 @@ import UIKit
 import WebKit
 import SafariServices
 
-class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
     
-    var webView = UIWebView()
+    var webView = WKWebView()
     
     var unreachableViewController: UIViewController = UIViewController()
     
@@ -28,15 +28,18 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        NSUserDefaults.standardUserDefaults().registerDefaults([
-            "UserAgent": Config.customUserAgent
-        ])
+        let configuration = WKWebViewConfiguration()
+        configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
+        configuration.suppressesIncrementalRendering = true
+        
+        webView = WKWebView(frame: CGRectZero, configuration: configuration)
+        webView.navigationDelegate = self
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
         hasRegisteredForNotifications = NSUserDefaults.standardUserDefaults().boolForKey("RegisteredForRemoteNotifications")
         NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.webView.stringByEvaluatingJavaScriptFromString("Store.dispatch({type: 'path.navigate', path: '/notifications'})")
+                self.webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '/notifications'})", completionHandler: nil)
             } else {
                 self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
             }
@@ -65,10 +68,6 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         
         setTabBarHidden(true)
         
-        webView.delegate = self
-        webView.suppressesIncrementalRendering = true
-        webView.scrollView.bounces = false
-        webView.scrollView.backgroundColor = UIColor.whiteColor()
         webView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(webView)
@@ -140,21 +139,23 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         webView.loadRequest(NSURLRequest(URL: url))
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let url = request.URL {
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.URL {
             if url.description.hasPrefix("start://") {
-                let data = webView.stringByEvaluatingJavaScriptFromString("JSON.stringify(window.APP)")
-                
-                if let json = data {
-                    if let state = try? NSJSONSerialization.JSONObjectWithData(json.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) {
-                        self.appStateDidChange(state as! Dictionary<String, AnyObject>)
+                decisionHandler(.Cancel)
+
+                webView.evaluateJavaScript("JSON.stringify(window.APP)", completionHandler: { (data, error) -> Void in
+                    if let json = data {
+                        if let state = try? NSJSONSerialization.JSONObjectWithData(json.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) {
+                            self.appStateDidChange(state as! Dictionary<String, AnyObject>)
+                        }
                     }
-                }
-                
-                return false
+                })
             } else if url.host == Config.startURL.host || url.host == Config.ssoURL.host {
-                return true
+                decisionHandler(.Allow)
             } else {
+                decisionHandler(.Cancel)
+                
                 let svc = SFSafariViewController(URL: url)
                 
                 if UIDevice.currentDevice().systemVersion.hasPrefix("9.2") {
@@ -169,10 +170,9 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
                     presentViewController(svc, animated: true, completion: nil)
                 }
                 
-                return false
             }
         } else {
-            return true
+            decisionHandler(.Allow)
         }
     }
     
@@ -187,9 +187,9 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
             webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 91, left: 0, bottom: 48, right: 0)
         }
     }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        if let url = webView.request?.URL {
+
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        if let url = webView.URL {
             if url.host == Config.startURL.host {
                 webViewHasLoaded = true
                 
@@ -280,7 +280,7 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
             path = "/"
         }
         
-        webView.stringByEvaluatingJavaScriptFromString("Store.dispatch({type: 'path.navigate', path: '\(path)'})")
+        webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '\(path)'})", completionHandler: nil)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
