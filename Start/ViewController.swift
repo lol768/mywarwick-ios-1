@@ -51,6 +51,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             }
         }
         
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationDidBecomeActive", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
+            
+            if self.webViewHasLoaded {
+                self.webView.evaluateJavaScript("window.applicationCache.update()", completionHandler: nil)
+            }
+            
+        }
+        
         NSNotificationCenter.defaultCenter().addObserverForName("DidRegisterForRemoteNotifications", object: nil, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
             if let deviceToken = notification.userInfo?["deviceToken"] as? String {
                 self.deviceToken = deviceToken
