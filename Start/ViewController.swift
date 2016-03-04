@@ -51,8 +51,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             }
         }
         
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationDidBecomeActive", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
-            
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
                 self.webView.evaluateJavaScript("window.applicationCache.update()", completionHandler: nil)
             }
@@ -204,7 +203,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         } else {
             tabBar.hidden = false
             webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
-            webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 91, left: 0, bottom: 48, right: 0)
+            webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         }
     }
 
