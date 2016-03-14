@@ -45,7 +45,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '/notifications'})", completionHandler: nil)
+                self.webView.evaluateJavaScript("window.Start.store.dispatch({type: 'path.navigate', path: '/notifications'})", completionHandler: nil)
             } else {
                 self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
             }
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.webView.evaluateJavaScript("window.applicationCache.update()", completionHandler: nil)
+                self.webView.evaluateJavaScript("window.Start.appToForeground()", completionHandler: nil)
             }
             
         }
@@ -163,7 +163,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             if url.description.hasPrefix("start://") {
                 decisionHandler(.Cancel)
 
-                webView.evaluateJavaScript("JSON.stringify(window.APP)", completionHandler: { (data, error) -> Void in
+                webView.evaluateJavaScript("JSON.stringify(window.Start.APP)", completionHandler: { (data, error) -> Void in
                     if let json = data {
                         if let state = try? NSJSONSerialization.JSONObjectWithData(json.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) {
                             self.appStateDidChange(state as! Dictionary<String, AnyObject>)
@@ -254,7 +254,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         if let deviceToken = self.deviceToken {
             print("Registering for APNs with device token \(deviceToken)")
             
-            self.webView.evaluateJavaScript("window.registerForAPNs(\"\(deviceToken)\")", completionHandler: { (data, error) -> Void in
+            self.webView.evaluateJavaScript("window.Start.registerForAPNs(\"\(deviceToken)\")", completionHandler: { (data, error) -> Void in
                 if error == nil {
                     self.deviceToken = nil
                 } else {
@@ -314,7 +314,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             path = "/"
         }
         
-        webView.evaluateJavaScript("Store.dispatch({type: 'path.navigate', path: '\(path)'})", completionHandler: nil)
+        webView.evaluateJavaScript("window.Start.store.dispatch({type: 'path.navigate', path: '\(path)'})", completionHandler: nil)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
