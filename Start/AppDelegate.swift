@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         
         let tok = deviceToken.description
-        let token = tok.substringWithRange(Range(start: tok.startIndex.successor(), end: tok.endIndex.predecessor())).stringByReplacingOccurrencesOfString(" ", withString: "")
+        let token = tok.substringWithRange(tok.startIndex.successor()..<tok.endIndex.predecessor()).stringByReplacingOccurrencesOfString(" ", withString: "")
         
     NSNotificationCenter.defaultCenter().postNotificationName("DidRegisterForRemoteNotifications", object: self, userInfo: [
             "deviceToken": token
