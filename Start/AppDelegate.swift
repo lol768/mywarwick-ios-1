@@ -26,6 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        if let deployment = NSUserDefaults.standardUserDefaults().stringForKey("StartDeployment") {
+            print("Switching to configured Start deployment \(deployment)")
+            Config.startURL = NSURL(string: "https://\(deployment).warwick.ac.uk")!
+        }
+        
         if launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
              Global.didLaunchFromRemoteNotification = true
         }

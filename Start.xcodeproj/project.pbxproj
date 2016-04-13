@@ -15,6 +15,7 @@
 		702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D21C3D61CA0088BF34 /* Assets.xcassets */; };
 		702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */; };
 		7042C3901C43B0BD0060C76A /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
+		709BD1551CBE7F49004E282E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 709BD1541CBE7F49004E282E /* Settings.bundle */; };
 		70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70C82DD81C9AF34E00398F94 /* Alert.wav */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		702CC1D51C3D61CA0088BF34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		702CC1D71C3D61CA0088BF34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7042C38F1C43B0BD0060C76A /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		709BD1541CBE7F49004E282E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		70C82DD81C9AF34E00398F94 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +70,7 @@
 				702CC1CD1C3D61CA0088BF34 /* ViewController.swift */,
 				702047051C3ED6B9004487FE /* Config.swift */,
 				702CC1CF1C3D61CA0088BF34 /* Main.storyboard */,
+				709BD1541CBE7F49004E282E /* Settings.bundle */,
 				702CC1D21C3D61CA0088BF34 /* Assets.xcassets */,
 				702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */,
 				702CC1D71C3D61CA0088BF34 /* Info.plist */,
@@ -142,6 +145,7 @@
 			files = (
 				702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */,
 				70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */,
+				709BD1551CBE7F49004E282E /* Settings.bundle in Resources */,
 				702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */,
 				702CC1D11C3D61CA0088BF34 /* Main.storyboard in Resources */,
 			);
