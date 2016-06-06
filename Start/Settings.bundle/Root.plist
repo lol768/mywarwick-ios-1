@@ -26,13 +26,23 @@
 				<string>Development</string>
 				<string>Test</string>
 				<string>Production</string>
+				<string>Custom</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<string>start-dev</string>
 				<string>start-test</string>
 				<string>start</string>
+				<string>custom</string>
 			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Deployment</string>
+			<key>Key</key>
+			<string>StartCustomDeployment</string>
 		</dict>
 	</array>
 </dict>
