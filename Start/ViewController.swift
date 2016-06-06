@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import WebKit
 import SafariServices
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
+class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
     
-    var webView = WKWebView()
+    var webView = UIWebView()
     
     var unreachableViewController: UIViewController = UIViewController()
     
@@ -23,29 +22,45 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     var hasRegisteredForNotifications = false
     var webViewHasLoaded = false
     
-    var deviceToken: String?
+    var unregisteredDeviceToken: String?
     
     var reachability: Reachability?
+    
+    let startBrandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
+    
+    func createWebView() {
+        webView = UIWebView(frame: CGRectZero)
+        
+        if let defaultUserAgent = evaluateJavascript("navigator.userAgent") {
+            NSUserDefaults.standardUserDefaults().registerDefaults([
+                "UserAgent": "\(defaultUserAgent) \(Config.applicationNameForUserAgent)"
+                ])
+            
+            // Now re-create the WebView to allow the change to take effect
+            webView = UIWebView(frame: CGRectZero)
+        }
+        
+        webView.delegate = self
+        webView.suppressesIncrementalRendering = true
+        webView.dataDetectorTypes = .None
+        webView.scrollView.bounces = false
+    }
+    
+    func evaluateJavascript(string: String) -> String? {
+        return webView.stringByEvaluatingJavaScriptFromString(string)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let preferences = WKPreferences()
-        preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
-
-        let configuration = WKWebViewConfiguration()
-        configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
-        configuration.suppressesIncrementalRendering = true
-        configuration.preferences = preferences
-        
-        webView = WKWebView(frame: CGRectZero, configuration: configuration)
-        webView.navigationDelegate = self
+        unarchiveCookies()
+        createWebView()
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
         
         NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.webView.evaluateJavaScript("Start.navigate('/notifications')", completionHandler: nil)
+                self.navigateWithinStart("/notifications")
             } else {
                 self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
             }
@@ -53,14 +68,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.webView.evaluateJavaScript("Start.appToForeground()", completionHandler: nil)
+                self.evaluateJavascript("Start.appToForeground()")
             }
             
         }
         
         NSNotificationCenter.defaultCenter().addObserverForName("DidRegisterForRemoteNotifications", object: nil, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
             if let deviceToken = notification.userInfo?["deviceToken"] as? String {
-                self.deviceToken = deviceToken
+                self.unregisteredDeviceToken = deviceToken
             }
         }
     }
@@ -78,7 +93,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
+        behindStatusBarView.backgroundColor = startBrandColour
+        
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
         hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
@@ -97,11 +114,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             NSLayoutConstraint(item: webView, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: webView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: webView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
-        ])
+            ])
         
         loadWebView()
-        
-        behindStatusBarView.backgroundColor = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -151,47 +166,52 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
-
+            
             url = Config.startURL.URLByAppendingPathComponent("/notifications")
         }
         
         webView.loadRequest(NSURLRequest(URL: url))
     }
     
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.URL {
-            if url.description.hasPrefix("start://") {
-                decisionHandler(.Cancel)
-
-                webView.evaluateJavaScript("JSON.stringify(Start.APP)", completionHandler: { (data, error) -> Void in
-                    if let json = data {
-                        if let state = try? NSJSONSerialization.JSONObjectWithData(json.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) {
-                            self.appStateDidChange(state as! Dictionary<String, AnyObject>)
-                        }
-                    }
-                })
-            } else if url.host == Config.startURL.host || url.host == Config.ssoURL.host {
-                decisionHandler(.Allow)
-            } else {
-                decisionHandler(.Cancel)
-                
-                let svc = SFSafariViewController(URL: url)
-                
-                if UIDevice.currentDevice().systemVersion.hasPrefix("9.2") {
-                    // Workaround for a bug in iOS 9.2 - see https://forums.developer.apple.com/thread/29048#discussion-105377
-                    self.modalPresentationStyle = .OverFullScreen
-                    
-                    let nvc = UINavigationController(rootViewController: svc)
-                    nvc.navigationBarHidden = true
-                    
-                    presentViewController(nvc, animated: true, completion: nil)
-                } else {
-                    presentViewController(svc, animated: true, completion: nil)
-                }
-                
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if let url = request.URL {
+            if url.host == Config.startURL.host || url.host == Config.ssoURL.host {
+                return true
             }
+        
+            if url.scheme == "start" {
+                updateAppState()
+            } else {
+                presentWebView(url)
+            }
+        }
+        
+        return false
+    }
+    
+    func updateAppState() {
+        if let json = evaluateJavascript("JSON.stringify(Start.APP)") {
+            if let data = json.dataUsingEncoding(NSUTF8StringEncoding) {
+                if let state = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+                    appStateDidChange(state as! Dictionary<String, AnyObject>)
+                }
+            }
+        }
+    }
+    
+    func presentWebView(url: NSURL) {
+        let svc = SFSafariViewController(URL: url)
+        
+        if UIDevice.currentDevice().systemVersion.hasPrefix("9.2") {
+            // Workaround for a bug in iOS 9.2 - see https://forums.developer.apple.com/thread/29048#discussion-105377
+            self.modalPresentationStyle = .OverFullScreen
+            
+            let nvc = UINavigationController(rootViewController: svc)
+            nvc.navigationBarHidden = true
+            
+            presentViewController(nvc, animated: true, completion: nil)
         } else {
-            decisionHandler(.Allow)
+            presentViewController(svc, animated: true, completion: nil)
         }
     }
     
@@ -206,9 +226,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         }
     }
-
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        if let url = webView.URL {
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        if let url = webView.request?.URL {
             if url.host == Config.startURL.host {
                 webViewHasLoaded = true
                 
@@ -217,6 +237,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
                 setTabBarHidden(true)
             }
         }
+        
+        archiveCookies()
     }
     
     func appStateDidChange(state: Dictionary<String, AnyObject>) {
@@ -231,8 +253,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         UIApplication.sharedApplication().applicationIconBadgeNumber = state["unreadNotificationCount"] as! Int
         
         items[1].badgeValue = badgeValueForInt(state["unreadNotificationCount"] as! Int)
-        items[2].badgeValue = badgeValueForInt(state["unreadActivityCount"] as! Int)
-        items[3].badgeValue = badgeValueForInt(state["unreadNewsCount"] as! Int)
         
         if !canWorkOffline && state["isAppCached"] as? Bool == true {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "AppCached")
@@ -251,17 +271,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             items[2].enabled = false
         }
         
-        if let deviceToken = self.deviceToken {
+        if let deviceToken = self.unregisteredDeviceToken {
             print("Registering for APNs with device token \(deviceToken)")
             
-            self.webView.evaluateJavaScript("Start.registerForAPNs(\"\(deviceToken)\")", completionHandler: { (data, error) -> Void in
-                if error == nil {
-                    self.deviceToken = nil
-                } else {
-                    print("Error registering for APNs: \(error!)")
-                }
-            })
-            
+            if self.evaluateJavascript("Start.registerForAPNs(\"\(deviceToken)\")") != nil {
+                self.unregisteredDeviceToken = nil
+            } else {
+                print("Error registering for APNs")
+            }
         }
     }
     
@@ -314,12 +331,32 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             path = "/"
         }
         
-        webView.evaluateJavaScript("Start.navigate('\(path)')", completionHandler: nil)
+        navigateWithinStart(path)
+    }
+    
+    func navigateWithinStart(path: String) {
+        evaluateJavascript("Start.navigate('\(path)')")
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-
+    
+    func unarchiveCookies() {
+        if let archive = NSUserDefaults.standardUserDefaults().objectForKey("Cookies") {
+            let cookies = NSKeyedUnarchiver.unarchiveObjectWithData(archive as! NSData) as! [NSHTTPCookie]
+            for cookie in cookies {
+                NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(cookie)
+            }
+        }
+    }
+    
+    func archiveCookies() {
+        let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies!
+        let archive = NSKeyedArchiver.archivedDataWithRootObject(cookies)
+        NSUserDefaults.standardUserDefaults().setObject(archive, forKey: "Cookies")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
 }
 
