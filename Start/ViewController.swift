@@ -26,18 +26,22 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     
     var reachability: Reachability?
     
+    var applicationOrigins = Set<String>()
+    
     let startBrandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
     func createWebView() {
         webView = UIWebView(frame: CGRectZero)
         
-        if let defaultUserAgent = evaluateJavascript("navigator.userAgent") {
-            NSUserDefaults.standardUserDefaults().registerDefaults([
-                "UserAgent": "\(defaultUserAgent) \(Config.applicationNameForUserAgent)"
-                ])
-            
-            // Now re-create the WebView to allow the change to take effect
-            webView = UIWebView(frame: CGRectZero)
+        if let userAgent = evaluateJavascript("navigator.userAgent") {
+            if !userAgent.containsString(Config.applicationNameForUserAgent) {
+                NSUserDefaults.standardUserDefaults().registerDefaults([
+                    "UserAgent": "\(userAgent) \(Config.applicationNameForUserAgent)"
+                    ])
+                
+                // Now re-create the WebView to allow the change to take effect
+                webView = UIWebView(frame: CGRectZero)
+            }
         }
         
         webView.delegate = self
@@ -175,13 +179,14 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.URL {
-            if url.host == Config.startURL.host || url.host == Config.ssoURL.host {
-                return true
-            }
-        
             if url.scheme == "start" {
                 updateAppState()
             } else {
+                let origin = "\(url.scheme)://\(url.host!)"
+                if url.host == Config.startURL.host || applicationOrigins.contains(origin) {
+                    return true
+                }
+                
                 presentWebView(url)
             }
         }
@@ -244,15 +249,24 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     func appStateDidChange(state: Dictionary<String, AnyObject>) {
         let items = tabBar.items!
         
-        setTabBarHidden(state["tabBarHidden"] as! Bool)
-        
-        if let selectedTabBarItem = tabBarItemForPath(state["currentPath"] as! String) {
-            tabBar.selectedItem = selectedTabBarItem
+        if let hidden = state["tabBarHidden"] as? Bool {
+            setTabBarHidden(hidden)
         }
         
-        UIApplication.sharedApplication().applicationIconBadgeNumber = state["unreadNotificationCount"] as! Int
+        if let origins = state["applicationOrigins"] as? Array<String> {
+            applicationOrigins = Set(origins)
+        }
         
-        items[1].badgeValue = badgeValueForInt(state["unreadNotificationCount"] as! Int)
+        if let currentPath = state["currentPath"] as? String {
+            if let selectedTabBarItem = tabBarItemForPath(currentPath) {
+                tabBar.selectedItem = selectedTabBarItem
+            }
+        }
+        
+        if let unreadNotificationCount = state["unreadNotificationCount"] as? Int {
+            UIApplication.sharedApplication().applicationIconBadgeNumber = unreadNotificationCount
+            items[1].badgeValue = badgeValueForInt(unreadNotificationCount)
+        }
         
         if !canWorkOffline && state["isAppCached"] as? Bool == true {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "AppCached")
@@ -261,7 +275,7 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
             print("App cached for offline working")
         }
         
-        if state["isUserLoggedIn"] as! Bool == true {
+        if state["isUserLoggedIn"] as? Bool == true {
             registerForNotifications()
             
             items[1].enabled = true

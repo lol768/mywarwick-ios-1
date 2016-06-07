@@ -12,8 +12,6 @@ class Config {
     
     static var startURL = NSURL(string: "https://start.warwick.ac.uk")!
     
-    static let ssoURL = NSURL(string: "https://websignon.warwick.ac.uk")!
-    
     static let applicationNameForUserAgent = "WarwickStart/1.0"
     
     static func configuredDeploymentURL() -> NSURL? {
