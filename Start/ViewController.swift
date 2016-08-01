@@ -8,13 +8,14 @@
 
 import UIKit
 import SafariServices
+import WebKit
 
-class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
     
-    var webView = UIWebView()
+    var webView = WKWebView()
     
     var unreachableViewController: UIViewController = UIViewController()
     
@@ -31,33 +32,19 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     let startBrandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
     func createWebView() {
-        webView = UIWebView(frame: CGRectZero)
+        let configuration = WKWebViewConfiguration()
+        configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
+        configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
+        configuration.suppressesIncrementalRendering = true
         
-        if let userAgent = evaluateJavascript("navigator.userAgent") {
-            if !userAgent.containsString(Config.applicationNameForUserAgent) {
-                NSUserDefaults.standardUserDefaults().registerDefaults([
-                    "UserAgent": "\(userAgent) \(Config.applicationNameForUserAgent)"
-                    ])
-                
-                // Now re-create the WebView to allow the change to take effect
-                webView = UIWebView(frame: CGRectZero)
-            }
-        }
+        webView = WKWebView(frame: CGRectZero, configuration: configuration)
         
-        webView.delegate = self
-        webView.suppressesIncrementalRendering = true
-        webView.dataDetectorTypes = .None
-        webView.scrollView.bounces = false
-    }
-    
-    func evaluateJavascript(string: String) -> String? {
-        return webView.stringByEvaluatingJavaScriptFromString(string)
+        webView.navigationDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        unarchiveCookies()
         createWebView()
         
         canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
@@ -72,7 +59,7 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
             if self.webViewHasLoaded {
-                self.evaluateJavascript("Start.appToForeground()")
+                self.webView.evaluateJavaScript("Start.appToForeground()", completionHandler: nil)
             }
             
         }
@@ -177,28 +164,29 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         webView.loadRequest(NSURLRequest(URL: url))
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let url = request.URL {
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.URL {
             if url.scheme == "start" {
                 updateAppState()
             } else {
                 let origin = "\(url.scheme)://\(url.host!)"
                 if url.host == Config.startURL.host || applicationOrigins.contains(origin) {
-                    return true
+                    decisionHandler(.Allow)
+                    return
                 }
                 
                 presentWebView(url)
             }
         }
         
-        return false
+        decisionHandler(.Cancel)
     }
     
     func updateAppState() {
-        if let json = evaluateJavascript("JSON.stringify(Start.APP)") {
-            if let data = json.dataUsingEncoding(NSUTF8StringEncoding) {
+        webView.evaluateJavaScript("JSON.stringify(Start.APP)") { (json, error) in
+            if let data = json?.dataUsingEncoding(NSUTF8StringEncoding) {
                 if let state = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
-                    appStateDidChange(state as! Dictionary<String, AnyObject>)
+                    self.appStateDidChange(state as! Dictionary<String, AnyObject>)
                 }
             }
         }
@@ -232,8 +220,14 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         }
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
-        if let url = webView.request?.URL {
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        print("Web view failed to load \(error)")
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        if let url = webView.URL {
+            print("Web view finished loading \(url)")
+            
             if url.host == Config.startURL.host {
                 webViewHasLoaded = true
                 
@@ -242,8 +236,6 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
                 setTabBarHidden(true)
             }
         }
-        
-        archiveCookies()
     }
     
     func appStateDidChange(state: Dictionary<String, AnyObject>) {
@@ -288,10 +280,12 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
         if let deviceToken = self.unregisteredDeviceToken {
             print("Registering for APNs with device token \(deviceToken)")
             
-            if self.evaluateJavascript("Start.registerForAPNs(\"\(deviceToken)\")") != nil {
-                self.unregisteredDeviceToken = nil
-            } else {
-                print("Error registering for APNs")
+            webView.evaluateJavaScript("Start.registerForAPNs(\"\(deviceToken)\")") { (o, e) in
+                if (e != nil) {
+                    print("Error registering for APNs: \(e)")
+                } else {
+                    self.unregisteredDeviceToken = nil
+                }
             }
         }
     }
@@ -349,27 +343,11 @@ class ViewController: UIViewController, UITabBarDelegate, UIWebViewDelegate {
     }
     
     func navigateWithinStart(path: String) {
-        evaluateJavascript("Start.navigate('\(path)')")
+        webView.evaluateJavaScript("Start.navigate('\(path)')", completionHandler: nil)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
-    }
-    
-    func unarchiveCookies() {
-        if let archive = NSUserDefaults.standardUserDefaults().objectForKey("Cookies") {
-            let cookies = NSKeyedUnarchiver.unarchiveObjectWithData(archive as! NSData) as! [NSHTTPCookie]
-            for cookie in cookies {
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(cookie)
-            }
-        }
-    }
-    
-    func archiveCookies() {
-        let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies!
-        let archive = NSKeyedArchiver.archivedDataWithRootObject(cookies)
-        NSUserDefaults.standardUserDefaults().setObject(archive, forKey: "Cookies")
-        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
 }
