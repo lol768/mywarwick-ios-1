@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		702047041C3EC8D8004487FE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047031C3EC8D8004487FE /* Reachability.swift */; };
 		702047061C3ED6B9004487FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047051C3ED6B9004487FE /* Config.swift */; };
 		702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */; };
 		702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CD1C3D61CA0088BF34 /* ViewController.swift */; };
@@ -15,14 +14,14 @@
 		702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D21C3D61CA0088BF34 /* Assets.xcassets */; };
 		702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */; };
 		7042C3901C43B0BD0060C76A /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
+		7085050C1D8800DA008C990E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085050B1D8800DA008C990E /* Reachability.swift */; };
 		709BD1551CBE7F49004E282E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 709BD1541CBE7F49004E282E /* Settings.bundle */; };
 		70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70C82DD81C9AF34E00398F94 /* Alert.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		702047031C3EC8D8004487FE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		702047051C3ED6B9004487FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		702CC1C81C3D61CA0088BF34 /* Start.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Start.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		702CC1C81C3D61CA0088BF34 /* MyWarwick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWarwick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		702CC1CD1C3D61CA0088BF34 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		702CC1D01C3D61CA0088BF34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		702CC1D51C3D61CA0088BF34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		702CC1D71C3D61CA0088BF34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7042C38F1C43B0BD0060C76A /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		7085050B1D8800DA008C990E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		709BD1541CBE7F49004E282E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		70C82DD81C9AF34E00398F94 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +48,7 @@
 		702CC1BF1C3D61CA0088BF34 = {
 			isa = PBXGroup;
 			children = (
-				702CC1CA1C3D61CA0088BF34 /* Start */,
+				702CC1CA1C3D61CA0088BF34 /* MyWarwick */,
 				702CC1C91C3D61CA0088BF34 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,18 +56,18 @@
 		702CC1C91C3D61CA0088BF34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				702CC1C81C3D61CA0088BF34 /* Start.app */,
+				702CC1C81C3D61CA0088BF34 /* MyWarwick.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		702CC1CA1C3D61CA0088BF34 /* Start */ = {
+		702CC1CA1C3D61CA0088BF34 /* MyWarwick */ = {
 			isa = PBXGroup;
 			children = (
 				70C82DD81C9AF34E00398F94 /* Alert.wav */,
-				702047031C3EC8D8004487FE /* Reachability.swift */,
 				702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */,
 				702CC1CD1C3D61CA0088BF34 /* ViewController.swift */,
+				7085050B1D8800DA008C990E /* Reachability.swift */,
 				702047051C3ED6B9004487FE /* Config.swift */,
 				702CC1CF1C3D61CA0088BF34 /* Main.storyboard */,
 				709BD1541CBE7F49004E282E /* Settings.bundle */,
@@ -76,15 +76,15 @@
 				702CC1D71C3D61CA0088BF34 /* Info.plist */,
 				7042C38F1C43B0BD0060C76A /* Global.swift */,
 			);
-			path = Start;
+			path = MyWarwick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		702CC1C71C3D61CA0088BF34 /* Start */ = {
+		702CC1C71C3D61CA0088BF34 /* MyWarwick */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 702CC1DA1C3D61CA0088BF34 /* Build configuration list for PBXNativeTarget "Start" */;
+			buildConfigurationList = 702CC1DA1C3D61CA0088BF34 /* Build configuration list for PBXNativeTarget "MyWarwick" */;
 			buildPhases = (
 				702CC1C41C3D61CA0088BF34 /* Sources */,
 				702CC1C51C3D61CA0088BF34 /* Frameworks */,
@@ -94,9 +94,9 @@
 			);
 			dependencies = (
 			);
-			name = Start;
-			productName = Start;
-			productReference = 702CC1C81C3D61CA0088BF34 /* Start.app */;
+			name = MyWarwick;
+			productName = MyWarwick;
+			productReference = 702CC1C81C3D61CA0088BF34 /* MyWarwick.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -106,12 +106,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "University of Warwick";
 				TargetAttributes = {
 					702CC1C71C3D61CA0088BF34 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = F49ADCXC5P;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -120,7 +121,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 702CC1C31C3D61CA0088BF34 /* Build configuration list for PBXProject "Start" */;
+			buildConfigurationList = 702CC1C31C3D61CA0088BF34 /* Build configuration list for PBXProject "MyWarwick" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -133,7 +134,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				702CC1C71C3D61CA0088BF34 /* Start */,
+				702CC1C71C3D61CA0088BF34 /* MyWarwick */,
 			);
 		};
 /* End PBXProject section */
@@ -161,8 +162,8 @@
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
+				7085050C1D8800DA008C990E /* Reachability.swift in Sources */,
 				7042C3901C43B0BD0060C76A /* Global.swift in Sources */,
-				702047041C3EC8D8004487FE /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,8 +202,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -246,8 +249,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -266,6 +271,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -276,10 +282,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Start/Info.plist;
+				INFOPLIST_FILE = MyWarwick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.warwick.newstart;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.warwick.my.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -288,17 +295,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Start/Info.plist;
+				INFOPLIST_FILE = MyWarwick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.warwick.newstart;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.warwick.my.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		702CC1C31C3D61CA0088BF34 /* Build configuration list for PBXProject "Start" */ = {
+		702CC1C31C3D61CA0088BF34 /* Build configuration list for PBXProject "MyWarwick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				702CC1D81C3D61CA0088BF34 /* Debug */,
@@ -307,7 +315,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		702CC1DA1C3D61CA0088BF34 /* Build configuration list for PBXNativeTarget "Start" */ = {
+		702CC1DA1C3D61CA0088BF34 /* Build configuration list for PBXNativeTarget "MyWarwick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				702CC1DB1C3D61CA0088BF34 /* Debug */,

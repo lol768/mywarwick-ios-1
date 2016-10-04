@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Start
-//
-//  Created by Alec Cursley on 06/01/2016.
-//  Copyright © 2016 University of Warwick. All rights reserved.
-//
-
 import UIKit
 import SafariServices
 import WebKit
@@ -29,7 +21,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     
     var applicationOrigins = Set<String>()
     
-    let startBrandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
+    let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
     func createWebView() {
         let configuration = WKWebViewConfiguration()
@@ -37,7 +29,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
         configuration.suppressesIncrementalRendering = true
         
-        webView = WKWebView(frame: CGRectZero, configuration: configuration)
+        webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         
         webView.navigationDelegate = self
     }
@@ -47,32 +39,32 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         createWebView()
         
-        canWorkOffline = NSUserDefaults.standardUserDefaults().boolForKey("AppCached")
+        canWorkOffline = UserDefaults.standard.bool(forKey: "AppCached")
         
-        NSNotificationCenter.defaultCenter().addObserverForName("DidReceiveRemoteNotification", object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: nil, queue: OperationQueue.main) { _ -> Void in
             if self.webViewHasLoaded {
                 self.navigateWithinStart("/notifications")
             } else {
-                self.webView.loadRequest(NSURLRequest(URL: Config.startURL.URLByAppendingPathComponent("/notifications")))
+                self.webView.load(URLRequest(url: Config.appURL.appendingPathComponent("/notifications")))
             }
         }
         
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ -> Void in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { _ -> Void in
             if self.webViewHasLoaded {
                 self.webView.evaluateJavaScript("Start.appToForeground()", completionHandler: nil)
             }
             
         }
         
-        NSNotificationCenter.defaultCenter().addObserverForName("DidRegisterForRemoteNotifications", object: nil, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
-            if let deviceToken = notification.userInfo?["deviceToken"] as? String {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidRegisterForRemoteNotifications"), object: nil, queue: OperationQueue.main) { (notification) -> Void in
+            if let deviceToken = (notification as NSNotification).userInfo?["deviceToken"] as? String {
                 self.unregisteredDeviceToken = deviceToken
             }
         }
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        if toInterfaceOrientation != .Portrait && UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
             // Status bar is hidden on iPhone when in landscape
             view.addConstraint(hideStatusBarBackground!)
         } else {
@@ -85,32 +77,32 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        behindStatusBarView.backgroundColor = startBrandColour
+        behindStatusBarView.backgroundColor = brandColour
         
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
-        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
+        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
         
-        unreachableViewController = storyboard!.instantiateViewControllerWithIdentifier("CannotConnect")
+        unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         
         setTabBarHidden(true)
         
         webView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(webView)
-        view.sendSubviewToBack(webView)
+        view.sendSubview(toBack: webView)
         
         view.addConstraints([
-            NSLayoutConstraint(item: webView, attribute: .Top, relatedBy: .Equal, toItem: behindStatusBarView, attribute: .Bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
             ])
         
         loadWebView()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         initReachability()
@@ -122,21 +114,21 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             return
         }
         
-        reachability = try? Reachability.reachabilityForInternetConnection()
+        reachability = Reachability()
         
         reachability?.whenUnreachable = { reachability in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if !self.canWorkOffline && self.presentedViewController == nil {
                     self.webView.stopLoading()
-                    self.presentViewController(self.unreachableViewController, animated: false, completion: nil)
+                    self.present(self.unreachableViewController, animated: false, completion: nil)
                 }
             }
         }
         
         reachability?.whenReachable = { reachability in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if self.presentedViewController == self.unreachableViewController {
-                    self.dismissViewControllerAnimated(false, completion: nil)
+                    self.dismiss(animated: false, completion: nil)
                 }
                 
                 if !self.canWorkOffline {
@@ -153,25 +145,25 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     }
     
     func loadWebView() {
-        var url = Config.startURL
+        var url = Config.appURL
         
         if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
             
-            url = Config.startURL.URLByAppendingPathComponent("/notifications")
+            url = url.appendingPathComponent("/notifications")
         }
         
-        webView.loadRequest(NSURLRequest(URL: url))
+        webView.load(URLRequest(url: url as URL))
     }
     
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.URL {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url {
             if url.scheme == "start" {
                 updateAppState()
             } else {
-                let origin = "\(url.scheme)://\(url.host!)"
-                if url.host == Config.startURL.host || applicationOrigins.contains(origin) {
-                    decisionHandler(.Allow)
+                let origin = "\(url.scheme!)://\(url.host!)"
+                if url.host == Config.appURL.host || applicationOrigins.contains(origin) {
+                    decisionHandler(.allow)
                     return
                 }
                 
@@ -179,56 +171,58 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             }
         }
         
-        decisionHandler(.Cancel)
+        decisionHandler(.cancel)
     }
     
     func updateAppState() {
         webView.evaluateJavaScript("JSON.stringify(Start.APP)") { (json, error) in
-            if let data = json?.dataUsingEncoding(NSUTF8StringEncoding) {
-                if let state = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+            let jsonObject = json as AnyObject?
+            
+            if let data = jsonObject?.data(using: String.Encoding.utf8.rawValue) {
+                if let state = try? JSONSerialization.jsonObject(with: data, options: []) {
                     self.appStateDidChange(state as! Dictionary<String, AnyObject>)
                 }
             }
         }
     }
     
-    func presentWebView(url: NSURL) {
-        let svc = SFSafariViewController(URL: url)
+    func presentWebView(_ url: URL) {
+        let svc = SFSafariViewController(url: url)
         
-        if UIDevice.currentDevice().systemVersion.hasPrefix("9.2") {
+        if UIDevice.current.systemVersion.hasPrefix("9.2") {
             // Workaround for a bug in iOS 9.2 - see https://forums.developer.apple.com/thread/29048#discussion-105377
-            self.modalPresentationStyle = .OverFullScreen
+            self.modalPresentationStyle = .overFullScreen
             
             let nvc = UINavigationController(rootViewController: svc)
-            nvc.navigationBarHidden = true
+            nvc.isNavigationBarHidden = true
             
-            presentViewController(nvc, animated: true, completion: nil)
+            present(nvc, animated: true, completion: nil)
         } else {
-            presentViewController(svc, animated: true, completion: nil)
+            present(svc, animated: true, completion: nil)
         }
     }
     
-    func setTabBarHidden(hidden: Bool) {
+    func setTabBarHidden(_ hidden: Bool) {
         if hidden {
-            tabBar.hidden = true
+            tabBar.isHidden = true
             webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         } else {
-            tabBar.hidden = false
+            tabBar.isHidden = false
             webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
             webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         }
     }
     
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Web view failed to load \(error)")
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        if let url = webView.URL {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let url = webView.url {
             print("Web view finished loading \(url)")
             
-            if url.host == Config.startURL.host {
+            if url.host == Config.appURL.host {
                 webViewHasLoaded = true
                 
                 setTabBarHidden(false)
@@ -238,7 +232,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         }
     }
     
-    func appStateDidChange(state: Dictionary<String, AnyObject>) {
+    func appStateDidChange(_ state: Dictionary<String, AnyObject>) {
         let items = tabBar.items!
         
         if let hidden = state["tabBarHidden"] as? Bool {
@@ -256,13 +250,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         }
         
         if let unreadNotificationCount = state["unreadNotificationCount"] as? Int {
-            UIApplication.sharedApplication().applicationIconBadgeNumber = unreadNotificationCount
+            UIApplication.shared.applicationIconBadgeNumber = unreadNotificationCount
             items[1].badgeValue = badgeValueForInt(unreadNotificationCount)
         }
         
         if !canWorkOffline && state["isAppCached"] as? Bool == true {
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "AppCached")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(true, forKey: "AppCached")
+            UserDefaults.standard.synchronize()
             canWorkOffline = true
             print("App cached for offline working")
         }
@@ -270,11 +264,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         if state["isUserLoggedIn"] as? Bool == true {
             registerForNotifications()
             
-            items[1].enabled = true
-            items[2].enabled = true
+            items[1].isEnabled = true
+            items[2].isEnabled = true
         } else {
-            items[1].enabled = false
-            items[2].enabled = false
+            items[1].isEnabled = false
+            items[2].isEnabled = false
         }
         
         if let deviceToken = self.unregisteredDeviceToken {
@@ -290,7 +284,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         }
     }
     
-    func tabBarItemForPath(path: String) -> UITabBarItem? {
+    func tabBarItemForPath(_ path: String) -> UITabBarItem? {
         switch path {
         case "/":
             return tabBar.items![0]
@@ -307,7 +301,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         }
     }
     
-    func badgeValueForInt(int: Int) -> String? {
+    func badgeValueForInt(_ int: Int) -> String? {
         if int <= 0 {
             return nil
         } else if int < 100 {
@@ -324,16 +318,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         
         hasRegisteredForNotifications = true
         
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert]
-        let settings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert]
+        let settings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
         
-        let application = UIApplication.sharedApplication()
+        let application = UIApplication.shared
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
     }
     
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-        var path = "/" + item.title!.lowercaseString
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        var path = "/" + item.title!.lowercased()
         
         if (path == "/me") {
             path = "/"
@@ -342,12 +336,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         navigateWithinStart(path)
     }
     
-    func navigateWithinStart(path: String) {
+    func navigateWithinStart(_ path: String) {
         webView.evaluateJavaScript("Start.navigate('\(path)')", completionHandler: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
 }
