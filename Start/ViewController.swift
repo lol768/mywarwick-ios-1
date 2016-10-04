@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Start
-//
-//  Created by Alec Cursley on 06/01/2016.
-//  Copyright © 2016 University of Warwick. All rights reserved.
-//
-
 import UIKit
 import SafariServices
 import WebKit
@@ -29,7 +21,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     
     var applicationOrigins = Set<String>()
     
-    let startBrandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
+    let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
     func createWebView() {
         let configuration = WKWebViewConfiguration()
@@ -53,7 +45,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
             if self.webViewHasLoaded {
                 self.navigateWithinStart("/notifications")
             } else {
-                self.webView.load(URLRequest(url: Config.startURL.appendingPathComponent("/notifications")))
+                self.webView.load(URLRequest(url: Config.appURL.appendingPathComponent("/notifications")))
             }
         }
         
@@ -85,7 +77,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        behindStatusBarView.backgroundColor = startBrandColour
+        behindStatusBarView.backgroundColor = brandColour
         
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
@@ -153,12 +145,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
     }
     
     func loadWebView() {
-        var url = Config.startURL
+        var url = Config.appURL
         
         if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
             
-            url = Config.startURL.appendingPathComponent("/notifications")
+            url = url.appendingPathComponent("/notifications")
         }
         
         webView.load(URLRequest(url: url as URL))
@@ -170,7 +162,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
                 updateAppState()
             } else {
                 let origin = "\(url.scheme!)://\(url.host!)"
-                if url.host == Config.startURL.host || applicationOrigins.contains(origin) {
+                if url.host == Config.appURL.host || applicationOrigins.contains(origin) {
                     decisionHandler(.allow)
                     return
                 }
@@ -230,7 +222,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate {
         if let url = webView.url {
             print("Web view finished loading \(url)")
             
-            if url.host == Config.startURL.host {
+            if url.host == Config.appURL.host {
                 webViewHasLoaded = true
                 
                 setTabBarHidden(false)

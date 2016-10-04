@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Start
-//
-//  Created by Alec Cursley on 06/01/2016.
-//  Copyright © 2016 University of Warwick. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -26,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         if let url = Config.configuredDeploymentURL() {
-            Config.startURL = url
+            Config.appURL = url
         }
         
         if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] != nil {

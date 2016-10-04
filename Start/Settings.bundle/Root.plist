@@ -8,19 +8,13 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Start</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>Deployment</string>
 			<key>Key</key>
-			<string>StartDeployment</string>
+			<string>MyWarwickDeployment</string>
 			<key>DefaultValue</key>
-			<string>start</string>
+			<string>my</string>
 			<key>Titles</key>
 			<array>
 				<string>Development</string>
@@ -30,9 +24,9 @@
 			</array>
 			<key>Values</key>
 			<array>
-				<string>start-dev</string>
-				<string>start-test</string>
-				<string>start</string>
+				<string>my-dev</string>
+				<string>my-test</string>
+				<string>my</string>
 				<string>custom</string>
 			</array>
 		</dict>
@@ -42,7 +36,7 @@
 			<key>Title</key>
 			<string>Custom Deployment</string>
 			<key>Key</key>
-			<string>StartCustomDeployment</string>
+			<string>MyWarwickCustomDeployment</string>
 		</dict>
 	</array>
 </dict>
