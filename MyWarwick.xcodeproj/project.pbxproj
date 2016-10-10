@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7013B7781DABB6390079DCF1 /* Bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 7013B7771DABB6390079DCF1 /* Bridge.js */; };
 		702047061C3ED6B9004487FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047051C3ED6B9004487FE /* Config.swift */; };
 		702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */; };
 		702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CD1C3D61CA0088BF34 /* ViewController.swift */; };
@@ -17,9 +18,14 @@
 		7085050C1D8800DA008C990E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085050B1D8800DA008C990E /* Reachability.swift */; };
 		709BD1551CBE7F49004E282E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 709BD1541CBE7F49004E282E /* Settings.bundle */; };
 		70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70C82DD81C9AF34E00398F94 /* Alert.wav */; };
+		70C8DFE81D9AD14F00B816E7 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		70CC93B91DABE74E005B6E14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93B81DABE74E005B6E14 /* User.swift */; };
+		70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */; };
+		70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7013B7771DABB6390079DCF1 /* Bridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Bridge.js; sourceTree = "<group>"; };
 		702047051C3ED6B9004487FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		702CC1C81C3D61CA0088BF34 /* MyWarwick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWarwick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +38,9 @@
 		7085050B1D8800DA008C990E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		709BD1541CBE7F49004E282E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		70C82DD81C9AF34E00398F94 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
+		70CC93B81DABE74E005B6E14 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickMessageHandler.swift; sourceTree = "<group>"; };
+		70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickDelegate.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +75,7 @@
 		702CC1CA1C3D61CA0088BF34 /* MyWarwick */ = {
 			isa = PBXGroup;
 			children = (
+				7013B7771DABB6390079DCF1 /* Bridge.js */,
 				B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */,
 				70C82DD81C9AF34E00398F94 /* Alert.wav */,
 				702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */,
@@ -78,6 +88,9 @@
 				702CC1D41C3D61CA0088BF34 /* LaunchScreen.storyboard */,
 				702CC1D71C3D61CA0088BF34 /* Info.plist */,
 				7042C38F1C43B0BD0060C76A /* Global.swift */,
+				70CC93B81DABE74E005B6E14 /* User.swift */,
+				70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */,
+				70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -159,10 +172,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */,
+				7013B7781DABB6390079DCF1 /* Bridge.js in Resources */,
 				70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */,
 				709BD1551CBE7F49004E282E /* Settings.bundle in Resources */,
 				702CC1D31C3D61CA0088BF34 /* Assets.xcassets in Resources */,
 				702CC1D11C3D61CA0088BF34 /* Main.storyboard in Resources */,
+				70C8DFE81D9AD14F00B816E7 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +189,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
+				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
+				70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */,
+				70CC93B91DABE74E005B6E14 /* User.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
 				7085050C1D8800DA008C990E /* Reachability.swift in Sources */,
 				7042C3901C43B0BD0060C76A /* Global.swift in Sources */,

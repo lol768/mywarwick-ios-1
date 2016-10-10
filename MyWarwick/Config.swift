@@ -4,6 +4,8 @@ class Config {
     
     static var appURL = URL(string: "https://my.warwick.ac.uk")!
     
+    static var webSignOnURL = URL(string: "https://websignon.warwick.ac.uk")!
+    
     static let applicationNameForUserAgent = "MyWarwick/1.0"
     
     static func configuredDeploymentURL() -> URL? {
