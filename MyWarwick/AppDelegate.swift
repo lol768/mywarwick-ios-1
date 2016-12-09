@@ -6,8 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tok = deviceToken.description
-        let token = tok.substring(with: tok.characters.index(after: tok.startIndex)..<tok.characters.index(before: tok.endIndex)).replacingOccurrences(of: " ", with: "")
+        let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "DidRegisterForRemoteNotifications"), object: self, userInfo: [
             "deviceToken": token
