@@ -112,6 +112,7 @@
 				702CC1C41C3D61CA0088BF34 /* Sources */,
 				702CC1C51C3D61CA0088BF34 /* Frameworks */,
 				702CC1C61C3D61CA0088BF34 /* Resources */,
+				70FC1E4B1E6452850049F826 /* Remove Settings bundle from release app */,
 			);
 			buildRules = (
 			);
@@ -182,6 +183,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		70FC1E4B1E6452850049F826 /* Remove Settings bundle from release app */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove Settings bundle from release app";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n    echo \"Build is for $CONFIGURATION configuration; removing Settings.bundle\"\n    rm -rf \"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Settings.bundle\"\nelse\n    echo \"Leaving Settings.bundle in place for $CONFIGURATION configuration\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		702CC1C41C3D61CA0088BF34 /* Sources */ = {
