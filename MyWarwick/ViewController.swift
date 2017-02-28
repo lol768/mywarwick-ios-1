@@ -2,7 +2,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, MyWarwickDelegate {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate {
 
     func setWebSignOnURLs(signIn: String, signOut: String) {
         
@@ -206,7 +206,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         if let url = navigationAction.request.url {
+            print("clicked link")
+            print(url)
+            
+            if (url.host == "websignon.warwick.ac.uk") {
+                // load sign in view controller
+                performSegue(withIdentifier: "signinSegue", sender: self)
+            }
+            
             if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host {
                 decisionHandler(.allow)
                 return
@@ -216,6 +225,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
         
         decisionHandler(.cancel)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("preparing for segue")
+        if segue.identifier == "signinSegue" {
+            _ = segue.destination as! SigninViewController
+    
+        }
     }
     
     func presentWebView(_ url: URL) {
@@ -249,6 +266,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Web view failed to load \(error)")
     }
+    
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("WebView started provisional navigation")
