@@ -57,7 +57,7 @@
                     <connections>
                         <outlet property="behindStatusBarView" destination="dWW-yM-le3" id="4Nv-Jh-fYg"/>
                         <outlet property="tabBar" destination="Bah-MO-y8k" id="UFj-Je-tDq"/>
-                        <segue destination="BjY-Tm-mMZ" kind="presentation" identifier="signinSegue" id="43t-OW-3Jz"/>
+                        <segue destination="BjY-Tm-mMZ" kind="show" identifier="signinSegue" id="43t-OW-3Jz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -123,7 +123,7 @@
         <!--Signin View Controller-->
         <scene sceneID="NeZ-kx-ebe">
             <objects>
-                <viewController storyboardIdentifier="signinVC" id="BjY-Tm-mMZ" customClass="SigninViewController" customModule="MyWarwick" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signinVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BjY-Tm-mMZ" customClass="SigninViewController" customModule="MyWarwick" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cxe-1K-Z9f"/>
                         <viewControllerLayoutGuide type="bottom" id="2B5-yV-qSb"/>
@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMg-CG-Kc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1036" y="180"/>
+            <point key="canvasLocation" x="585" y="179"/>
         </scene>
     </scenes>
     <resources>

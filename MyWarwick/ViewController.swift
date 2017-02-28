@@ -2,7 +2,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, SigninViewControllerDelegate, SigninViewControllerDataSource {
 
     func setWebSignOnURLs(signIn: String, signOut: String) {
         
@@ -58,9 +58,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var reachability: Reachability?
     
     var applicationOrigins = Set<String>()
+
+    var signinUrl: URL?
+    var signinVc: SigninViewController?
     
     let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
+
     func createWebView() {
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
@@ -213,6 +217,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             
             if (url.host == "websignon.warwick.ac.uk") {
                 // load sign in view controller
+                self.signinUrl = url
                 performSegue(withIdentifier: "signinSegue", sender: self)
             }
             
@@ -230,8 +235,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("preparing for segue")
         if segue.identifier == "signinSegue" {
-            _ = segue.destination as! SigninViewController
-    
+            let vc = segue.destination as! SigninViewController
+            vc.datasource = self
+            vc.delegate = self
+            self.signinVc = vc
         }
     }
     
@@ -363,6 +370,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
+    }
+ 
+    // SigninViewControllerDataSource
+    func getSigninUrl() -> URL {
+        return self.signinUrl!
+    }
+    
+    func getNameForUserAgent() -> String {
+        return Config.applicationNameForUserAgent
     }
     
 }
