@@ -22,6 +22,7 @@
 		70CC93B91DABE74E005B6E14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93B81DABE74E005B6E14 /* User.swift */; };
 		70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */; };
 		70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */; };
+		B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C711E65813F0006C2F9 /* SigninViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		70CC93B81DABE74E005B6E14 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickMessageHandler.swift; sourceTree = "<group>"; };
 		70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickDelegate.swift; sourceTree = "<group>"; };
+		B51A9C711E65813F0006C2F9 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 				70CC93B81DABE74E005B6E14 /* User.swift */,
 				70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */,
 				70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */,
+				B51A9C711E65813F0006C2F9 /* SigninViewController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
 				7085050C1D8800DA008C990E /* Reachability.swift in Sources */,
 				7042C3901C43B0BD0060C76A /* Global.swift in Sources */,
+				B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
