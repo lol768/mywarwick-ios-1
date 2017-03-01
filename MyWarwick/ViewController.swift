@@ -2,7 +2,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, MyWarwickDelegate {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, SigninViewControllerDelegate, SigninViewControllerDataSource {
 
     func setWebSignOnURLs(signIn: String, signOut: String) {
         
@@ -44,6 +44,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
+    @IBOutlet weak var loadingIndicatorView: UIView!
     
     var webView = WKWebView()
     
@@ -58,10 +59,20 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var reachability: Reachability?
     
     var applicationOrigins = Set<String>()
+
+    var signinUrl: URL?
+    var signinVc: SigninViewController?
+
+    var isOnline = false
+    
+    var processPool: WKProcessPool?
     
     let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
+
     func createWebView() {
+        processPool = WKProcessPool()
+        
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
         
@@ -75,6 +86,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
         configuration.suppressesIncrementalRendering = true
         configuration.userContentController = userContentController
+        configuration.processPool = processPool!
         
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         
@@ -167,6 +179,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         reachability?.whenUnreachable = { reachability in
             DispatchQueue.main.async {
+                self.isOnline = false
                 if !self.canWorkOffline && self.presentedViewController == nil {
                     self.webView.stopLoading()
                     self.present(self.unreachableViewController, animated: false, completion: nil)
@@ -176,6 +189,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         reachability?.whenReachable = { reachability in
             DispatchQueue.main.async {
+                self.isOnline = true
                 if self.presentedViewController == self.unreachableViewController {
                     self.dismiss(animated: false, completion: nil)
                 }
@@ -205,19 +219,56 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView.load(URLRequest(url: url as URL))
     }
     
+    func createSigninVc(signinURL: URL) {
+        self.loadingIndicatorView.isHidden = false
+        self.signinUrl = signinURL
+        self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
+        self.signinVc!.datasource = self
+        self.signinVc!.delegate = self
+        self.signinVc!.load()
+        self.signinVc!.navigationItem.title = "Sign in"
+        self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSignInVC))
+        return
+
+    }
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         if let url = navigationAction.request.url {
-            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host {
+            
+            // allow sign out
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/logout" {
                 decisionHandler(.allow)
                 return
             }
             
+            // allow sign in url
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" && self.isOnline {
+                createSigninVc(signinURL: url)
+                decisionHandler(.cancel)
+                return
+            }
+            
+            
+            // allow pop over window from websignon
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/account/popover" {
+                decisionHandler(.allow)
+                return
+            }
+            
+            
+            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
+                decisionHandler(.allow)
+                return
+            }
+    
             presentWebView(url)
         }
         
         decisionHandler(.cancel)
     }
     
+
     func presentWebView(_ url: URL) {
         let svc = SFSafariViewController(url: url)
         
@@ -250,6 +301,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         print("Web view failed to load \(error)")
     }
     
+    
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("WebView started provisional navigation")
         webViewHasLoaded = false
@@ -272,7 +324,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
     }
-    
+
     func submitPushNotificationTokenToServer(_ deviceToken: String) {
         if webViewHasLoaded {
             print("Registering for APNs with device token \(deviceToken)")
@@ -287,6 +339,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
     
+
     func tabBarItemForPath(_ path: String) -> UITabBarItem? {
         switch path {
         case "/":
@@ -346,6 +399,37 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
+ 
+    // SigninViewControllerDataSource
+    func getSigninUrl() -> URL {
+        return self.signinUrl!
+    }
     
+    func getNameForUserAgent() -> String {
+        return Config.applicationNameForUserAgent
+    }
+    
+    func getProcessPool() -> WKProcessPool {
+        return self.processPool!
+    }
+
+    
+    // signinViewControllerDelegate
+    func dismissSignInVC() {
+        self.signinVc?.dismiss(animated: true, completion: {
+            print("signinvc dismissed")
+            self.loadWebView()
+            self.loadingIndicatorView.isHidden = true
+        })
+    }
+    
+    func presentSignInVC() {
+        let navigationControllerForSignInVc = UINavigationController(rootViewController: self.signinVc!)
+        navigationControllerForSignInVc.navigationBar.isTranslucent = false
+        self.present(navigationControllerForSignInVc, animated: true) {
+            print("presented sign in vc")
+            self.loadingIndicatorView.isHidden = true
+        }
+    }
 }
 
