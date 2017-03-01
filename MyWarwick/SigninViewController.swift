@@ -18,8 +18,8 @@ protocol SigninViewControllerDataSource {
 }
 
 protocol SigninViewControllerDelegate {
-    func present()
-    func dismiss()
+    func presentSignInVC()
+    func dismissSignInVC()
 }
 
 class SigninViewController: UIViewController, WKNavigationDelegate {
@@ -32,20 +32,23 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
     func load() {
         createWebView()
         loadWebView()
-        view = webView
+        loadViewIfNeeded()
     }
     
     func createWebView() {
-//        let userContentController = WKUserContentController()
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = datasource?.getNameForUserAgent()
         configuration.suppressesIncrementalRendering = true
-//        configuration.userContentController = userContentController
         configuration.processPool = (datasource?.getProcessPool())!
-        
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
-        
         webView.navigationDelegate = self
+        view.addSubview(webView)
+        view.addConstraints([
+            NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+            ])
     }
 
     func loadWebView() {
@@ -70,13 +73,17 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
             
         }
         decisionHandler(.cancel)
-        delegate?.dismiss()
+        delegate?.dismissSignInVC()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.finishedLoading = true;
         if (webView.title == "Sign in" && self.presentingViewController == nil) {
-            delegate?.present()
+            delegate?.presentSignInVC()
         }
+    }
+    
+    func dismissMe() {
+        delegate?.dismissSignInVC()
     }
 }
