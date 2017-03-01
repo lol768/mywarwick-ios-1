@@ -40,7 +40,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if (user.signedIn) {
             registerForNotifications()
         }
-        self.user = user
     }
     
     @IBOutlet weak var tabBar: UITabBar!
@@ -64,7 +63,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var signinUrl: URL?
     var signinVc: SigninViewController?
 
-    var user:User?
+    var isOnline: Bool?
     
     var processPoll: WKProcessPool?
     
@@ -180,6 +179,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         reachability?.whenUnreachable = { reachability in
             DispatchQueue.main.async {
+                self.isOnline = false
                 if !self.canWorkOffline && self.presentedViewController == nil {
                     self.webView.stopLoading()
                     self.present(self.unreachableViewController, animated: false, completion: nil)
@@ -189,6 +189,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         reachability?.whenReachable = { reachability in
             DispatchQueue.main.async {
+                self.isOnline = true
                 if self.presentedViewController == self.unreachableViewController {
                     self.dismiss(animated: false, completion: nil)
                 }
@@ -218,6 +219,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView.load(URLRequest(url: url as URL))
     }
     
+    func createSigninVc() {
+        
+    }
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if let url = navigationAction.request.url {
@@ -229,7 +234,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
             
             // allow sign in url
-            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" {
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" && self.isOnline! {
                 self.loadingIndicatorView.isHidden = false
                 self.signinUrl = url
                 self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
