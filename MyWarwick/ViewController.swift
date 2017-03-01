@@ -63,7 +63,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     var signinUrl: URL?
     var signinVc: SigninViewController?
-    var navigationControllerForSignInVc:UINavigationController?
 
     var user:User?
     
@@ -237,7 +236,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 self.signinVc!.datasource = self
                 self.signinVc!.delegate = self
                 self.signinVc!.load()
-                
                 self.signinVc!.navigationItem.title = "Sign in"
                 self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissSignInVC))
                 decisionHandler(.cancel)
@@ -410,7 +408,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     
     // signinViewControllerDelegate
-    
     func dismissSignInVC() {
         self.signinVc?.dismiss(animated: true, completion: {
             print("signinvc dismissed")
@@ -420,23 +417,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func presentSignInVC() {
-//        self.present(self.signinVc!, animated: true) {
-//            let wrapper = UINavigationController(self.signinVc!)
-//            self.navigationController?.pushViewController(wrapper, animated: true)
-//            print("presented sign in vc")
-//            self.loadingIndicatorView.isHidden = true
-//        }
-      
-        
-//        wrapper.setNavigationBarHidden(false, animated: true)
-        
-//        let backbotton = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.done, target: self, action:#selector(dismissSignInVC))
-//        wrapper.setToolbarItems([backbotton], animated: true)
-//        wrapper.setToolbarHidden(false, animated: true)
-//        wrapper.title = "Sign in"
-    
-        navigationControllerForSignInVc = UINavigationController(rootViewController: self.signinVc!)
-        self.present(navigationControllerForSignInVc!, animated: true) {
+        let navigationControllerForSignInVc = UINavigationController(rootViewController: self.signinVc!)
+        navigationControllerForSignInVc.navigationBar.isTranslucent = false
+        self.present(navigationControllerForSignInVc, animated: true) {
             print("presented sign in vc")
             self.loadingIndicatorView.isHidden = true
         }

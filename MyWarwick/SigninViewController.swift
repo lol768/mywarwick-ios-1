@@ -43,6 +43,8 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         webView.navigationDelegate = self
         view = webView
+        
+        // for future use
         /*
         view.addSubview(webView)
         view.addConstraints([
