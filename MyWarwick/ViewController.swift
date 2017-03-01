@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
+    @IBOutlet weak var loadingIndicatorView: UIView!
     
     var webView = WKWebView()
     
@@ -221,7 +222,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         if let url = navigationAction.request.url {
             
-            if url.host == Config.webSignOnURL.host {
+            // allow sign out
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/logout" {
+                decisionHandler(.allow)
+                return
+            }
+            
+            // allow sign in url
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" {
+                self.loadingIndicatorView.isHidden = false
                 self.signinUrl = url
                 self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
                 self.signinVc!.datasource = self
@@ -231,11 +240,19 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 return
             }
             
-            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
+            
+            // allow pop over window from websignon
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/account/popover" {
                 decisionHandler(.allow)
                 return
             }
             
+            
+            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
+                decisionHandler(.allow)
+                return
+            }
+    
             presentWebView(url)
         }
         
@@ -313,6 +330,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
     
+
     func tabBarItemForPath(_ path: String) -> UITabBarItem? {
         switch path {
         case "/":
@@ -393,12 +411,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         self.signinVc?.dismiss(animated: true, completion: {
             print("signinvc dismissed")
             self.loadWebView()
+            self.loadingIndicatorView.isHidden = true
         })
     }
     
     func present() {
         self.present(self.signinVc!, animated: true) {
             print("presented sign in vc")
+            self.loadingIndicatorView.isHidden = true
         }
     }
 }
