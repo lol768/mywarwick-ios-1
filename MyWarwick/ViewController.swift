@@ -242,7 +242,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 self.signinVc!.delegate = self
                 self.signinVc!.load()
                 self.signinVc!.navigationItem.title = "Sign in"
-                self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissSignInVC))
+                self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSignInVC))
                 decisionHandler(.cancel)
                 return
             }
