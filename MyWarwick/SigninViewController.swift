@@ -29,7 +29,6 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
     var webView = WKWebView()
     
     func load() {
-        loadViewIfNeeded()
         createWebView()
         loadWebView()
     }

@@ -63,15 +63,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var signinUrl: URL?
     var signinVc: SigninViewController?
 
-    var isOnline: Bool?
+    var isOnline = false
     
-    var processPoll: WKProcessPool?
+    var processPool: WKProcessPool?
     
     let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
 
     func createWebView() {
-        processPoll = WKProcessPool()
+        processPool = WKProcessPool()
         
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
@@ -86,7 +86,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
         configuration.suppressesIncrementalRendering = true
         configuration.userContentController = userContentController
-        configuration.processPool = processPoll!
+        configuration.processPool = processPool!
         
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         
@@ -219,8 +219,17 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView.load(URLRequest(url: url as URL))
     }
     
-    func createSigninVc() {
-        
+    func createSigninVc(signinURL: URL) {
+        self.loadingIndicatorView.isHidden = false
+        self.signinUrl = signinURL
+        self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
+        self.signinVc!.datasource = self
+        self.signinVc!.delegate = self
+        self.signinVc!.load()
+        self.signinVc!.navigationItem.title = "Sign in"
+        self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSignInVC))
+        return
+
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -234,15 +243,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
             
             // allow sign in url
-            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" && self.isOnline! {
-                self.loadingIndicatorView.isHidden = false
-                self.signinUrl = url
-                self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
-                self.signinVc!.datasource = self
-                self.signinVc!.delegate = self
-                self.signinVc!.load()
-                self.signinVc!.navigationItem.title = "Sign in"
-                self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSignInVC))
+            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" && self.isOnline {
+                createSigninVc(signinURL: url)
                 decisionHandler(.cancel)
                 return
             }
@@ -408,7 +410,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func getProcessPool() -> WKProcessPool {
-        return self.processPoll!
+        return self.processPool!
     }
 
     
