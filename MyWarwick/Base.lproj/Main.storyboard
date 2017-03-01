@@ -57,7 +57,7 @@
                     <connections>
                         <outlet property="behindStatusBarView" destination="dWW-yM-le3" id="4Nv-Jh-fYg"/>
                         <outlet property="tabBar" destination="Bah-MO-y8k" id="UFj-Je-tDq"/>
-                        <segue destination="BjY-Tm-mMZ" kind="show" identifier="signinSegue" id="43t-OW-3Jz"/>
+                        <segue destination="BjY-Tm-mMZ" kind="presentation" identifier="signinSegue" modalPresentationStyle="currentContext" id="43t-OW-3Jz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

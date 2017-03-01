@@ -212,16 +212,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if let url = navigationAction.request.url {
-            print("clicked link")
-            print(url)
-            
-            if (url.host == "websignon.warwick.ac.uk") {
+            if (url.host == Config.webSignOnURL.host) {
                 // load sign in view controller
+                decisionHandler(.cancel)
                 self.signinUrl = url
                 performSegue(withIdentifier: "signinSegue", sender: self)
             }
             
-            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host {
+            if url.host == Config.appURL.host {
                 decisionHandler(.allow)
                 return
             }
@@ -379,6 +377,17 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     func getNameForUserAgent() -> String {
         return Config.applicationNameForUserAgent
+    }
+
+    
+    // signinViewControllerDelegate
+    
+    func dismiss() {
+        self.signinVc?.dismiss(animated: true, completion: {
+            print("signinvc dismissed")
+            self.createWebView()
+            self.loadWebView()
+        })
     }
     
 }

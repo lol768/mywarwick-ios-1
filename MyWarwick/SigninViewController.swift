@@ -14,13 +14,10 @@ import WebKit
 protocol SigninViewControllerDataSource {
     func getSigninUrl() -> URL
     func getNameForUserAgent() -> String
-
 }
 
 protocol SigninViewControllerDelegate {
-    func didClickCancelButton()
-    func didSignIn()
-    
+    func dismiss()
 }
 
 class SigninViewController: UIViewController, WKNavigationDelegate {
@@ -53,4 +50,16 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url! as URL))
     }
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        if let url = navigationAction.request.url {
+            if url.host == Config.webSignOnURL.host {
+                decisionHandler(.allow)
+                return
+            }
+        }
+        
+        decisionHandler(.cancel)
+        delegate?.dismiss()
+    }
 }
