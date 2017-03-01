@@ -42,12 +42,6 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
         view = webView
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        webView.scrollView.setContentOffset(CGPoint.zero, animated: false)
-    }
 
     func loadWebView() {
         let url = datasource?.getSigninUrl()
