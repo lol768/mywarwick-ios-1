@@ -162,10 +162,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
             ])
         
-        navigationControllerForSignInVc = UINavigationController()
-        navigationControllerForSignInVc!.navigationItem.title = "Sign in"
-        navigationControllerForSignInVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissSignInVC))
-        
         loadWebView()
     }
     
@@ -241,6 +237,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 self.signinVc!.datasource = self
                 self.signinVc!.delegate = self
                 self.signinVc!.load()
+                
+                self.signinVc!.navigationItem.title = "Sign in"
+                self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissSignInVC))
                 decisionHandler(.cancel)
                 return
             }
@@ -436,7 +435,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 //        wrapper.setToolbarHidden(false, animated: true)
 //        wrapper.title = "Sign in"
     
-        navigationControllerForSignInVc!.addChildViewController(self.signinVc!)
+        navigationControllerForSignInVc = UINavigationController(rootViewController: self.signinVc!)
         self.present(navigationControllerForSignInVc!, animated: true) {
             print("presented sign in vc")
             self.loadingIndicatorView.isHidden = true
