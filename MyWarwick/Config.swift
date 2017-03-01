@@ -28,7 +28,7 @@ class Config {
             return URL(string: "https://\(deployment).warwick.ac.uk")
         }
         
-        return nil
+        return appURL
     }
     
 }

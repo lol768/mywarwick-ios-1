@@ -40,6 +40,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if (user.signedIn) {
             registerForNotifications()
         }
+        self.user = user
     }
     
     @IBOutlet weak var tabBar: UITabBar!
@@ -62,10 +63,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var signinUrl: URL?
     var signinVc: SigninViewController?
     
+    var user:User?
+    
+    var processPoll: WKProcessPool?
+    
     let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
 
     func createWebView() {
+        processPoll = WKProcessPool()
+        
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
         
@@ -79,6 +86,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
         configuration.suppressesIncrementalRendering = true
         configuration.userContentController = userContentController
+        configuration.processPool = processPoll!
         
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         
@@ -212,14 +220,18 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if let url = navigationAction.request.url {
-            if (url.host == Config.webSignOnURL.host) {
-                // load sign in view controller
-                decisionHandler(.cancel)
+            
+            if url.host == Config.webSignOnURL.host {
                 self.signinUrl = url
-                performSegue(withIdentifier: "signinSegue", sender: self)
+                self.signinVc = storyboard!.instantiateViewController(withIdentifier: "signinVC") as? SigninViewController
+                self.signinVc!.datasource = self
+                self.signinVc!.delegate = self
+                self.signinVc!.load()
+                decisionHandler(.cancel)
+                return
             }
             
-            if url.host == Config.appURL.host {
+            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
                 decisionHandler(.allow)
                 return
             }
@@ -230,16 +242,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         decisionHandler(.cancel)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("preparing for segue")
-        if segue.identifier == "signinSegue" {
-            let vc = segue.destination as! SigninViewController
-            vc.datasource = self
-            vc.delegate = self
-            self.signinVc = vc
-        }
-    }
-    
+
     func presentWebView(_ url: URL) {
         let svc = SFSafariViewController(url: url)
         
@@ -295,7 +298,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
     }
-    
+
     func submitPushNotificationTokenToServer(_ deviceToken: String) {
         if webViewHasLoaded {
             print("Registering for APNs with device token \(deviceToken)")
@@ -378,6 +381,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func getNameForUserAgent() -> String {
         return Config.applicationNameForUserAgent
     }
+    
+    func getProcessPool() -> WKProcessPool {
+        return self.processPoll!
+    }
 
     
     // signinViewControllerDelegate
@@ -385,10 +392,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func dismiss() {
         self.signinVc?.dismiss(animated: true, completion: {
             print("signinvc dismissed")
-            self.createWebView()
             self.loadWebView()
         })
     }
     
+    func present() {
+        self.present(self.signinVc!, animated: true) {
+            print("presented sign in vc")
+        }
+    }
 }
 
