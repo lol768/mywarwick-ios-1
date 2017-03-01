@@ -27,7 +27,6 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
     var delegate: SigninViewControllerDelegate?
     var datasource: SigninViewControllerDataSource?
     var webView = WKWebView()
-    var finishedLoading = false
     
     func load() {
         loadViewIfNeeded()
@@ -87,7 +86,6 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.finishedLoading = true;
         if (webView.title == "Sign in" && self.presentingViewController == nil) {
             delegate?.presentSignInVC()
         }
