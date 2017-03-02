@@ -82,6 +82,24 @@
             </objects>
             <point key="canvasLocation" x="-146.40000000000001" y="178.56071964017991"/>
         </scene>
+        <!--Account Setting View Controller-->
+        <scene sceneID="dhw-9I-4gp">
+            <objects>
+                <viewController storyboardIdentifier="accountSettingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="elA-kl-J9o" customClass="AccountSettingViewController" customModule="MyWarwick" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eh4-0z-imv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tht-SU-aLP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XUS-OM-WRt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-xJ-3rQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1239" y="179"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="W1M-G8-Lsc">
             <objects>
@@ -136,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wt8-Um-fwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="180"/>
+            <point key="canvasLocation" x="1894" y="179"/>
         </scene>
         <!--Signin View Controller-->
         <scene sceneID="NeZ-kx-ebe">
@@ -154,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMg-CG-Kc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="585" y="179"/>
+            <point key="canvasLocation" x="567" y="179"/>
         </scene>
     </scenes>
     <resources>
