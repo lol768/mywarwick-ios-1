@@ -2,7 +2,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, SigninViewControllerDelegate, SigninViewControllerDataSource {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
 
     func setWebSignOnURLs(signIn: String, signOut: String) {
         
@@ -227,7 +227,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         self.signinVc!.delegate = self
         self.signinVc!.load()
         self.signinVc!.navigationItem.title = "Sign in"
-        self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSignInVC))
+        self.signinVc!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissWebView))
         return
 
     }
@@ -256,8 +256,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 return
             }
             
+
             
-            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
+            if url.host == Config.configuredDeploymentURL()!.host || url.host == Config.webSignOnURL.host  {
                 decisionHandler(.allow)
                 return
             }
@@ -400,22 +401,22 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         return .lightContent
     }
  
-    // SigninViewControllerDataSource
-    func getSigninUrl() -> URL {
+    // WebViewDataSource
+    func getUrl() -> URL {
         return self.signinUrl!
     }
     
-    func getNameForUserAgent() -> String {
-        return Config.applicationNameForUserAgent
-    }
-    
-    func getProcessPool() -> WKProcessPool {
-        return self.processPool!
+    func getConfig() -> WKWebViewConfiguration{
+        let configuration = WKWebViewConfiguration()
+        configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
+        configuration.suppressesIncrementalRendering = true
+        configuration.processPool = self.processPool!
+        return configuration
     }
 
     
-    // signinViewControllerDelegate
-    func dismissSignInVC() {
+    // WebViewDelegate
+    func dismissWebView(sender: Any?) {
         self.signinVc?.dismiss(animated: true, completion: {
             print("signinvc dismissed")
             self.loadWebView()
@@ -423,11 +424,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         })
     }
     
-    func presentSignInVC() {
+    func presentWebView(sender: Any?) {
         let navigationControllerForSignInVc = UINavigationController(rootViewController: self.signinVc!)
         navigationControllerForSignInVc.navigationBar.isTranslucent = false
         self.present(navigationControllerForSignInVc, animated: true) {
-            print("presented sign in vc")
+            print("presented  in vc")
             self.loadingIndicatorView.isHidden = true
         }
     }

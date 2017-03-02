@@ -23,6 +23,7 @@
 		70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */; };
 		70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */; };
 		B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C711E65813F0006C2F9 /* SigninViewController.swift */; };
+		B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C731E6828BE0006C2F9 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickMessageHandler.swift; sourceTree = "<group>"; };
 		70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickDelegate.swift; sourceTree = "<group>"; };
 		B51A9C711E65813F0006C2F9 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
+		B51A9C731E6828BE0006C2F9 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +96,7 @@
 				70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */,
 				70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */,
 				B51A9C711E65813F0006C2F9 /* SigninViewController.swift */,
+				B51A9C731E6828BE0006C2F9 /* WebViewController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
+				B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */,
 				70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */,
 				70CC93B91DABE74E005B6E14 /* User.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
