@@ -25,6 +25,7 @@
 		B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C711E65813F0006C2F9 /* SigninViewController.swift */; };
 		B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C731E6828BE0006C2F9 /* WebViewController.swift */; };
 		B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */; };
+		B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		B51A9C711E65813F0006C2F9 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		B51A9C731E6828BE0006C2F9 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				B51A9C711E65813F0006C2F9 /* SigninViewController.swift */,
 				B51A9C731E6828BE0006C2F9 /* WebViewController.swift */,
 				B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */,
+				B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
 				B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */,
 				70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */,
+				B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */,
 				70CC93B91DABE74E005B6E14 /* User.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
 				B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */,
