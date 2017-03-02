@@ -45,7 +45,7 @@ class WebViewController: UIViewController, WKNavigationDelegate{
     }
     
     
-    func presentFotTitle(_ webView: WKWebView, didFinish navigation: WKNavigation!, pagetitle: String) {
+    func presentForTitle(_ webView: WKWebView, didFinish navigation: WKNavigation!, pagetitle: String) {
         if (webView.title == pagetitle && self.presentingViewController == nil) {
             delegate?.presentWebView(sender: self)
         }

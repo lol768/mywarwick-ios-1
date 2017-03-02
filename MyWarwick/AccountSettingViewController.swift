@@ -33,6 +33,6 @@ class AccountSettingViewController: WebViewController {
     }
     
     override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        return super.presentFotTitle(webView, didFinish: navigation, pagetitle: "IT Services Account - Account settings")
+        return super.presentForTitle(webView, didFinish: navigation, pagetitle: "IT Services Account - Account settings")
     }
 }
