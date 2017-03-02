@@ -11,42 +11,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-protocol SigninViewControllerDataSource {
-    func getSigninUrl() -> URL
-    func getNameForUserAgent() -> String
-    func getProcessPool() -> WKProcessPool
-}
-
-protocol SigninViewControllerDelegate {
-    func presentSignInVC()
-    func dismissSignInVC()
-}
-
-class SigninViewController: UIViewController, WKNavigationDelegate {
-    
-    var delegate: SigninViewControllerDelegate?
-    var datasource: SigninViewControllerDataSource?
-    var webView = WKWebView()
-    
-    func load() {
-        createWebView()
-        loadWebView()
-    }
-    
-    func createWebView() {
-        let configuration = WKWebViewConfiguration()
-        configuration.applicationNameForUserAgent = datasource?.getNameForUserAgent()
-        configuration.suppressesIncrementalRendering = true
-        configuration.processPool = (datasource?.getProcessPool())!
-        webView = WKWebView(frame: CGRect.zero, configuration: configuration)
-        webView.navigationDelegate = self
-        view = webView
-    }
-
-    func loadWebView() {
-        let url = datasource?.getSigninUrl()
-        webView.load(URLRequest(url: url! as URL))
-    }
+class SigninViewController: WebViewController {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
@@ -65,16 +30,10 @@ class SigninViewController: UIViewController, WKNavigationDelegate {
             
         }
         decisionHandler(.cancel)
-        delegate?.dismissSignInVC()
+        delegate?.dismissWebView(sender: self)
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if (webView.title == "Sign in" && self.presentingViewController == nil) {
-            delegate?.presentSignInVC()
-        }
-    }
-    
-    func dismissMe() {
-        delegate?.dismissSignInVC()
+    override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        return super.presentFotTitle(webView, didFinish: navigation, pagetitle: "Sign in")
     }
 }
