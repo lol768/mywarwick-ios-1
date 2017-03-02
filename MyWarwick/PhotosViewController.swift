@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SafariServices
 import WebKit
+//import Cocoa
 
 class PhotosViewController: WebViewController {
 
@@ -17,7 +18,7 @@ class PhotosViewController: WebViewController {
         if let url = navigationAction.request.url {
             
             // allow photos
-            if url.host == "photos.warwick.ac.uk" {
+            if  Helper.regexhave(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
                 decisionHandler(.allow)
                 return
             }
@@ -32,5 +33,4 @@ class PhotosViewController: WebViewController {
         decisionHandler(.cancel)
         delegate?.dismissWebView(sender: self)
     }
-
 }

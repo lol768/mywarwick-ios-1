@@ -266,7 +266,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 }
                 
                 // allow photos.warwick.ac.uk
-                if url.host == "photos.warwick.ac.uk" {
+                if  Helper.regexhave(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
                     createWebViewController(url: url, navbartitle: "Photos", navbarbacktitle: "Back", vcid: "photosVC")
                     decisionHandler(.cancel)
                     return
