@@ -32,8 +32,5 @@ class SigninViewController: WebViewController {
         decisionHandler(.cancel)
         delegate?.dismissWebView(sender: self)
     }
-    
-    override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        return super.presentForTitle(webView, didFinish: navigation, pagetitle: "Sign in")
-    }
+
 }

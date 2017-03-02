@@ -1,5 +1,5 @@
 //
-//  AccountSettingViewController.swift
+//  PhotoViewController.swift
 //  MyWarwick
 //
 //  Created by Kai Lan on 02/03/2017.
@@ -10,25 +10,27 @@ import Foundation
 import UIKit
 import SafariServices
 import WebKit
+//import Cocoa
 
-class AccountSettingViewController: WebViewController {
+class PhotosViewController: WebViewController {
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
             
-
-            // allow the redirect url
-            if (url.host == "warwick.ac.uk" || url.host == "www2.warwick.ac.uk") && url.path == "/myaccount" {
+            // allow photos
+            if  Helper.regexhave(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
                 decisionHandler(.allow)
                 return
             }
             
-            // all everything on websignon
+            // allow websignon
             if url.host == Config.webSignOnURL.host {
                 decisionHandler(.allow)
                 return
             }
+            
         }
-        decisionHandler(.allow)
+        decisionHandler(.cancel)
         delegate?.dismissWebView(sender: self)
     }
 }

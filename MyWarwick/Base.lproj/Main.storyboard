@@ -154,7 +154,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wt8-Um-fwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1894" y="179"/>
+            <point key="canvasLocation" x="2588" y="179"/>
+        </scene>
+        <!--Photos View Controller-->
+        <scene sceneID="oTC-Ni-M3M">
+            <objects>
+                <viewController storyboardIdentifier="photosVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Noh-ug-WcH" customClass="PhotosViewController" customModule="MyWarwick" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GHY-Mh-2b5"/>
+                        <viewControllerLayoutGuide type="bottom" id="fMF-Ya-hjs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OkH-qb-WCW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rrC-Ao-RBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1908" y="179"/>
         </scene>
         <!--Signin View Controller-->
         <scene sceneID="NeZ-kx-ebe">
