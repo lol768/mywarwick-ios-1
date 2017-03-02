@@ -299,6 +299,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Web view failed to load \(error)")
+        // hide the loading indicator if it is still available
+        if !loadingIndicatorView.isHidden{
+            loadingIndicatorView.isHidden = true
+        }
     }
     
     
@@ -324,9 +328,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
         // hide the loading indicator if it is still available
-        if !self.loadingIndicatorView.isHidden {
-            self.loadingIndicatorView.isHidden = true
+        if !loadingIndicatorView.isHidden{
+            loadingIndicatorView.isHidden = true
         }
+        
     }
 
     func submitPushNotificationTokenToServer(_ deviceToken: String) {
