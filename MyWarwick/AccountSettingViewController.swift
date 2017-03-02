@@ -31,8 +31,4 @@ class AccountSettingViewController: WebViewController {
         decisionHandler(.allow)
         delegate?.dismissWebView(sender: self)
     }
-    
-    override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        return super.presentForTitle(webView, didFinish: navigation, pagetitle: "IT Services Account - Account settings")
-    }
 }

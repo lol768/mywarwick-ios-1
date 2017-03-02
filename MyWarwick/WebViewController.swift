@@ -43,16 +43,10 @@ class WebViewController: UIViewController, WKNavigationDelegate{
         let url = datasource?.getUrl()
         webView.load(URLRequest(url: url! as URL))
     }
-    
-    
-    func presentForTitle(_ webView: WKWebView, didFinish navigation: WKNavigation!, pagetitle: String) {
-        if (webView.title == pagetitle && self.presentingViewController == nil) {
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if self.presentingViewController == nil {
             delegate?.presentWebView(sender: self)
         }
-    }
-    
-    // must override
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        fatalError("Must Override")
     }
 }

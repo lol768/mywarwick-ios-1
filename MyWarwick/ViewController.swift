@@ -237,46 +237,57 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         if let url = navigationAction.request.url {
             
-            // allow sign out
-            if url.host == Config.webSignOnURL.host && url.path == "/origin/logout" {
-                decisionHandler(.allow)
-                return
+            if self.isOnline {
+                // allow sign out
+                if url.host == Config.webSignOnURL.host && url.path == "/origin/logout" {
+                    decisionHandler(.allow)
+                    return
+                }
+                
+                // allow sign in url
+                if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" {
+                    createWebViewController(url: url, navbartitle: "Sign in", navbarbacktitle: "Cancel", vcid: "signinVC")
+                    decisionHandler(.cancel)
+                    return
+                }
+                
+                
+                // allow pop over window from websignon
+                if url.host == Config.webSignOnURL.host && url.path == "/origin/account/popover" {
+                    decisionHandler(.allow)
+                    return
+                }
+                
+                // allow account setting url http://warwick.ac.uk/myaccount
+                if url.host == "warwick.ac.uk" && url.path == "/myaccount" {
+                    createWebViewController(url: url, navbartitle: "Account settings", navbarbacktitle: "Back", vcid: "accountSettingVC")
+                    decisionHandler(.cancel)
+                    return
+                }
+                
+                // allow photos.warwick.ac.uk
+                if url.host == "photos.warwick.ac.uk" {
+                    createWebViewController(url: url, navbartitle: "Photos", navbarbacktitle: "Back", vcid: "photosVC")
+                    decisionHandler(.cancel)
+                    return
+                }
             }
             
-            // allow sign in url
-            if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" && self.isOnline {
-                createWebViewController(url: url, navbartitle: "Sign in", navbarbacktitle: "Cancel", vcid: "signinVC")
-                decisionHandler(.cancel)
-                return
-            }
-            
-            
-            // allow pop over window from websignon
-            if url.host == Config.webSignOnURL.host && url.path == "/origin/account/popover" {
-                decisionHandler(.allow)
-                return
-            }
-            
-            // allow account setting url http://warwick.ac.uk/myaccount
-            if url.host == "warwick.ac.uk" && url.path == "/myaccount" {
-                createWebViewController(url: url, navbartitle: "Account settings", navbarbacktitle: "Back", vcid: "accountSettingVC")
-                decisionHandler(.cancel)
-                return
-            }
             
             if url.host == Config.configuredDeploymentURL()!.host || url.host == Config.webSignOnURL.host  {
                 decisionHandler(.allow)
                 return
             }
     
-            presentWebView(url)
+            // open all other external links in safari
+            presentSafariWebView(url)
         }
         
         decisionHandler(.cancel)
     }
     
 
-    func presentWebView(_ url: URL) {
+    func presentSafariWebView(_ url: URL) {
         let svc = SFSafariViewController(url: url)
         
         if UIDevice.current.systemVersion.hasPrefix("9.2") {
