@@ -323,6 +323,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 setTabBarHidden(true)
             }
         }
+        // hide the loading indicator if it is still available
+        if !self.loadingIndicatorView.isHidden {
+            self.loadingIndicatorView.isHidden = true
+        }
     }
 
     func submitPushNotificationTokenToServer(_ deviceToken: String) {
