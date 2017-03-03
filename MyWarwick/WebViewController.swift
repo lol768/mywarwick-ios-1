@@ -49,4 +49,14 @@ class WebViewController: UIViewController, WKNavigationDelegate{
             delegate?.presentWebView(sender: self)
         }
     }
+    
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        delegate?.dismissWebView(sender: self)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        delegate?.dismissWebView(sender: self)
+    }
+    
 }
