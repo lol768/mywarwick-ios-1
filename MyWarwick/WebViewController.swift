@@ -1,47 +1,35 @@
-//
-//  WebViewController.swift
-//  MyWarwick
-//
-//  Created by Kai Lan on 02/03/2017.
-//  Copyright © 2017 University of Warwick. All rights reserved.
-//
 import Foundation
 import UIKit
 import SafariServices
 import WebKit
 
-
-protocol WebViewDataSource{
-    func getUrl() -> URL
+protocol WebViewDataSource {
     func getConfig() -> WKWebViewConfiguration
 }
 
-protocol WebViewDelegate{
-    func presentWebView(sender: Any?)
-    func dismissWebView(sender: Any?)
+protocol WebViewDelegate {
+    func presentWebView(sender: Any)
+    func dismissWebView(sender: Any)
 }
 
-class WebViewController: UIViewController, WKNavigationDelegate{
+class WebViewController: UIViewController, WKNavigationDelegate {
     
     var delegate: WebViewDelegate?
-    var datasource: WebViewDataSource?
+    var dataSource: WebViewDataSource?
+    
     var webView = WKWebView()
     
-    func load() {
+    func load(url: URL) {
         createWebView()
-        loadWebView()
+        
+        webView.load(URLRequest(url: url))
     }
     
     func createWebView() {
-        let configuration = datasource?.getConfig() ?? WKWebViewConfiguration()
+        let configuration = dataSource?.getConfig() ?? WKWebViewConfiguration()
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         webView.navigationDelegate = self
         view = webView
-    }
-    
-    func loadWebView() {
-        let url = datasource?.getUrl()
-        webView.load(URLRequest(url: url! as URL))
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -49,7 +37,6 @@ class WebViewController: UIViewController, WKNavigationDelegate{
             delegate?.presentWebView(sender: self)
         }
     }
-    
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         delegate?.dismissWebView(sender: self)

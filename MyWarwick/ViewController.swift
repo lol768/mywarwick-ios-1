@@ -65,14 +65,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     var isOnline = false
     
-    var processPool: WKProcessPool?
+    let processPool = WKProcessPool()
     
     let brandColour = UIColor(hue: 285.0/360.0, saturation: 27.0/100.0, brightness: 59.0/100.0, alpha: 1)
     
-
     func createWebView() {
-        processPool = WKProcessPool()
-        
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
         
@@ -86,7 +83,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         configuration.preferences.setValue(true, forKey: "offlineApplicationCacheIsEnabled")
         configuration.suppressesIncrementalRendering = true
         configuration.userContentController = userContentController
-        configuration.processPool = processPool!
+        configuration.processPool = processPool
         
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         
@@ -220,18 +217,20 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
 
     // create our own webview controller
-    func createWebViewController(url: URL, navbartitle: String, navbarbacktitle: String, vcid: String) {
-        self.loadingIndicatorView.isHidden = false
-        self.webviewControllerRootUrl = url
-        self.webViewController = storyboard!.instantiateViewController(withIdentifier: vcid) as? WebViewController
-        self.webViewController!.datasource = self
-        self.webViewController!.delegate = self
-        self.webViewController!.load()
-        self.webViewController!.navigationItem.title = navbartitle
-        self.webViewController!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: navbarbacktitle, style: .plain, target: self, action: #selector(dismissWebView))
-        return
+    func createWebViewController(url: URL, navItemTitle: String, navItemDismissTitle: String, storyboardIdentifier: String) {
+        loadingIndicatorView.isHidden = false
+        
+        print("Creating", navItemTitle, "WebView controller for", url)
+        
+        let viewController = storyboard!.instantiateViewController(withIdentifier: storyboardIdentifier) as! WebViewController
+        viewController.dataSource = self
+        viewController.delegate = self
+        viewController.navigationItem.title = navItemTitle
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: navItemDismissTitle, style: .plain, target: self, action: #selector(dismissWebView))
+        viewController.load(url: url)
+        
+        webViewController = viewController
     }
-
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
@@ -246,11 +245,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 
                 // allow sign in url
                 if url.host == Config.webSignOnURL.host && url.path == "/origin/hs" {
-                    createWebViewController(url: url, navbartitle: "Sign in", navbarbacktitle: "Cancel", vcid: "signinVC")
+                    createWebViewController(url: url, navItemTitle: "Sign in", navItemDismissTitle: "Cancel", storyboardIdentifier: "signinVC")
                     decisionHandler(.cancel)
                     return
                 }
-                
                 
                 // allow pop over window from websignon
                 if url.host == Config.webSignOnURL.host && url.path == "/origin/account/popover" {
@@ -260,21 +258,20 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 
                 // allow account setting url http://warwick.ac.uk/myaccount
                 if url.host == "warwick.ac.uk" && url.path == "/myaccount" {
-                    createWebViewController(url: url, navbartitle: "Account settings", navbarbacktitle: "Back", vcid: "accountSettingVC")
+                    createWebViewController(url: url, navItemTitle: "Account settings", navItemDismissTitle: "Back", storyboardIdentifier: "accountSettingVC")
                     decisionHandler(.cancel)
                     return
                 }
                 
                 // allow photos.warwick.ac.uk
-                if  Helper.regexhave(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
-                    createWebViewController(url: url, navbartitle: "Photos", navbarbacktitle: "Back", vcid: "photosVC")
+                if  Helper.regexMatch(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
+                    createWebViewController(url: url, navItemTitle: "Photos", navItemDismissTitle: "Back", storyboardIdentifier: "photosVC")
                     decisionHandler(.cancel)
                     return
                 }
             }
             
-            
-            if url.host == Config.configuredDeploymentURL()!.host || url.host == Config.webSignOnURL.host  {
+            if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
                 decisionHandler(.allow)
                 return
             }
@@ -317,10 +314,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Web view failed to load \(error)")
-        // hide the loading indicator if it is still available
+        // hide the loading indicator if it is still visible
         loadingIndicatorView.isHidden = true
     }
-    
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("WebView started provisional navigation")
@@ -343,7 +339,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 setTabBarHidden(true)
             }
         }
-        // hide the loading indicator if it is still available
+        // hide the loading indicator if it is still visible
         loadingIndicatorView.isHidden = true
     }
 
@@ -360,7 +356,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
     }
-    
 
     func tabBarItemForPath(_ path: String) -> UITabBarItem? {
         switch path {
@@ -418,40 +413,33 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView.evaluateJavaScript("MyWarwick.navigate('\(path)')", completionHandler: nil)
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
  
     // WebViewDataSource
-    func getUrl() -> URL {
-        return self.webviewControllerRootUrl!
-    }
-    
-    func getConfig() -> WKWebViewConfiguration{
+    func getConfig() -> WKWebViewConfiguration {
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = Config.applicationNameForUserAgent
         configuration.suppressesIncrementalRendering = true
-        configuration.processPool = self.processPool!
+        configuration.processPool = processPool
         return configuration
     }
-
     
     // WebViewDelegate
-    func dismissWebView(sender: Any?) {
-        self.webViewController?.dismiss(animated: true, completion: {
-            print("webviewcontroller dismissed")
+    func dismissWebView(sender: Any) {
+        webViewController?.dismiss(animated: true) {
             self.loadWebView()
-        })
-        self.loadingIndicatorView.isHidden = true
+        }
+        
+        // Release our reference to the view controller
+        webViewController = nil
     }
     
-    func presentWebView(sender: Any?) {
-        let wrappingNavController = UINavigationController(rootViewController: self.webViewController!)
+    func presentWebView(sender: Any) {
+        let wrappingNavController = UINavigationController(rootViewController: webViewController!)
         wrappingNavController.navigationBar.isTranslucent = false
-        self.present(wrappingNavController, animated: true) {
-            print("presented  in vc")
-        }
-        self.loadingIndicatorView.isHidden = true
+        present(wrappingNavController, animated: true)
     }
 }
 
