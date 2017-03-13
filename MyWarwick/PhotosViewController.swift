@@ -20,7 +20,7 @@ class PhotosViewController: WebViewController {
             }
         }
         decisionHandler(.cancel)
-        delegate?.dismissWebView(sender: self)
+        dismissNotifyingDelegate()
     }
     
 }
