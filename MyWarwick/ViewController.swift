@@ -44,7 +44,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
-    @IBOutlet weak var loadingIndicatorView: UIView!
     
     var webView = WKWebView()
     
@@ -59,9 +58,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var reachability: Reachability?
     
     var applicationOrigins = Set<String>()
-
-    var webviewControllerRootUrl: URL?
-    var webViewController: WebViewController?
 
     var isOnline = false
     
@@ -143,8 +139,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         
-        setTabBarHidden(true)
-        
         webView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(webView)
@@ -156,6 +150,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
             ])
+        
+        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         
         loadWebView()
     }
@@ -218,18 +215,18 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     // create our own webview controller
     func createWebViewController(url: URL, navItemTitle: String, navItemDismissTitle: String, storyboardIdentifier: String) {
-        loadingIndicatorView.isHidden = false
-        
         print("Creating", navItemTitle, "WebView controller for", url)
         
         let viewController = storyboard!.instantiateViewController(withIdentifier: storyboardIdentifier) as! WebViewController
         viewController.dataSource = self
         viewController.delegate = self
         viewController.navigationItem.title = navItemTitle
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: navItemDismissTitle, style: .plain, target: self, action: #selector(dismissWebView))
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: navItemDismissTitle, style: .plain, target: viewController, action: #selector(viewController.dismissNotifyingDelegate))
         viewController.load(url: url)
         
-        webViewController = viewController
+        let wrappingNavController = UINavigationController(rootViewController: viewController)
+        wrappingNavController.navigationBar.isTranslucent = false
+        present(wrappingNavController, animated: true)
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -300,22 +297,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
     
-    func setTabBarHidden(_ hidden: Bool) {
-        if hidden {
-            tabBar.isHidden = true
-            webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        } else {
-            tabBar.isHidden = false
-            webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
-            webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
-        }
-    }
-    
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Web view failed to load \(error)")
-        // hide the loading indicator if it is still visible
-        loadingIndicatorView.isHidden = true
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -330,17 +313,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             if url.host == Config.appURL.host {
                 webViewHasLoaded = true
                 
-                setTabBarHidden(false)
-                
                 if let deviceToken = self.unregisteredDeviceToken {
                     submitPushNotificationTokenToServer(deviceToken)
                 }
-            } else {
-                setTabBarHidden(true)
             }
         }
-        // hide the loading indicator if it is still visible
-        loadingIndicatorView.isHidden = true
     }
 
     func submitPushNotificationTokenToServer(_ deviceToken: String) {
@@ -427,19 +404,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     // WebViewDelegate
-    func dismissWebView(sender: Any) {
-        webViewController?.dismiss(animated: true) {
-            self.loadWebView()
-        }
-        
-        // Release our reference to the view controller
-        webViewController = nil
-    }
-    
-    func presentWebView(sender: Any) {
-        let wrappingNavController = UINavigationController(rootViewController: webViewController!)
-        wrappingNavController.navigationBar.isTranslucent = false
-        present(wrappingNavController, animated: true)
+    func didDismissWebView(sender: Any) {
+        self.loadWebView()
     }
 }
 

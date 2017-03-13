@@ -43,38 +43,19 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="iwQ-1y-OKa"/>
                                 </connections>
                             </tabBar>
-                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfC-Rh-3pW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="R84-Vc-pqf">
-                                        <rect key="frame" x="169" y="291" width="37" height="37"/>
-                                        <color key="color" cocoaTouchSystemColor="darkTextColor"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="R84-Vc-pqf" firstAttribute="centerX" secondItem="BfC-Rh-3pW" secondAttribute="centerX" id="Fog-8y-qKd"/>
-                                    <constraint firstItem="R84-Vc-pqf" firstAttribute="centerY" secondItem="BfC-Rh-3pW" secondAttribute="centerY" id="hMg-zf-dDz"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Bah-MO-y8k" secondAttribute="trailing" id="Cc4-pR-xVi"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
-                            <constraint firstAttribute="trailing" secondItem="BfC-Rh-3pW" secondAttribute="trailing" id="SX6-iN-LV3"/>
-                            <constraint firstItem="BfC-Rh-3pW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="aOU-R2-GSv"/>
-                            <constraint firstItem="Bah-MO-y8k" firstAttribute="top" secondItem="BfC-Rh-3pW" secondAttribute="bottom" id="bTl-Y9-Zos"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eqo-y1-zia"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oIV-v5-KCJ"/>
                             <constraint firstItem="Bah-MO-y8k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oKl-Vi-BbQ"/>
                             <constraint firstAttribute="trailing" secondItem="dWW-yM-le3" secondAttribute="trailing" id="plY-rd-Njk"/>
-                            <constraint firstItem="BfC-Rh-3pW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sYl-Fm-X4M"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="behindStatusBarView" destination="dWW-yM-le3" id="4Nv-Jh-fYg"/>
-                        <outlet property="loadingIndicatorView" destination="BfC-Rh-3pW" id="0Yw-t0-S2f"/>
                         <outlet property="tabBar" destination="Bah-MO-y8k" id="UFj-Je-tDq"/>
                     </connections>
                 </viewController>

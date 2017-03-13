@@ -8,8 +8,7 @@ protocol WebViewDataSource {
 }
 
 protocol WebViewDelegate {
-    func presentWebView(sender: Any)
-    func dismissWebView(sender: Any)
+    func didDismissWebView(sender: Any)
 }
 
 class WebViewController: UIViewController, WKNavigationDelegate {
@@ -31,19 +30,19 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
         view = webView
     }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if self.presentingViewController == nil {
-            delegate?.presentWebView(sender: self)
-        }
-    }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        delegate?.dismissWebView(sender: self)
+        dismissNotifyingDelegate()
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        delegate?.dismissWebView(sender: self)
+        dismissNotifyingDelegate()
+    }
+    
+    func dismissNotifyingDelegate() {
+        dismiss(animated: true) {
+            self.delegate?.didDismissWebView(sender: self)
+        }
     }
     
 }

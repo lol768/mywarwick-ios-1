@@ -20,7 +20,7 @@ class SigninViewController: WebViewController {
             }
         }
         decisionHandler(.cancel)
-        delegate?.dismissWebView(sender: self)
+        dismissNotifyingDelegate()
     }
 
 }

@@ -20,7 +20,7 @@ class AccountSettingViewController: WebViewController {
             }
         }
         decisionHandler(.allow)
-        delegate?.dismissWebView(sender: self)
+        dismissNotifyingDelegate()
     }
     
 }
