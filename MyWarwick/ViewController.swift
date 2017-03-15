@@ -268,12 +268,19 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 }
             }
             
+            if url.host == Config.appURL.host && url.path.hasPrefix("/news/") && url.path.hasSuffix("/redirect") {
+                // Open News redirector links in Safari Web View
+                decisionHandler(.cancel)
+                presentSafariWebView(url)
+                return
+            }
+
             if url.host == Config.appURL.host || url.host == Config.webSignOnURL.host  {
                 decisionHandler(.allow)
                 return
             }
     
-            // open all other external links in safari
+            // open all other external links in Safari Web View
             presentSafariWebView(url)
         }
         
