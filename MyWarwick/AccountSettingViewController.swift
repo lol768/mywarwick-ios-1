@@ -4,7 +4,7 @@ import SafariServices
 import WebKit
 
 class AccountSettingViewController: WebViewController {
-    
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
             // allow the redirect url
@@ -12,7 +12,7 @@ class AccountSettingViewController: WebViewController {
                 decisionHandler(.allow)
                 return
             }
-            
+
             // allow everything on websignon
             if url.host == Config.webSignOnURL.host {
                 decisionHandler(.allow)
@@ -22,5 +22,5 @@ class AccountSettingViewController: WebViewController {
         decisionHandler(.allow)
         dismissNotifyingDelegate()
     }
-    
+
 }

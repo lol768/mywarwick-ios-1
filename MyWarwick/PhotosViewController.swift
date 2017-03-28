@@ -12,7 +12,7 @@ class PhotosViewController: WebViewController {
                 decisionHandler(.allow)
                 return
             }
-            
+
             // allow websignon
             if url.host == Config.webSignOnURL.host {
                 decisionHandler(.allow)
@@ -22,5 +22,5 @@ class PhotosViewController: WebViewController {
         decisionHandler(.cancel)
         dismissNotifyingDelegate()
     }
-    
+
 }
