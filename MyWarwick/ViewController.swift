@@ -106,9 +106,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             if let deviceToken = (notification as NSNotification).userInfo?["deviceToken"] as? String {
                 self.preferences.deviceToken = deviceToken
 
-                if let deviceToken = self.preferences.deviceToken {
-                    self.invoker.invoke("registerForAPNs('\(deviceToken)')")
-                }
+                self.invoker.invoke("registerForAPNs('\(deviceToken)')")
             }
         }
     }
@@ -353,8 +351,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     func removeDeviceTokenFromServer() {
         if let token = preferences.deviceToken {
-            preferences.deactivateDeviceToken()
-
             invoker.invoke("unregisterForPush('\(token)')")
         }
     }

@@ -26,20 +26,8 @@ class MyWarwickPreferences {
 
         set(token) {
             userDefaults.set(token, forKey: "DeviceToken")
-            userDefaults.set(true, forKey: "DeviceTokenActive")
             userDefaults.synchronize()
         }
-    }
-
-    var deviceTokenActive: Bool {
-        get {
-            return userDefaults.bool(forKey: "DeviceTokenActive")
-        }
-    }
-
-    func deactivateDeviceToken() {
-        userDefaults.set(false, forKey: "DeviceTokenActive")
-        userDefaults.synchronize()
     }
 
 }
