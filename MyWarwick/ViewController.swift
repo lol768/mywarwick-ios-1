@@ -106,7 +106,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             if let deviceToken = (notification as NSNotification).userInfo?["deviceToken"] as? String {
                 self.preferences.deviceToken = deviceToken
 
-                if let deviceToken = preferences.deviceToken {
+                if let deviceToken = self.preferences.deviceToken {
                     self.invoker.invoke("registerForAPNs('\(deviceToken)')")
                 }
             }

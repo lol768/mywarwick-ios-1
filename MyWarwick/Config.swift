@@ -2,7 +2,7 @@ import Foundation
 
 class Config {
 
-    static let defaultAppURL = URL(string: "https://swordfish.warwick.ac.uk")!
+    static let defaultAppURL = URL(string: "https://my.warwick.ac.uk")!
 
     static let webSignOnURL = URL(string: "https://websignon.warwick.ac.uk")!
 
