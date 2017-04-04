@@ -1,40 +1,46 @@
 (function iosBridge(global, handler) {
-  var native = {};
-  global.MyWarwickNative = native;
+    var native = {};
+    global.MyWarwickNative = native;
 
-  native.setUser = function setUser(user) {
-    handler.postMessage({
-      kind: 'setUser',
-      user: user,
-    });
-  };
+    native.ready = function ready() {
+        handler.postMessage({
+            kind: 'ready',
+        });
+    };
 
-  native.setWebSignOnUrls = function setWebSignOnUrls(signInUrl, signOutUrl) {
-    handler.postMessage({
-      kind: 'setWebSignOnUrls',
-      signInUrl: signInUrl,
-      signOutUrl: signOutUrl,
-    });
-  };
+    native.setUser = function setUser(user) {
+        handler.postMessage({
+            kind: 'setUser',
+            user: user,
+        });
+    };
 
-  native.setUnreadNotificationCount = function setUnreadNotificationCount(count) {
-    handler.postMessage({
-      kind: 'setUnreadNotificationCount',
-      count: count,
-    });
-  };
+    native.setWebSignOnUrls = function setWebSignOnUrls(signInUrl, signOutUrl) {
+        handler.postMessage({
+            kind: 'setWebSignOnUrls',
+            signInUrl: signInUrl,
+            signOutUrl: signOutUrl,
+        });
+    };
 
-  native.setPath = function setPath(path) {
-    handler.postMessage({
-      kind: 'setPath',
-      path: path,
-    });
-  };
+    native.setUnreadNotificationCount = function setUnreadNotificationCount(count) {
+        handler.postMessage({
+            kind: 'setUnreadNotificationCount',
+            count: count,
+        });
+    };
 
-  native.setAppCached = function setAppCached(cached) {
-    handler.postMessage({
-      kind: 'setAppCached',
-      cached: cached,
-    });
-  }
+    native.setPath = function setPath(path) {
+        handler.postMessage({
+            kind: 'setPath',
+            path: path,
+        });
+    };
+
+    native.setAppCached = function setAppCached(cached) {
+        handler.postMessage({
+            kind: 'setAppCached',
+            cached: cached,
+        });
+    }
 }(window, webkit.messageHandlers.MyWarwick));
