@@ -15,7 +15,13 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
             case "ready":
                 delegate.ready()
             case "setUser":
-                if let user = body["user"] as? NSDictionary, let authenticated = user["authenticated"] as? Bool, let authoritative = user["authoritative"] as? Bool {
+                if let user = body["user"] as? NSDictionary, let authenticated = user["authenticated"] as? Bool {
+                    // If this value is unspecified, assume a logged-in user is authoritatively so, and a
+                    // logged-out user is not authoritatively so.  This triggers push registration for new
+                    // users, but prevents deregistration upon signing out, which mimics the behaviour
+                    // prior to this change.
+                    let authoritative = user["authoritative"] as? Bool ?? authenticated
+
                     if authenticated {
                         if let usercode = user["usercode"] as? String, let name = user["name"] as? String, let photo = user["photo"] as? NSDictionary, let photoURL = photo["url"] as? String {
                             delegate.setUser(AuthenticatedUser(usercode: usercode, name: name, photoURL: photoURL, authoritative: authoritative))
