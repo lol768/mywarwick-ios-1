@@ -246,6 +246,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                     return
                 }
 
+                if url.host == "campus.warwick.ac.uk" {
+                    decisionHandler(.allow)
+                    return
+                }
+
                 // allow account setting url http://warwick.ac.uk/myaccount
                 if url.host == "warwick.ac.uk" && url.path == "/myaccount" {
                     createWebViewController(url: url, navItemTitle: "Account settings", navItemDismissTitle: "Back", storyboardIdentifier: "accountSettingVC")
