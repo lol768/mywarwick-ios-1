@@ -38,5 +38,22 @@ class JavaScriptInvoker {
             }
         }
     }
+    
+    func loadDeviceDetails(url: URL?) {
+        let screenSize = UIScreen.main.bounds
+        let details = [
+            "os": UIDevice.current.systemName,
+            "os-version": UIDevice.current.systemVersion,
+            "device": UIDevice.current.model,
+            "screen-width": String(describing: screenSize.width),
+            "screen-height": String(describing: screenSize.height),
+            "path": url?.path ?? ""
+        ]
+        let json = String(
+            data: try! JSONSerialization.data(withJSONObject: details),
+            encoding: .ascii
+        )
+        invoke("feedback('\(json ?? "")')")
+    }
 
 }

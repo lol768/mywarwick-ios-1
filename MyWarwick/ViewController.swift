@@ -47,6 +47,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
     }
+    
+    internal func loadDeviceDetails() {
+        invoker.loadDeviceDetails(url: webView.url)
+    }
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!

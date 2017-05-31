@@ -13,5 +13,7 @@ protocol MyWarwickDelegate {
     func setUser(_ user: User)
 
     func setWebSignOnURLs(signIn: String, signOut: String)
+    
+    func loadDeviceDetails()
 
 }

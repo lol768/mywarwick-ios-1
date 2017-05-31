@@ -47,6 +47,8 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
                 if let cached = body["cached"] as? Bool {
                     delegate.setAppCached(cached)
                 }
+            case "loadDeviceDetails":
+                delegate.loadDeviceDetails()
             default:
                 break
             }
