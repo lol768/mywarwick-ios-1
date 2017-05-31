@@ -52,7 +52,7 @@ class JavaScriptInvoker {
         let json = String(
             data: try! JSONSerialization.data(withJSONObject: details),
             encoding: .ascii
-        )
+        )?.replacingOccurrences(of: "'", with: "\\'")
         invoke("feedback('\(json ?? "")')")
     }
 
