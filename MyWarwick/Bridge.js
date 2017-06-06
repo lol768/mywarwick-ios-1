@@ -42,5 +42,12 @@
             kind: 'setAppCached',
             cached: cached,
         });
+    };
+ 
+    native.loadDeviceDetails = function loadDeviceDetails() {
+        handler.postMessage({
+            kind: 'loadDeviceDetails',
+        });
+
     }
 }(window, webkit.messageHandlers.MyWarwick));
