@@ -10,7 +10,9 @@ class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
     override func viewDidLoad() {
         if storyboard != nil {
             tourPages = [1, 2, 3, 4, 5, 6, 7, 8].map { (n: Int) -> UIViewController in
-                storyboard!.instantiateViewController(withIdentifier: "TourSlide\(n)")
+                let vc = storyboard!.instantiateViewController(withIdentifier: "TourSlide\(n)")
+                vc.view.tag = n - 1
+                return vc
             }
         }
 
@@ -69,6 +71,10 @@ class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
     }
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        if let vc = pageViewController.viewControllers?.first {
+            return vc.view.tag
+        }
+
         return 0
     }
 
