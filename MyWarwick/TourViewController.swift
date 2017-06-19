@@ -1,11 +1,13 @@
 import Foundation
 import UIKit
 
-class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
+class TourViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
     var tourPages: [UIViewController] = []
 
-    var finishButton: UIButton = UIButton(type: .system)
+    let pageControl = UIPageControl()
+
+    let finishButton: UIButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         if storyboard != nil {
@@ -16,6 +18,9 @@ class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
             }
         }
 
+        pageControl.numberOfPages = tourPages.count
+
+        delegate = self
         dataSource = self
         view.backgroundColor = UIColor.white
 
@@ -35,9 +40,33 @@ class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
 
         view.bringSubview(toFront: finishButton)
 
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.addTarget(self, action: #selector(changePage), for: .valueChanged)
+        view.addSubview(pageControl)
+
+        view.addConstraints([
+                NSLayoutConstraint(item: pageControl, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: pageControl, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: pageControl, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: pageControl, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 24)
+        ])
+
+        view.bringSubview(toFront: pageControl)
+
         if let firstPage = tourPages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
         }
+    }
+
+    func changePage() {
+        let previousPage: Int = tourPages.index(of: viewControllers!.first!)!
+
+        let something = previousPage < pageControl.currentPage
+
+        let vc = tourPages[pageControl.currentPage]
+        let direction = something ? UIPageViewControllerNavigationDirection.forward : UIPageViewControllerNavigationDirection.reverse
+
+        setViewControllers([vc], direction: direction, animated: true, completion: nil)
     }
 
     func finish() {
@@ -66,16 +95,10 @@ class TourViewController: UIPageViewController, UIPageViewControllerDataSource {
         return tourPages[index - 1]
     }
 
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return tourPages.count
-    }
-
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        if let vc = pageViewController.viewControllers?.first {
-            return vc.view.tag
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed, let vc = pageViewController.viewControllers?.first {
+            pageControl.currentPage = vc.view.tag
         }
-
-        return 0
     }
 
 }

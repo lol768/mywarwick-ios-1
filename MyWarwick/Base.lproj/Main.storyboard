@@ -315,22 +315,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
-                                <rect key="frame" x="16" y="530.5" width="343" height="64.5"/>
+                                <rect key="frame" x="16" y="510.5" width="343" height="64.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AOD-dB-YKJ">
-                                <rect key="frame" x="16" y="477.5" width="343" height="33.5"/>
+                                <rect key="frame" x="16" y="457.5" width="343" height="33.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B4e-4P-aOg">
-                                <rect key="frame" x="16" y="28" width="343" height="429.5"/>
+                                <rect key="frame" x="16" y="28" width="343" height="409.5"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="du8-Mn-6HB">
-                                <rect key="frame" x="16" y="603" width="343" height="64"/>
+                                <rect key="frame" x="16" y="583" width="343" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="YxR-V1-vwm"/>
                                 </constraints>
@@ -343,7 +343,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="msP-Jv-Ba3" firstAttribute="top" secondItem="du8-Mn-6HB" secondAttribute="bottom" id="95K-jt-OK0"/>
+                            <constraint firstItem="msP-Jv-Ba3" firstAttribute="top" secondItem="du8-Mn-6HB" secondAttribute="bottom" constant="20" id="95K-jt-OK0"/>
                             <constraint firstItem="B4e-4P-aOg" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="BJn-EM-Bjs"/>
                             <constraint firstItem="AOD-dB-YKJ" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="EdS-s5-Cqc"/>
                             <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" secondItem="B4e-4P-aOg" secondAttribute="bottom" constant="20" id="G9i-Me-VDQ"/>
