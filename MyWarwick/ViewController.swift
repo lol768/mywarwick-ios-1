@@ -4,6 +4,8 @@ import WebKit
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
 
+    var firstRunAfterTour = false
+
     func ready() {
         invoker.ready()
     }
@@ -47,7 +49,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             }
         }
     }
-    
+
     internal func loadDeviceDetails() {
         invoker.loadDeviceDetails(url: webView.url)
     }
@@ -201,7 +203,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func loadWebView() {
         var url = Config.appURL
 
-        if Global.didLaunchFromRemoteNotification {
+        if firstRunAfterTour {
+            firstRunAfterTour = false
+
+            url = url.appendingPathComponent("/settings/optin")
+        } else if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
 
             url = url.appendingPathComponent("/notifications")
