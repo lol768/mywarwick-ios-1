@@ -43,11 +43,18 @@
             cached: cached,
         });
     };
- 
+
     native.loadDeviceDetails = function loadDeviceDetails() {
         handler.postMessage({
             kind: 'loadDeviceDetails',
         });
+    };
 
-    }
+    native.getAppVersion = function getAppVersion() {
+        return "{{APP_VERSION}}";
+    };
+
+    native.getAppBuild = function getAppBuild() {
+        return "{{APP_BUILD}}";
+    };
 }(window, webkit.messageHandlers.MyWarwick));
