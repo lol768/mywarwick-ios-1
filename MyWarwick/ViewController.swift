@@ -43,6 +43,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
         if (user.authoritative) {
             if (user.signedIn) {
+                firstRunAfterTour = false
+
                 registerForPushNotifications()
             } else {
                 removeDeviceTokenFromServer()
@@ -204,7 +206,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         var url = Config.appURL
 
         if firstRunAfterTour {
-            firstRunAfterTour = false
+            // firstRunAfterTour is unset after successful sign-in
 
             url = url.appendingPathComponent("/settings/optin")
         } else if Global.didLaunchFromRemoteNotification {

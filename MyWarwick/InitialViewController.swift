@@ -10,8 +10,12 @@ class InitialViewController: UIViewController {
 
         let identifier = tourComplete ? "MainViewController" : "TourViewController"
 
-        let viewController: ViewController = storyboard!.instantiateViewController(withIdentifier: identifier) as! ViewController
-        viewController.firstRunAfterTour = firstRunAfterTour
+        let viewController = storyboard!.instantiateViewController(withIdentifier: identifier)
+
+        if tourComplete, let mainViewController = viewController as? ViewController {
+            mainViewController.firstRunAfterTour = firstRunAfterTour
+        }
+
         present(viewController, animated: false, completion: nil)
     }
 
