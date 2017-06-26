@@ -75,7 +75,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
 
         if let path = Bundle.main.path(forResource: "Bridge", ofType: "js"), let bridgeJS = try? String(contentsOfFile: path, encoding: .utf8) {
-            userContentController.addUserScript(WKUserScript(source: bridgeJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+            let bundleShortVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+
+            let output = bridgeJS.replacingOccurrences(of: "{{APP_VERSION}}", with: bundleShortVersionString!)
+                    .replacingOccurrences(of: "{{APP_BUILD}}", with: bundleVersion!)
+
+            userContentController.addUserScript(WKUserScript(source: output, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
 
 
