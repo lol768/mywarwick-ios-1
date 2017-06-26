@@ -208,7 +208,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if firstRunAfterTour {
             // firstRunAfterTour is unset after successful sign-in
 
-            url = url.appendingPathComponent("/settings/optin")
+            url = url.appendingPathComponent("/post_tour")
         } else if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
 
