@@ -31,6 +31,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if let selectedTabBarItem = tabBarItemForPath(path) {
             tabBar.selectedItem = selectedTabBarItem
         }
+        if path.hasPrefix("/settings") {
+            tabBar.isHidden = true
+        } else {
+            tabBar.isHidden = false
+        }
     }
 
     internal func setUser(_ user: User) {
