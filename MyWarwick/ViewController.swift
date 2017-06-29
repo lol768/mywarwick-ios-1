@@ -100,6 +100,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
 
         webView.navigationDelegate = self
+        webView.isOpaque = false
+        webView.backgroundColor = UIColor.clear
     }
 
 
@@ -141,6 +143,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         super.viewDidLoad()
 
         behindStatusBarView.backgroundColor = brandColour
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "Background")!)
 
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
