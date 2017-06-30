@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2DBA005D854FFC861FFEB13C /* MyWarwickPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */; };
 		2DBA0EB40BA2DD24676E262B /* JavaScriptInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */; };
+		700271D21EEE97BB004705DB /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D11EEE97BB004705DB /* TourViewController.swift */; };
+		700271D41EEEA14D004705DB /* FinalTourSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */; };
+		700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D51EEEA32D004705DB /* InitialViewController.swift */; };
 		7013B7781DABB6390079DCF1 /* Bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 7013B7771DABB6390079DCF1 /* Bridge.js */; };
 		702047061C3ED6B9004487FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047051C3ED6B9004487FE /* Config.swift */; };
 		702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */; };
@@ -33,6 +36,9 @@
 /* Begin PBXFileReference section */
 		2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickPreferences.swift; sourceTree = "<group>"; };
 		2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptInvoker.swift; sourceTree = "<group>"; };
+		700271D11EEE97BB004705DB /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
+		700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalTourSlideViewController.swift; sourceTree = "<group>"; };
+		700271D51EEEA32D004705DB /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		7013B7771DABB6390079DCF1 /* Bridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Bridge.js; sourceTree = "<group>"; };
 		702047051C3ED6B9004487FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		702CC1C81C3D61CA0088BF34 /* MyWarwick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWarwick.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,9 @@
 				B51A9C791E686EC30006C2F9 /* Helper.swift */,
 				2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */,
 				2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */,
+				700271D51EEEA32D004705DB /* InitialViewController.swift */,
+				700271D11EEE97BB004705DB /* TourViewController.swift */,
+				700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -228,15 +237,18 @@
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
+				700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */,
 				B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */,
 				70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */,
 				B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */,
 				70CC93B91DABE74E005B6E14 /* User.swift in Sources */,
+				700271D41EEEA14D004705DB /* FinalTourSlideViewController.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
 				B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */,
 				7085050C1D8800DA008C990E /* Reachability.swift in Sources */,
 				B51A9C7A1E686EC30006C2F9 /* Helper.swift in Sources */,
 				7042C3901C43B0BD0060C76A /* Global.swift in Sources */,
+				700271D21EEE97BB004705DB /* TourViewController.swift in Sources */,
 				B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */,
 				2DBA005D854FFC861FFEB13C /* MyWarwickPreferences.swift in Sources */,
 				2DBA0EB40BA2DD24676E262B /* JavaScriptInvoker.swift in Sources */,

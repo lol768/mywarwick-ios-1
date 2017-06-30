@@ -4,6 +4,8 @@ import WebKit
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
 
+    var firstRunAfterTour = false
+
     func ready() {
         invoker.ready()
     }
@@ -46,13 +48,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
         if (user.authoritative) {
             if (user.signedIn) {
+                firstRunAfterTour = false
+
                 registerForPushNotifications()
             } else {
                 removeDeviceTokenFromServer()
             }
         }
     }
-    
+
     internal func loadDeviceDetails() {
         invoker.loadDeviceDetails(url: webView.url)
     }
@@ -215,7 +219,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func loadWebView() {
         var url = Config.appURL
 
-        if Global.didLaunchFromRemoteNotification {
+        if firstRunAfterTour {
+            // firstRunAfterTour is unset after successful sign-in
+
+            url = url.appendingPathComponent("/post_tour")
+        } else if Global.didLaunchFromRemoteNotification {
             Global.didLaunchFromRemoteNotification = false
 
             url = url.appendingPathComponent("/notifications")
