@@ -613,7 +613,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="MeScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="7Nz-JA-95F">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="FeedbackScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="7Nz-JA-95F">
                                 <rect key="frame" x="16" y="28" width="343" height="439.5"/>
                             </imageView>
                         </subviews>
@@ -642,6 +642,7 @@
         <image name="ActivityScreenshot" width="750" height="1334"/>
         <image name="ActivityTour" width="33" height="33"/>
         <image name="AppIconLarge" width="512" height="512"/>
+        <image name="FeedbackScreenshot" width="16" height="16"/>
         <image name="FeedbackTour" width="33" height="33"/>
         <image name="Me" width="25" height="25"/>
         <image name="Me Selected" width="25" height="25"/>
