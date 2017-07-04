@@ -33,6 +33,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if let selectedTabBarItem = tabBarItemForPath(path) {
             tabBar.selectedItem = selectedTabBarItem
         }
+
+        if path == "/" || path.hasPrefix("/edit") || path.hasPrefix("/tiles") {
+            webView.backgroundColor = UIColor.clear
+        } else {
+            // Wait for the page to have changed - avoid visible background change on tiles view
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.webView.backgroundColor = UIColor(white: 249 / 255, alpha: 1)
+            }
+        }
+
         if path.hasPrefix("/settings") {
             tabBar.isHidden = true
         } else {
