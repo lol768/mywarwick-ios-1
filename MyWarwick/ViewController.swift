@@ -153,12 +153,28 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     var hideStatusBarBackground: NSLayoutConstraint? = nil
 
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        renderBackgroundImage()
+    }
+    
+    func renderBackgroundImage() {
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        UIImage(named: "Background")?.draw(in: self.view.bounds)
+        
+        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
+            UIGraphicsEndImageContext()
+            self.view.backgroundColor = UIColor(patternImage: image)
+        }else{
+            UIGraphicsEndImageContext()
+            debugPrint("Image not available")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         behindStatusBarView.backgroundColor = brandColour
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "Background")!)
-
+        renderBackgroundImage()
+        
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
         hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
