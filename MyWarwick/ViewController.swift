@@ -408,6 +408,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             path = "/"
         }
 
+        if (path == "/alerts") {
+            path = "/notifications"
+        }
+
         navigateWithinApp(path)
     }
 
