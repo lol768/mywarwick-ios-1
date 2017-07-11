@@ -18,16 +18,7 @@ class JavaScriptInvoker {
     private func invokeNow(_ js: String) {
         if let wv = webView {
             print("Invoking MyWarwick.\(js)")
-            wv.evaluateJavaScript("MyWarwick.\(js)") { (result, error) in
-                let path = wv.url!.path
-                if path == "/" || path.hasPrefix("/edit") || path.hasPrefix("/tiles") {
-                    wv.backgroundColor = UIColor.clear
-                } else {
-                    UIView.animate(withDuration: 0.5, animations: { // this ensures user not seeing the tile without bg img when leaving meview
-                        wv.backgroundColor = UIColor(white: 249 / 255, alpha: 1)
-                    })
-                }
-            }
+            wv.evaluateJavaScript("MyWarwick.\(js)")
         }
     }
 
