@@ -34,7 +34,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <tabBarItem title="Me" image="Me" selectedImage="Me Selected" id="FYK-qj-4EQ"/>
-                                    <tabBarItem enabled="NO" title="Notifications" image="Notifications" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
+                                    <tabBarItem enabled="NO" title="Alerts" image="Notifications" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
                                     <tabBarItem enabled="NO" title="Activity" image="Activity" selectedImage="Activity Selected" id="2f1-wH-UNo"/>
                                     <tabBarItem title="News" image="News" selectedImage="News Selected" id="JU3-4S-xZH"/>
                                     <tabBarItem title="Search" image="Search" selectedImage="Search Selected" id="XdG-rl-5Lz"/>
@@ -377,19 +377,19 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNR-Ql-1RX">
                                 <rect key="frame" x="16" y="518.5" width="343" height="108.5"/>
-                                <string key="text">Just-in-time reminders like Submit your coursework or Return your library books. Notifications pop up on your phone's lock screen like messages, with a history on this screen in the app</string>
+                                <string key="text">Just-in-time reminders like Submit your coursework or Return your library books. Alerts pop up on your phone's lock screen like messages, with a history on this screen in the app</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OEe-Sf-g2a">
-                                <rect key="frame" x="105" y="465.5" width="165" height="33"/>
+                                <rect key="frame" x="138.5" y="465.5" width="98" height="33"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="NotificationsTour" translatesAutoresizingMaskIntoConstraints="NO" id="ASB-Q6-j70">
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUz-at-N1v">
-                                        <rect key="frame" x="41" y="0.0" width="124" height="33"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUz-at-N1v">
+                                        <rect key="frame" x="41" y="0.0" width="57" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
