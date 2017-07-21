@@ -11,7 +11,7 @@ class TourViewController: UIPageViewController, UIPageViewControllerDelegate, UI
 
     override func viewDidLoad() {
         if storyboard != nil {
-            tourPages = [1, 2, 3, 4, 5, 6, 7, 8].map { (n: Int) -> UIViewController in
+            tourPages = [1, 2, 3, 4, 6, 7, 8].map { (n: Int) -> UIViewController in
                 let vc = storyboard!.instantiateViewController(withIdentifier: "TourSlide\(n)")
                 vc.view.tag = n - 1
                 return vc
