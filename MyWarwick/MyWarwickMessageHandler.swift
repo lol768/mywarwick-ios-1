@@ -38,7 +38,6 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
                 if let signInURL = body["signInUrl"] as? String, let signOutURL = body["signOutURL"] as? String {
                     delegate.setWebSignOnURLs(signIn: signInURL, signOut: signOutURL)
                 }
-                break
             case "setUnreadNotificationCount":
                 if let count = body["count"] as? Int {
                     delegate.setUnreadNotificationCount(count)
@@ -46,6 +45,10 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
             case "setAppCached":
                 if let cached = body["cached"] as? Bool {
                     delegate.setAppCached(cached)
+                }
+            case "setBackgroundToDisplay":
+                if let bgId = body["bgId"] as? Int {
+                    delegate.setBackgroundToDisplay(bgId: bgId)
                 }
             case "loadDeviceDetails":
                 delegate.loadDeviceDetails()
