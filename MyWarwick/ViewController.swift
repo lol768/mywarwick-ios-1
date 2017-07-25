@@ -167,8 +167,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func renderBackgroundImage() {
+        var bgId = 1
+        if let prefBgId = preferences.chosenBackgroundId {
+            bgId = prefBgId
+        }
         UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "Background")?.draw(in: self.view.bounds)
+        UIImage(named: "Background"+String(bgId))?.draw(in: self.view.bounds)
         
         if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
             UIGraphicsEndImageContext()
@@ -455,5 +459,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func didDismissWebView(sender: Any) {
         self.loadWebView()
     }
+    
+    func setBackgroundToDisplay(bgId: Int) {
+        preferences.chosenBackgroundId = bgId
+        renderBackgroundImage()
+    }
+
+    
+    
 }
 

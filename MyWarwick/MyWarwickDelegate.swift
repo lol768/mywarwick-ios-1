@@ -16,4 +16,6 @@ protocol MyWarwickDelegate {
     
     func loadDeviceDetails()
 
+    func setBackgroundToDisplay(bgId: Int)
+
 }

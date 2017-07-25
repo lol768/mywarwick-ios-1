@@ -29,5 +29,16 @@ class MyWarwickPreferences {
             userDefaults.synchronize()
         }
     }
+    
+    var chosenBackgroundId: Int? {
+        get {
+            return userDefaults.integer(forKey: "ChosenBackgroundId")
+        }
+        
+        set(bgId) {
+            userDefaults.set(bgId, forKey: "ChosenBackgroundId")
+            userDefaults.synchronize()
+        }
+    }
 
 }
