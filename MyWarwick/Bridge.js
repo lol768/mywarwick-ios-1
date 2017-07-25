@@ -44,6 +44,13 @@
         });
     };
 
+    native.setBackgroundToDisplay = function setBackgroundToDisplay(bgId) {
+        handler.postMessage({
+            kind: 'setBackgroundToDisplay',
+            bgId: bgId
+        })
+    };
+
     native.loadDeviceDetails = function loadDeviceDetails() {
         handler.postMessage({
             kind: 'loadDeviceDetails',
