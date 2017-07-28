@@ -79,6 +79,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     internal func loadDeviceDetails() {
         invoker.loadDeviceDetails(url: webView.url)
     }
+    
+    internal func launchTour() {
+        let viewController = storyboard!.instantiateViewController(withIdentifier: "TourViewController")
+        present(viewController, animated: false, completion: nil)
+    }
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!

@@ -64,4 +64,10 @@
     native.getAppBuild = function getAppBuild() {
         return "{{APP_BUILD}}";
     };
-}(window, webkit.messageHandlers.MyWarwick));
+ 
+    native.launchTour = function launchTour() {
+        handler.postMessage({
+            kind: 'launchTour',
+        });
+    };
+ }(window, webkit.messageHandlers.MyWarwick));

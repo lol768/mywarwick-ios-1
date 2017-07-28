@@ -72,6 +72,8 @@ class TourViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     func finish() {
         if let initialViewController = presentingViewController as? InitialViewController {
             initialViewController.finishTour()
+        } else {
+            dismiss(animated: false, completion: nil)
         }
     }
 
