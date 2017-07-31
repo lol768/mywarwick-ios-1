@@ -52,6 +52,8 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
                 }
             case "loadDeviceDetails":
                 delegate.loadDeviceDetails()
+            case "launchTour":
+                delegate.launchTour()
             default:
                 break
             }
