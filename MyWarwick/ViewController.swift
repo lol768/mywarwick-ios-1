@@ -1,8 +1,9 @@
 import UIKit
 import SafariServices
 import WebKit
+import QuartzCore.CAAnimation
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource, CAAnimationDelegate {
 
     var firstRunAfterTour = false
 
@@ -79,7 +80,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     internal func loadDeviceDetails() {
         invoker.loadDeviceDetails(url: webView.url)
     }
-    
+
     internal func launchTour() {
         let viewController = storyboard!.instantiateViewController(withIdentifier: "TourViewController")
         present(viewController, animated: false, completion: nil)
@@ -170,29 +171,29 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
         renderBackgroundImage()
     }
-    
+
     func renderBackgroundImage() {
         var bgId = 1
         if let prefBgId = preferences.chosenBackgroundId {
             bgId = prefBgId
         }
         UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "Background"+String(bgId))?.draw(in: self.view.bounds)
-        
-        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
+        UIImage(named: "Background" + String(bgId))?.draw(in: self.view.bounds)
+
+        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext() {
             UIGraphicsEndImageContext()
             self.view.backgroundColor = UIColor(patternImage: image)
-        }else{
+        } else {
             UIGraphicsEndImageContext()
             debugPrint("Image not available")
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         behindStatusBarView.backgroundColor = brandColour
         renderBackgroundImage()
-        
+
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
         hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
@@ -205,10 +206,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         view.sendSubview(toBack: webView)
 
         view.addConstraints([
-                NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
         ])
 
         webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
@@ -429,6 +430,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
 
+    var imageView: UIView?
+    var headerView: UIView?
+
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         var path = "/" + item.title!.lowercased()
 
@@ -440,7 +444,52 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             path = "/notifications"
         }
 
+        UIGraphicsBeginImageContext(view.bounds.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let headerView = UIImageView(image: screenshot)
+        view.addSubview(headerView)
+        view.bringSubview(toFront: headerView)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 64)
+        headerView.contentMode = .top
+        headerView.clipsToBounds = true
+
+        let imageView = UIImageView(image: screenshot)
+        view.addSubview(imageView)
+        view.sendSubview(toBack: imageView)
+
+        let outTransition = CATransition()
+        outTransition.type = kCATransitionPush
+        outTransition.startProgress = 1
+        outTransition.endProgress = 0
+        outTransition.subtype = kCATransitionFromLeft
+        outTransition.duration = 0.3
+        outTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+
+        let inTransition = CATransition()
+        inTransition.type = kCATransitionPush
+        inTransition.subtype = kCATransitionFromRight
+        inTransition.duration = 0.3
+        inTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        inTransition.delegate = self
+
+        imageView.layer.add(outTransition, forKey: "animation")
+        webView.layer.add(inTransition, forKey: "animation")
+
+        self.headerView = headerView
+        self.imageView = imageView
+
         navigateWithinApp(path)
+    }
+
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        imageView?.removeFromSuperview()
+        headerView?.removeFromSuperview()
+
+        imageView = nil
+        headerView = nil
     }
 
     func navigateWithinApp(_ path: String) {
@@ -464,13 +513,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func didDismissWebView(sender: Any) {
         self.loadWebView()
     }
-    
+
     func setBackgroundToDisplay(bgId: Int) {
         preferences.chosenBackgroundId = bgId
         renderBackgroundImage()
     }
 
-    
-    
+
 }
 
