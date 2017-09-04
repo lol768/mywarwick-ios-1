@@ -102,7 +102,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     let processPool = WKProcessPool()
 
-    let brandColour = UIColor(hue: 285.0 / 360.0, saturation: 27.0 / 100.0, brightness: 59.0 / 100.0, alpha: 1)
+    let brandColour1 = UIColor(hue: 285.0 / 360.0, saturation: 27.0 / 100.0, brightness: 59.0 / 100.0, alpha: 1)
+    let brandColour2 = UIColor(hue: 4.0 / 360.0, saturation: 55.0 / 100.0, brightness: 67.0 / 100.0, alpha: 1)
+    let brandColour3 = UIColor(hue: 180.0 / 360.0, saturation: 63.0 / 100.0, brightness: 53.0 / 100.0, alpha: 1)
+    let brandColour4 = UIColor(hue: 200.0 / 360.0, saturation: 65.0 / 100.0, brightness: 53.0 / 100.0, alpha: 1)
+    let brandColour5 = UIColor(hue: 14.0 / 360.0, saturation: 66.0 / 100.0, brightness: 64.0 / 100.0, alpha: 1)
 
     var imageView: UIView?
     var headerView: UIView?
@@ -194,9 +198,30 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
 
+    func updateStatusBarViewBackgroundColour() {
+        var bgId = 1
+        if let prefBgId = preferences.chosenBackgroundId {
+            bgId = prefBgId
+        }
+        switch bgId {
+        case 1:
+            behindStatusBarView.backgroundColor = brandColour1
+        case 2:
+            behindStatusBarView.backgroundColor = brandColour2
+        case 3:
+            behindStatusBarView.backgroundColor = brandColour3
+        case 4:
+            behindStatusBarView.backgroundColor = brandColour4
+        case 5:
+            behindStatusBarView.backgroundColor = brandColour5
+        default:
+            behindStatusBarView.backgroundColor = brandColour1
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        behindStatusBarView.backgroundColor = brandColour
+        behindStatusBarView.backgroundColor = brandColour1
         renderBackgroundImage()
 
         // Layout constraint used to collapse the status bar background view
@@ -525,6 +550,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func setBackgroundToDisplay(bgId: Int) {
         preferences.chosenBackgroundId = bgId
         renderBackgroundImage()
+        updateStatusBarViewBackgroundColour()
     }
 
 
