@@ -108,7 +108,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     let brandColour4 = UIColor(hue: 200.0 / 360.0, saturation: 65.0 / 100.0, brightness: 53.0 / 100.0, alpha: 1)
     let brandColour5 = UIColor(hue: 14.0 / 360.0, saturation: 66.0 / 100.0, brightness: 64.0 / 100.0, alpha: 1)
 
-    var imageView: UIView?
     var headerView: UIView?
 
     var currentTabIndex = 0
@@ -472,9 +471,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 path = "/notifications"
             }
 
+            navigateWithinApp(path)
+
             if (selectedTabIndex != currentTabIndex) {
-                UIGraphicsBeginImageContext(view.bounds.size)
-                view.layer.render(in: UIGraphicsGetCurrentContext()!)
+                self.headerView?.removeFromSuperview()
+
+                let headerSize = CGSize(width: view.bounds.width, height: 64)
+                UIGraphicsBeginImageContextWithOptions(headerSize, true, 0)
+                view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
                 let screenshot = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
 
@@ -482,20 +486,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 view.addSubview(headerView)
                 view.bringSubview(toFront: headerView)
                 headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 64)
+                headerView.frame = CGRect(origin: CGPoint.zero, size: headerSize)
                 headerView.contentMode = .top
                 headerView.clipsToBounds = true
-
-                let imageView = UIImageView(image: screenshot)
-                view.addSubview(imageView)
-                view.sendSubview(toBack: imageView)
-
-                let outTransition = CATransition()
-                outTransition.type = kCATransitionPush
-                outTransition.startProgress = 1
-                outTransition.endProgress = 0
-                outTransition.subtype = selectedTabIndex > currentTabIndex ? kCATransitionFromLeft : kCATransitionFromRight
-                outTransition.duration = 0.3
-                outTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 
                 let inTransition = CATransition()
                 inTransition.type = kCATransitionPush
@@ -504,24 +497,20 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 inTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 inTransition.delegate = self
 
-                imageView.layer.add(outTransition, forKey: "animation")
+                self.headerView = headerView
+
                 webView.layer.add(inTransition, forKey: "animation")
 
                 self.headerView = headerView
-                self.imageView = imageView
 
                 currentTabIndex = selectedTabIndex
             }
-
-            navigateWithinApp(path)
         }
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        imageView?.removeFromSuperview()
         headerView?.removeFromSuperview()
 
-        imageView = nil
         headerView = nil
     }
 
