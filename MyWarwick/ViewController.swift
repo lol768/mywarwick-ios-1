@@ -109,6 +109,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     let brandColour5 = UIColor(hue: 14.0 / 360.0, saturation: 66.0 / 100.0, brightness: 64.0 / 100.0, alpha: 1)
 
     var headerView: UIView?
+    var transitionView: UIView?
+    var contentImageView: UIView?
 
     var currentTabIndex = 0
 
@@ -479,16 +481,26 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 let headerSize = CGSize(width: view.bounds.width, height: 64)
                 UIGraphicsBeginImageContextWithOptions(headerSize, true, 0)
                 view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-                let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+                let headerScreenshot = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
 
-                let headerView = UIImageView(image: screenshot)
+                UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+                view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+                let everythingElseScreenshot = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+
+                let headerView = UIImageView(image: headerScreenshot)
                 view.addSubview(headerView)
-                view.bringSubview(toFront: headerView)
-                headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 64)
                 headerView.frame = CGRect(origin: CGPoint.zero, size: headerSize)
                 headerView.contentMode = .top
                 headerView.clipsToBounds = true
+
+                let everythingElseSize = view.bounds.size
+                let contentImageView = UIImageView(image: everythingElseScreenshot)
+                contentImageView.frame = CGRect(origin: CGPoint.zero, size: everythingElseSize)
+                contentImageView.contentMode = .top
+                contentImageView.clipsToBounds = true
+
 
                 let inTransition = CATransition()
                 inTransition.type = kCATransitionPush
@@ -497,11 +509,43 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 inTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 inTransition.delegate = self
 
+                let outTransition = CATransition()
+                outTransition.type = kCATransitionPush
+                outTransition.subtype = selectedTabIndex <= currentTabIndex ? kCATransitionFromRight : kCATransitionFromLeft
+                outTransition.startProgress = 1
+                outTransition.endProgress = 0
+                outTransition.duration = 0.3
+                outTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                outTransition.delegate = self
+
+                let transitionView = UIView()
+                transitionView.frame = CGRect(origin: CGPoint.zero, size: everythingElseSize)
+                view.addSubview(contentImageView)
+                view.sendSubview(toBack: contentImageView)
+                transitionView.backgroundColor = UIColor(white: 249 / 255, alpha: 1)
+
+                if (selectedTabIndex == 0) {
+                    transitionView.backgroundColor = UIColor.clear
+                }
+
+                view.addSubview(transitionView)
+                view.sendSubview(toBack: transitionView)
+
+                view.bringSubview(toFront: headerView)
                 self.headerView = headerView
 
-                webView.layer.add(inTransition, forKey: "animation")
+                outTransition.fillMode = kCAFillModeForwards
+                outTransition.isRemovedOnCompletion = false
+                inTransition.fillMode = kCAFillModeForwards
+                inTransition.isRemovedOnCompletion = false
+
+                contentImageView.layer.add(outTransition, forKey: nil)
+                transitionView.layer.add(inTransition, forKey: nil)
+                webView.layer.opacity = 0
 
                 self.headerView = headerView
+                self.transitionView = transitionView
+                self.contentImageView = contentImageView
 
                 currentTabIndex = selectedTabIndex
             }
@@ -509,9 +553,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        webView.layer.opacity = 1
+
         headerView?.removeFromSuperview()
+        transitionView?.removeFromSuperview()
+        contentImageView?.removeFromSuperview()
 
         headerView = nil
+        transitionView = nil
+        contentImageView = nil
     }
 
     func navigateWithinApp(_ path: String) {
