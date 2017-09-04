@@ -104,6 +104,11 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     let brandColour = UIColor(hue: 285.0 / 360.0, saturation: 27.0 / 100.0, brightness: 59.0 / 100.0, alpha: 1)
 
+    var imageView: UIView?
+    var headerView: UIView?
+
+    var currentTabIndex = 0
+
     func createWebView() {
         let userContentController = WKUserContentController()
         userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
@@ -430,58 +435,61 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
 
-    var imageView: UIView?
-    var headerView: UIView?
-
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        var path = "/" + item.title!.lowercased()
+        if let selectedTabIndex = tabBar.items?.index(of: item) {
+            var path = "/" + item.title!.lowercased()
 
-        if (path == "/me") {
-            path = "/"
+            if (path == "/me") {
+                path = "/"
+            }
+
+            if (path == "/alerts") {
+                path = "/notifications"
+            }
+
+            if (selectedTabIndex != currentTabIndex) {
+                UIGraphicsBeginImageContext(view.bounds.size)
+                view.layer.render(in: UIGraphicsGetCurrentContext()!)
+                let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+
+                let headerView = UIImageView(image: screenshot)
+                view.addSubview(headerView)
+                view.bringSubview(toFront: headerView)
+                headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 64)
+                headerView.contentMode = .top
+                headerView.clipsToBounds = true
+
+                let imageView = UIImageView(image: screenshot)
+                view.addSubview(imageView)
+                view.sendSubview(toBack: imageView)
+
+                let outTransition = CATransition()
+                outTransition.type = kCATransitionPush
+                outTransition.startProgress = 1
+                outTransition.endProgress = 0
+                outTransition.subtype = selectedTabIndex > currentTabIndex ? kCATransitionFromLeft : kCATransitionFromRight
+                outTransition.duration = 0.3
+                outTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+
+                let inTransition = CATransition()
+                inTransition.type = kCATransitionPush
+                inTransition.subtype = selectedTabIndex > currentTabIndex ? kCATransitionFromRight : kCATransitionFromLeft
+                inTransition.duration = 0.3
+                inTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                inTransition.delegate = self
+
+                imageView.layer.add(outTransition, forKey: "animation")
+                webView.layer.add(inTransition, forKey: "animation")
+
+                self.headerView = headerView
+                self.imageView = imageView
+
+                currentTabIndex = selectedTabIndex
+            }
+
+            navigateWithinApp(path)
         }
-
-        if (path == "/alerts") {
-            path = "/notifications"
-        }
-
-        UIGraphicsBeginImageContext(view.bounds.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        let headerView = UIImageView(image: screenshot)
-        view.addSubview(headerView)
-        view.bringSubview(toFront: headerView)
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 64)
-        headerView.contentMode = .top
-        headerView.clipsToBounds = true
-
-        let imageView = UIImageView(image: screenshot)
-        view.addSubview(imageView)
-        view.sendSubview(toBack: imageView)
-
-        let outTransition = CATransition()
-        outTransition.type = kCATransitionPush
-        outTransition.startProgress = 1
-        outTransition.endProgress = 0
-        outTransition.subtype = kCATransitionFromLeft
-        outTransition.duration = 0.3
-        outTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-
-        let inTransition = CATransition()
-        inTransition.type = kCATransitionPush
-        inTransition.subtype = kCATransitionFromRight
-        inTransition.duration = 0.3
-        inTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        inTransition.delegate = self
-
-        imageView.layer.add(outTransition, forKey: "animation")
-        webView.layer.add(inTransition, forKey: "animation")
-
-        self.headerView = headerView
-        self.imageView = imageView
-
-        navigateWithinApp(path)
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
