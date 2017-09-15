@@ -70,4 +70,12 @@
             kind: 'launchTour',
         });
     };
+ 
+    native.openMailApp = function openMailApp(externalApp) {
+        if (externalApp === "mail") {
+            global.location = "message://"
+        } else if (externalApp === "outlook") {
+            global.location = "ms-outlook://"
+        }
+    }
  }(window, webkit.messageHandlers.MyWarwick));

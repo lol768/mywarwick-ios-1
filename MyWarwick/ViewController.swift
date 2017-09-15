@@ -354,7 +354,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 }
 
                 // allow photos.warwick.ac.uk
-                if Helper.regexMatch(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
+                if url.host != nil && Helper.regexMatch(for: "photos(-.+)?.warwick.ac.uk", in: url.host!) {
                     createWebViewController(url: url, navItemTitle: "Photos", navItemDismissTitle: "Back", storyboardIdentifier: "photosVC")
                     decisionHandler(.cancel)
                     return
@@ -373,8 +373,28 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 return
             }
 
-            // open all other external links in Safari Web View
-            presentSafariWebView(url)
+            if url.host != nil {
+                // open all other external links in Safari Web View
+                presentSafariWebView(url)
+            } else {
+                // handle custom URL schemes
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.openURL(url)
+                } else {
+                    let message: String
+                    if url.scheme == "message" {
+                        message = "Could not find Mail app on this device"
+                    } else if url.scheme == "ms-outlook" {
+                        message = "Could not find Outlook app on this device"
+                    } else {
+                        message = ""
+                    }
+                    let alert = UIAlertController(title: "App not installed", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                decisionHandler(.cancel)
+            }
         }
 
         decisionHandler(.cancel)
