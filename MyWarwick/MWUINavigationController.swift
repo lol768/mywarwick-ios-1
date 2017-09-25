@@ -11,9 +11,9 @@ import WebKit
 
 class MWUINavigationController: UINavigationController {
     
-    // apparently there is a bug in iOS 11 where UINavigationController dismisses itself when it should not
+    // apparently there is a bug in iOS 10 where UINavigationController dismisses itself when it should not
     // this bug is fixed in iOS 11.
-    // this override func guards against this issue buy checking if itself is preseneted, if true it should be dismissed
+    // this override func guards against this issue by checking if itself is presented, so that only when ((!presented && flag == true ) == true) it should not be dismissed.
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         if (self.presentedViewController != nil) {
             super.dismiss(animated: flag, completion: completion)
