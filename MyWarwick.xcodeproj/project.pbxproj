@@ -31,6 +31,7 @@
 		B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */; };
 		B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */; };
 		B51A9C7A1E686EC30006C2F9 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C791E686EC30006C2F9 /* Helper.swift */; };
+		B536884E1F793EB800F808BE /* MWUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536884D1F793EB800F808BE /* MWUINavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		B51A9C791E686EC30006C2F9 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		B536884D1F793EB800F808BE /* MWUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWUINavigationController.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				700271D51EEEA32D004705DB /* InitialViewController.swift */,
 				700271D11EEE97BB004705DB /* TourViewController.swift */,
 				700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */,
+				B536884D1F793EB800F808BE /* MWUINavigationController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			files = (
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
+				B536884E1F793EB800F808BE /* MWUINavigationController.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
 				700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */,
 				B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */,
