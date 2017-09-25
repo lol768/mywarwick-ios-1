@@ -312,7 +312,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: navItemDismissTitle, style: .plain, target: viewController, action: #selector(viewController.dismissNotifyingDelegate))
         viewController.load(url: url)
 
-        let wrappingNavController = UINavigationController(rootViewController: viewController)
+        let wrappingNavController = MWUINavigationController(rootViewController: viewController)
         wrappingNavController.navigationBar.isTranslucent = false
         present(wrappingNavController, animated: true)
     }
