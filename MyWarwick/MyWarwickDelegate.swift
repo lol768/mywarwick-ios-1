@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 protocol MyWarwickDelegate {
 
@@ -19,5 +20,9 @@ protocol MyWarwickDelegate {
     func setBackgroundToDisplay(bgId: Int)
     
     func launchTour()
+
+    func locationDidUpdate(location: CLLocation)
+
+    func locationDidFail(error: Error)
 
 }

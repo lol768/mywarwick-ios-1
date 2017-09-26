@@ -1,6 +1,7 @@
 import UIKit
 import SafariServices
 import WebKit
+import CoreLocation
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
 
@@ -83,6 +84,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     internal func launchTour() {
         let viewController = storyboard!.instantiateViewController(withIdentifier: "TourViewController")
         present(viewController, animated: false, completion: nil)
+    }
+
+    func locationDidUpdate(location: CLLocation) {
+        invoker.invokeNative("didUpdateLocation({coords:{latitude:\(location.coordinate.latitude),longitude:\(location.coordinate.longitude),accuracy:\(location.horizontalAccuracy)}})")
+    }
+
+    func locationDidFail(error: Error) {
+        invoker.invokeNative("locationDidFail()")
     }
 
     @IBOutlet weak var tabBar: UITabBar!
@@ -516,7 +525,5 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         updateStatusBarViewBackgroundColour()
     }
 
-    
-    
 }
 

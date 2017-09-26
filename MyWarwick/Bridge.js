@@ -77,5 +77,32 @@
         } else if (externalApp === "outlook") {
             global.location = "ms-outlook://"
         }
-    }
+    };
+
+    var locationListeners = [];
+    var locationErrorListeners = [];
+
+    navigator.geolocation.getCurrentPosition = function getCurrentPosition(success, error, options) {
+        locationListeners.push(success);
+        locationErrorListeners.push(error);
+
+        handler.postMessage({
+            kind: 'geolocationGetCurrentPosition',
+            options: options
+        });
+    };
+
+    native.didUpdateLocation = function didUpdateLocation(position) {
+        locationListeners.forEach(function (listener) {
+            listener(position);
+        });
+        locationListeners = [];
+    };
+
+    native.locationDidFail = function locationDidFail(error) {
+        locationErrorListeners.forEach(function (listener) {
+            listener(error);
+        });
+        locationErrorListeners = [];
+    };
  }(window, webkit.messageHandlers.MyWarwick));

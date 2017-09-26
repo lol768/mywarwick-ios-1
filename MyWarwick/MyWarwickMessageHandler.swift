@@ -1,12 +1,17 @@
 import Foundation
 import WebKit
+import CoreLocation
 
-class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
+class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManagerDelegate {
 
     var delegate: MyWarwickDelegate
 
+    let locationManager = CLLocationManager()
+
     init(delegate: MyWarwickDelegate) {
         self.delegate = delegate
+        super.init()
+        locationManager.delegate = self
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -54,9 +59,37 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler {
                 delegate.loadDeviceDetails()
             case "launchTour":
                 delegate.launchTour()
+            case "geolocationGetCurrentPosition":
+                if !CLLocationManager.locationServicesEnabled() {
+                    break
+                }
+
+                let status = CLLocationManager.authorizationStatus()
+
+                if status == .notDetermined {
+                    locationManager.requestWhenInUseAuthorization()
+                } else if status == .authorizedAlways || status == .authorizedWhenInUse {
+                    locationManager.requestLocation()
+                }
             default:
                 break
             }
         }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            manager.requestLocation()
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            delegate.locationDidUpdate(location: location)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        delegate.locationDidFail(error: error)
     }
 }
