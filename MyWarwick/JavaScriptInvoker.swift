@@ -8,6 +8,14 @@ class JavaScriptInvoker {
     var queue: Array<String> = []
 
     func invoke(_ js: String) {
+        invokeWhenReady("MyWarwick.\(js)")
+    }
+
+    func invokeNative(_ js: String) {
+        invokeWhenReady("MyWarwickNative.\(js)")
+    }
+
+    private func invokeWhenReady(_ js: String) {
         if pageReady && webView != nil {
             invokeNow(js)
         } else {
@@ -17,8 +25,8 @@ class JavaScriptInvoker {
 
     private func invokeNow(_ js: String) {
         if let wv = webView {
-            print("Invoking MyWarwick.\(js)")
-            wv.evaluateJavaScript("MyWarwick.\(js)")
+            print("Invoking \(js)")
+            wv.evaluateJavaScript("\(js)")
         }
     }
 
