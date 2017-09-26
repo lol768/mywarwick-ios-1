@@ -158,8 +158,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 self.invoker.invoke("registerForAPNs('\(deviceToken)')")
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.accessibilitySettingChanges), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
     }
 
+    func accessibilitySettingChanges() {
+        self.loadWebView()
+    }
+    
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
             // Status bar is hidden on iPhone when in landscape
