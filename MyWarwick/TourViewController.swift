@@ -12,9 +12,7 @@ class TourViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     override func viewDidLoad() {
         if storyboard != nil {
             tourPages = [1, 2, 3, 4, 6, 7, 8].map { (n: Int) -> UIViewController in
-                let vc = storyboard!.instantiateViewController(withIdentifier: "TourSlide\(n)")
-                vc.view.tag = n - 1
-                return vc
+                return storyboard!.instantiateViewController(withIdentifier: "TourSlide\(n)")
             }
         }
 
@@ -98,8 +96,8 @@ class TourViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed, let vc = pageViewController.viewControllers?.first {
-            pageControl.currentPage = vc.view.tag
+        if completed, let vc = pageViewController.viewControllers?.first, let index = tourPages.index(of: vc) {
+            pageControl.currentPage = index
         }
     }
 
