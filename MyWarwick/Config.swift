@@ -6,7 +6,12 @@ class Config {
 
     static let webSignOnURL = URL(string: "https://websignon.warwick.ac.uk")!
 
-    static let applicationNameForUserAgent = "MyWarwick/1.0"
+    static var shortVersionString: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+    static var bundleVersion: String = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+
+    static var applicationNameForUserAgent: String {
+        return "MyWarwick/\(shortVersionString)"
+    }
 
     static var appURL: URL {
         let defaults = UserDefaults.standard
