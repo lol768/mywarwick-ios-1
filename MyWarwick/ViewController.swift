@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             let output = bridgeJS.replacingOccurrences(of: "{{APP_VERSION}}", with: Config.shortVersionString)
                     .replacingOccurrences(of: "{{APP_BUILD}}", with: Config.bundleVersion)
 
-            userContentController.addUserScript(WKUserScript(source: output, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+            userContentController.addUserScript(WKUserScript(source: output, injectionTime: .atDocumentStart, forMainFrameOnly: false))
         }
 
 
