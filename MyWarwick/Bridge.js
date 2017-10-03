@@ -64,13 +64,13 @@
     native.getAppBuild = function getAppBuild() {
         return "{{APP_BUILD}}";
     };
- 
+
     native.launchTour = function launchTour() {
         handler.postMessage({
             kind: 'launchTour',
         });
     };
- 
+
     native.openMailApp = function openMailApp(externalApp) {
         if (externalApp === "mail") {
             global.location = "message://"
@@ -82,14 +82,49 @@
     var locationListeners = [];
     var locationErrorListeners = [];
 
+    var watchLocationListeners = {};
+    var nextWatchId = 1;
+    var watchCount = 0;
+
     navigator.geolocation.getCurrentPosition = function getCurrentPosition(success, error, options) {
         locationListeners.push(success);
         locationErrorListeners.push(error);
 
         handler.postMessage({
             kind: 'geolocationGetCurrentPosition',
-            options: options
+            options: options,
         });
+    };
+
+    navigator.geolocation.watchPosition = function watchPosition(success, error, options) {
+        watchCount++;
+        var watchId = nextWatchId++;
+
+        watchLocationListeners[watchId] = {
+            success: success,
+            error: error,
+        };
+
+        if (watchCount === 1) {
+            handler.postMessage({
+                kind: 'geolocationWatchPosition',
+                options: options,
+            });
+        }
+
+        return watchId;
+    };
+
+    navigator.geolocation.clearWatch = function clearWatch(watchId) {
+        delete watchLocationListeners[watchId];
+
+        watchCount--;
+
+        if (watchCount === 0) {
+            handler.postMessage({
+                kind: 'geolocationClearWatch',
+            });
+        }
     };
 
     native.didUpdateLocation = function didUpdateLocation(position) {
@@ -97,6 +132,18 @@
             listener(position);
         });
         locationListeners = [];
+
+        for (var watchId in watchLocationListeners) {
+            watchLocationListeners[watchId].success(position);
+        }
+
+        var frames = document.getElementsByTagName('iframe');
+        for (var i = 0; i < frames.length; i++) {
+            frames[i].contentWindow.postMessage({
+                type: 'location',
+                position: position,
+            }, '*');
+        }
     };
 
     native.locationDidFail = function locationDidFail(error) {
@@ -105,4 +152,10 @@
         });
         locationErrorListeners = [];
     };
- }(window, webkit.messageHandlers.MyWarwick));
+
+    global.addEventListener('message', function receiveMessage(event) {
+        if (event.data.type === 'location') {
+            native.didUpdateLocation(event.data.position);
+        }
+    });
+}(window, webkit.messageHandlers.MyWarwick));

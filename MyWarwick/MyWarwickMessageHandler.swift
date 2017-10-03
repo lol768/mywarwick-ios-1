@@ -3,7 +3,6 @@ import WebKit
 import CoreLocation
 
 class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManagerDelegate {
-
     var delegate: MyWarwickDelegate
 
     let locationManager = CLLocationManager()
@@ -60,21 +59,48 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManag
             case "launchTour":
                 delegate.launchTour()
             case "geolocationGetCurrentPosition":
-                if !CLLocationManager.locationServicesEnabled() {
-                    break
-                }
-
-                let status = CLLocationManager.authorizationStatus()
-
-                if status == .notDetermined {
-                    locationManager.requestWhenInUseAuthorization()
-                } else if status == .authorizedAlways || status == .authorizedWhenInUse {
-                    locationManager.requestLocation()
-                }
+                requestLocation(updates: false)
+            case "geolocationWatchPosition":
+                requestLocation(updates: true)
+            case "geolocationClearWatch":
+                stopLocationUpdates()
             default:
                 break
             }
         }
+    }
+
+    func requestLocation(updates: Bool) {
+        if shouldRequestLocationPermission() {
+            locationManager.requestWhenInUseAuthorization()
+        } else if hasLocationPermission() {
+            if (updates) {
+                locationManager.stopUpdatingLocation()
+                locationManager.startUpdatingLocation()
+            } else {
+                locationManager.requestLocation()
+            }
+        }
+    }
+
+    func stopLocationUpdates() {
+        if hasLocationPermission() {
+            locationManager.stopUpdatingLocation()
+        }
+    }
+
+    func shouldRequestLocationPermission() -> Bool {
+        return CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .notDetermined
+    }
+
+    func hasLocationPermission() -> Bool {
+        if !CLLocationManager.locationServicesEnabled() {
+            return false
+        }
+
+        let status = CLLocationManager.authorizationStatus()
+
+        return status == .authorizedWhenInUse || status == .authorizedAlways
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
