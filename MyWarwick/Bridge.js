@@ -44,7 +44,11 @@
         });
     };
 
-    native.setBackgroundToDisplay = function setBackgroundToDisplay(bgId, isHighContrast = false) {
+    native.setBackgroundToDisplay = function setBackgroundToDisplay(bgId, isHighContrast) {
+        if (isHighContrast === undefined) {
+            isHighContrast = false
+        }
+ 
         handler.postMessage({
             kind: 'setBackgroundToDisplay',
             bgId: bgId,

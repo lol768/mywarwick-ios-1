@@ -195,10 +195,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func renderBackgroundImage() {
-        var bgId = 1
-        if let prefBgId = preferences.chosenBackgroundId {
-            bgId = prefBgId
-        }
+        let bgId = preferences.chosenBackgroundId ?? 1
+        
         UIGraphicsBeginImageContext(self.view.frame.size)
         UIImage(named: "Background"+String(bgId))?.draw(in: self.view.bounds)
         
@@ -212,19 +210,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func renderBackgroundColour() {
-        var bgId = 1
-        if let prefBgId = preferences.chosenBackgroundId {
-            bgId = prefBgId
-        }
-        UIGraphicsEndImageContext()
+        let bgId = preferences.chosenBackgroundId ?? 1
         self.view.backgroundColor = getColourForBackground(bgId: bgId)
     }
     
     func updateStatusBarViewBackgroundColour() {
-        var bgId = 1
-        if let prefBgId = preferences.chosenBackgroundId {
-            bgId = prefBgId
-        }
+        let bgId = preferences.chosenBackgroundId ?? 1
         behindStatusBarView.backgroundColor = getColourForBackground(bgId: bgId)
     }
     
