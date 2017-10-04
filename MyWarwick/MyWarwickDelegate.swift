@@ -17,7 +17,7 @@ protocol MyWarwickDelegate {
     
     func loadDeviceDetails()
 
-    func setBackgroundToDisplay(bgId: Int)
+    func setBackgroundToDisplay(bgId: Int, isHighContrast: Bool)
     
     func launchTour()
 

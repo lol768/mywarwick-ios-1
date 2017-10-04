@@ -183,7 +183,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     var hideStatusBarBackground: NSLayoutConstraint? = nil
 
     override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        renderBackgroundImage()
+        renderBackground()
+    }
+    
+    func renderBackground() {
+        if preferences.chosenHighContrast ?? false {
+            renderBackgroundColour()
+        } else {
+            renderBackgroundImage()
+        }
     }
     
     func renderBackgroundImage() {
@@ -194,13 +202,22 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         UIGraphicsBeginImageContext(self.view.frame.size)
         UIImage(named: "Background"+String(bgId))?.draw(in: self.view.bounds)
         
-        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
+        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext() {
             UIGraphicsEndImageContext()
             self.view.backgroundColor = UIColor(patternImage: image)
-        }else{
+        } else {
             UIGraphicsEndImageContext()
             debugPrint("Image not available")
         }
+    }
+    
+    func renderBackgroundColour() {
+        var bgId = 1
+        if let prefBgId = preferences.chosenBackgroundId {
+            bgId = prefBgId
+        }
+        UIGraphicsEndImageContext()
+        self.view.backgroundColor = getColourForBackground(bgId: bgId)
     }
     
     func updateStatusBarViewBackgroundColour() {
@@ -208,26 +225,28 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         if let prefBgId = preferences.chosenBackgroundId {
             bgId = prefBgId
         }
+        behindStatusBarView.backgroundColor = getColourForBackground(bgId: bgId)
+    }
+    
+    private func getColourForBackground(bgId: Int) -> UIColor {
         switch bgId {
-        case 1:
-            behindStatusBarView.backgroundColor = brandColour1
         case 2:
-            behindStatusBarView.backgroundColor = brandColour2
+            return brandColour2
         case 3:
-            behindStatusBarView.backgroundColor = brandColour3
+            return brandColour3
         case 4:
-            behindStatusBarView.backgroundColor = brandColour4
+            return brandColour4
         case 5:
-            behindStatusBarView.backgroundColor = brandColour5
+            return brandColour5
         default:
-            behindStatusBarView.backgroundColor = brandColour1
+            return brandColour1
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         behindStatusBarView.backgroundColor = brandColour1
-        renderBackgroundImage()
+        renderBackground()
         
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
@@ -520,9 +539,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         self.loadWebView()
     }
     
-    func setBackgroundToDisplay(bgId: Int) {
+    func setBackgroundToDisplay(bgId: Int, isHighContrast: Bool) {
         preferences.chosenBackgroundId = bgId
-        renderBackgroundImage()
+        preferences.chosenHighContrast = isHighContrast
+        renderBackground()
         updateStatusBarViewBackgroundColour()
     }
 

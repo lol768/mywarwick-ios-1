@@ -52,8 +52,8 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManag
                     delegate.setAppCached(cached)
                 }
             case "setBackgroundToDisplay":
-                if let bgId = body["bgId"] as? Int {
-                    delegate.setBackgroundToDisplay(bgId: bgId)
+                if let bgId = body["bgId"] as? Int, let isHighContrast = body["isHighContrast"] as? Bool {
+                    delegate.setBackgroundToDisplay(bgId: bgId, isHighContrast: isHighContrast)
                 }
             case "loadDeviceDetails":
                 delegate.loadDeviceDetails()
