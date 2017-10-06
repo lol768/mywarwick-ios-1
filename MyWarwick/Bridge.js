@@ -44,10 +44,15 @@
         });
     };
 
-    native.setBackgroundToDisplay = function setBackgroundToDisplay(bgId) {
+    native.setBackgroundToDisplay = function setBackgroundToDisplay(bgId, isHighContrast) {
+        if (isHighContrast === undefined) {
+            isHighContrast = false
+        }
+ 
         handler.postMessage({
             kind: 'setBackgroundToDisplay',
-            bgId: bgId
+            bgId: bgId,
+            isHighContrast: isHighContrast
         })
     };
 

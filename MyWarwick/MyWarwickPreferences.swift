@@ -40,5 +40,16 @@ class MyWarwickPreferences {
             userDefaults.synchronize()
         }
     }
+    
+    var chosenHighContrast: Bool? {
+        get {
+            return userDefaults.bool(forKey: "ChosenHighContrast")
+        }
+        
+        set(isHighContrast) {
+            userDefaults.set(isHighContrast, forKey: "ChosenHighContrast")
+            userDefaults.synchronize()
+        }
+    }
 
 }
