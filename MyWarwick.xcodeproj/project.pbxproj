@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2DBA005D854FFC861FFEB13C /* MyWarwickPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */; };
+		2DBA04C31F345A2473F1FC96 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA0A3E9CE65F4E2871323A /* DataController.swift */; };
 		2DBA0EB40BA2DD24676E262B /* JavaScriptInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */; };
 		700271D21EEE97BB004705DB /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D11EEE97BB004705DB /* TourViewController.swift */; };
 		700271D41EEEA14D004705DB /* FinalTourSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */; };
 		700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D51EEEA32D004705DB /* InitialViewController.swift */; };
+		700D4B291F978B8900C4412E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 700D4B271F978B8900C4412E /* Model.xcdatamodeld */; };
+		700D4B2B1F978C8300C4412E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 700D4B2A1F978C8300C4412E /* CoreData.framework */; };
 		7013B7781DABB6390079DCF1 /* Bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 7013B7771DABB6390079DCF1 /* Bridge.js */; };
 		702047061C3ED6B9004487FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702047051C3ED6B9004487FE /* Config.swift */; };
 		702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */; };
@@ -22,6 +25,8 @@
 		7042C3901C43B0BD0060C76A /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
 		7085050C1D8800DA008C990E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085050B1D8800DA008C990E /* Reachability.swift */; };
 		709BD1551CBE7F49004E282E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 709BD1541CBE7F49004E282E /* Settings.bundle */; };
+		70B75C3F1F9FA09700CDBDA6 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */; };
+		70B75C411F9FA0AD00CDBDA6 /* EventFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */; };
 		70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70C82DD81C9AF34E00398F94 /* Alert.wav */; };
 		70CC93B91DABE74E005B6E14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93B81DABE74E005B6E14 /* User.swift */; };
 		70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */; };
@@ -36,10 +41,13 @@
 
 /* Begin PBXFileReference section */
 		2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickPreferences.swift; sourceTree = "<group>"; };
+		2DBA0A3E9CE65F4E2871323A /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptInvoker.swift; sourceTree = "<group>"; };
 		700271D11EEE97BB004705DB /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
 		700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalTourSlideViewController.swift; sourceTree = "<group>"; };
 		700271D51EEEA32D004705DB /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		700D4B281F978B8900C4412E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		700D4B2A1F978C8300C4412E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7013B7771DABB6390079DCF1 /* Bridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Bridge.js; sourceTree = "<group>"; };
 		702047051C3ED6B9004487FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		702CC1C81C3D61CA0088BF34 /* MyWarwick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWarwick.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +60,8 @@
 		7042C38F1C43B0BD0060C76A /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		7085050B1D8800DA008C990E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		709BD1541CBE7F49004E282E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFetcher.swift; sourceTree = "<group>"; };
 		70C82DD81C9AF34E00398F94 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 		70CC93B81DABE74E005B6E14 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickMessageHandler.swift; sourceTree = "<group>"; };
@@ -70,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				700D4B2B1F978C8300C4412E /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +134,10 @@
 				700271D11EEE97BB004705DB /* TourViewController.swift */,
 				700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */,
 				B536884D1F793EB800F808BE /* MWUINavigationController.swift */,
+				700D4B271F978B8900C4412E /* Model.xcdatamodeld */,
+				2DBA0A3E9CE65F4E2871323A /* DataController.swift */,
+				70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */,
+				70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -130,6 +145,7 @@
 		B5DB7AE41DA525E100403815 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				700D4B2A1F978C8300C4412E /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,7 +178,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "University of Warwick";
 				TargetAttributes = {
 					702CC1C71C3D61CA0088BF34 = {
@@ -171,6 +187,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.GameCenter = {
 								enabled = 0;
 							};
@@ -238,14 +257,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
+				70B75C411F9FA0AD00CDBDA6 /* EventFetcher.swift in Sources */,
 				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
 				B536884E1F793EB800F808BE /* MWUINavigationController.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,
 				700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */,
 				B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */,
 				70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */,
+				700D4B291F978B8900C4412E /* Model.xcdatamodeld in Sources */,
 				B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */,
 				70CC93B91DABE74E005B6E14 /* User.swift in Sources */,
+				70B75C3F1F9FA09700CDBDA6 /* NotificationScheduler.swift in Sources */,
 				700271D41EEEA14D004705DB /* FinalTourSlideViewController.swift in Sources */,
 				702CC1CC1C3D61CA0088BF34 /* AppDelegate.swift in Sources */,
 				B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */,
@@ -256,6 +278,7 @@
 				B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */,
 				2DBA005D854FFC861FFEB13C /* MyWarwickPreferences.swift in Sources */,
 				2DBA0EB40BA2DD24676E262B /* JavaScriptInvoker.swift in Sources */,
+				2DBA04C31F345A2473F1FC96 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,14 +312,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -319,7 +348,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -336,14 +365,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -360,7 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -425,6 +460,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		700D4B271F978B8900C4412E /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				700D4B281F978B8900C4412E /* Model.xcdatamodel */,
+			);
+			currentVersion = 700D4B281F978B8900C4412E /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 702CC1C01C3D61CA0088BF34 /* Project object */;
 }

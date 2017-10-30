@@ -52,4 +52,23 @@ class MyWarwickPreferences {
         }
     }
 
+    var timetableToken: String? {
+        get {
+            return userDefaults.string(forKey: "TimetableToken")
+        }
+
+        set(token) {
+            userDefaults.set(token, forKey: "TimetableToken")
+            userDefaults.synchronize()
+
+            if token != nil {
+                let dataController = DataController()
+                dataController.load {
+                    EventFetcher(dataController: dataController, preferences: self).updateEvents() { (success) in
+                    }
+                }
+            }
+        }
+    }
+
 }

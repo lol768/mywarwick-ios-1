@@ -71,8 +71,18 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 firstRunAfterTour = false
 
                 registerForPushNotifications()
+
+                invoker.invoke("registerForTimetable()")
             } else {
                 removeDeviceTokenFromServer()
+
+                preferences.timetableToken = nil
+
+                let dataController = DataController()
+                dataController.load {
+                    EventFetcher(dataController: dataController, preferences: self.preferences).deleteAllEvents()
+                    NotificationScheduler(dataController: dataController).removeAllScheduledNotifications()
+                }
             }
         }
     }
@@ -118,7 +128,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     func createWebView() {
         let userContentController = WKUserContentController()
-        userContentController.add(MyWarwickMessageHandler(delegate: self), name: "MyWarwick")
+        userContentController.add(MyWarwickMessageHandler(delegate: self, preferences: preferences), name: "MyWarwick")
 
         if let path = Bundle.main.path(forResource: "Bridge", ofType: "js"), let bridgeJS = try? String(contentsOfFile: path, encoding: .utf8) {
             let output = bridgeJS.replacingOccurrences(of: "{{APP_VERSION}}", with: Config.shortVersionString)
@@ -141,7 +151,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView.isOpaque = false
         webView.backgroundColor = UIColor.clear
     }
-
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

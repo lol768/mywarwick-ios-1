@@ -4,11 +4,13 @@ import CoreLocation
 
 class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManagerDelegate {
     var delegate: MyWarwickDelegate
+    var preferences: MyWarwickPreferences
 
     let locationManager = CLLocationManager()
 
-    init(delegate: MyWarwickDelegate) {
+    init(delegate: MyWarwickDelegate, preferences: MyWarwickPreferences) {
         self.delegate = delegate
+        self.preferences = preferences
         super.init()
         locationManager.delegate = self
     }
@@ -64,6 +66,11 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManag
                 requestLocation(updates: true)
             case "geolocationClearWatch":
                 stopLocationUpdates()
+            case "setTimetableToken":
+                if let token = body["token"] as? String {
+                    print("Setting timetable token to \(token)")
+                    preferences.timetableToken = token
+                }
             default:
                 break
             }

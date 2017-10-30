@@ -76,6 +76,13 @@
         });
     };
 
+    native.setTimetableToken = function setTimetableToken(token) {
+        handler.postMessage({
+            kind: 'setTimetableToken',
+            token: token,
+        });
+    };
+
     native.openMailApp = function openMailApp(externalApp) {
         if (externalApp === "mail") {
             global.location = "message://"
