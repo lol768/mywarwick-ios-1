@@ -60,6 +60,7 @@ class NotificationScheduler: NSObject {
 
         if let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
             let notification = UILocalNotification()
+            notification.soundName = "TimetableAlarm"
             notification.alertTitle = title
             notification.alertBody = body
             notification.fireDate = notificationDate
@@ -83,14 +84,14 @@ class NotificationScheduler: NSObject {
             ]
 
             if let events = try? context.fetch(fetchRequest) {
-            for event in events {
-                if let notification = buildNotification(for: event) {
-                    notifications.append(notification)
-                } else {
-                    print("Notification for \(event) was nil")
+                for event in events {
+                    if let notification = buildNotification(for: event) {
+                        notifications.append(notification)
+                    } else {
+                        print("Notification for \(event) was nil")
+                    }
                 }
             }
-        }
         }
 
         DispatchQueue.main.async {

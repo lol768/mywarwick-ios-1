@@ -25,6 +25,7 @@
 		7042C3901C43B0BD0060C76A /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
 		7085050C1D8800DA008C990E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085050B1D8800DA008C990E /* Reachability.swift */; };
 		709BD1551CBE7F49004E282E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 709BD1541CBE7F49004E282E /* Settings.bundle */; };
+		70A1E1201FA8D2E700CF8F80 /* TimetableAlarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70A1E11F1FA8D2E600CF8F80 /* TimetableAlarm.wav */; };
 		70B75C3F1F9FA09700CDBDA6 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */; };
 		70B75C411F9FA0AD00CDBDA6 /* EventFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */; };
 		70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 70C82DD81C9AF34E00398F94 /* Alert.wav */; };
@@ -60,6 +61,7 @@
 		7042C38F1C43B0BD0060C76A /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		7085050B1D8800DA008C990E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		709BD1541CBE7F49004E282E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		70A1E11F1FA8D2E600CF8F80 /* TimetableAlarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = TimetableAlarm.wav; sourceTree = "<group>"; };
 		70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFetcher.swift; sourceTree = "<group>"; };
 		70C82DD81C9AF34E00398F94 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				7013B7771DABB6390079DCF1 /* Bridge.js */,
 				B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */,
 				70C82DD81C9AF34E00398F94 /* Alert.wav */,
+				70A1E11F1FA8D2E600CF8F80 /* TimetableAlarm.wav */,
 				702CC1CB1C3D61CA0088BF34 /* AppDelegate.swift */,
 				702CC1CD1C3D61CA0088BF34 /* ViewController.swift */,
 				7085050B1D8800DA008C990E /* Reachability.swift */,
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */,
+				70A1E1201FA8D2E700CF8F80 /* TimetableAlarm.wav in Resources */,
 				7013B7781DABB6390079DCF1 /* Bridge.js in Resources */,
 				70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */,
 				709BD1551CBE7F49004E282E /* Settings.bundle in Resources */,
