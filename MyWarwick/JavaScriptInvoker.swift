@@ -11,6 +11,10 @@ class JavaScriptInvoker {
         invokeWhenReady("MyWarwick.\(js)")
     }
 
+    func invokeIfAvailable(method: String) {
+        invokeWhenReady("('\(method)' in MyWarwick) && MyWarwick.\(method)()")
+    }
+
     func invokeNative(_ js: String) {
         invokeWhenReady("MyWarwickNative.\(js)")
     }

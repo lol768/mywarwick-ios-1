@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
                 registerForPushNotifications()
 
-                invoker.invoke("registerForTimetable()")
+                invoker.invokeIfAvailable(method: "registerForTimetable")
             } else {
                 removeDeviceTokenFromServer()
 
