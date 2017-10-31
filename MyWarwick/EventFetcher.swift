@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 class EventFetcher: NSObject {
-    let isoDateFormatter = ISO8601DateFormatter()
+    let isoDateFormatter = DateFormatter()
     var dataController: DataController
     var preferences: MyWarwickPreferences
 
@@ -10,7 +10,7 @@ class EventFetcher: NSObject {
         self.dataController = dataController
         self.preferences = preferences
         super.init()
-        isoDateFormatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
     }
 
     func initialise(_ event: Event, from item: [String: AnyObject]) {
@@ -39,17 +39,19 @@ class EventFetcher: NSObject {
     func deleteAllEvents() {
         let context = dataController.managedObjectContext
 
-        if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
-            for event in events {
-                context.delete(event)
+        context.perform {
+            if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
+                for event in events {
+                    context.delete(event)
+                }
             }
-        }
 
-        do {
-            try context.save()
-            print("Deleted all events")
-        } catch let e {
-            print("Error saving the context with deleted events: \(e)")
+            do {
+                try context.save()
+                print("Deleted all events")
+            } catch let e {
+                print("Error saving the context with deleted events: \(e)")
+            }
         }
     }
 
@@ -57,25 +59,27 @@ class EventFetcher: NSObject {
         if let data = response["data"] as? [String: AnyObject], let events = data["items"] as? [[String: AnyObject]] {
             let context = dataController.managedObjectContext
 
-            if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
-                for event in events {
-                    context.delete(event)
+            context.perform {
+                if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
+                    for event in events {
+                        context.delete(event)
+                    }
                 }
-            }
 
-            for item in events {
-                let event = NSEntityDescription.insertNewObject(forEntityName: "Event", into: context) as! Event
-                initialise(event, from: item)
-            }
+                for item in events {
+                    let event = NSEntityDescription.insertNewObject(forEntityName: "Event", into: context) as! Event
+                    self.initialise(event, from: item)
+                }
 
-            do {
-                try context.save()
-                print("Event data updated")
-            } catch let e {
-                print("Error saving the context with new events: \(e)")
-            }
+                do {
+                    try context.save()
+                    print("Event data updated")
+                } catch let e {
+                    print("Error saving the context with new events: \(e)")
+                }
 
-            NotificationScheduler(dataController: dataController).rescheduleAllNotifications()
+                NotificationScheduler(dataController: self.dataController).rescheduleAllNotifications()
+            }
         } else {
             print("Response from timetable endpoint was in an unexpected format")
         }

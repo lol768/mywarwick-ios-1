@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import UIKit
 import UserNotifications
 
 class NotificationScheduler: NSObject {
@@ -40,33 +41,28 @@ class NotificationScheduler: NSObject {
     }
 
     func removeAllScheduledNotifications() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-    }
+        DispatchQueue.main.async {
+            objc_sync_enter(Global.notificationsLock)
 
-    func scheduleNotification(for event: Event) {
-        let content = UNMutableNotificationContent()
-        content.title = notificationTitle(for: event)
-        content.body = notificationBody(for: event)
+            // This method must be called on the main thread
+            UIApplication.shared.cancelAllLocalNotifications()
 
-        let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * minutesBefore)) as Date
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second, .timeZone], from: notificationDate)
-
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-
-        let request = UNNotificationRequest(identifier: event.serverId!, content: content, trigger: trigger)
-
-        print("Scheduling notification '\(content.title)' at \(notificationDate)")
-
-        UNUserNotificationCenter.current().add(request) { (error) in
-            if let e = error {
-                print("Error scheduling notification: \(e)")
-            }
+            objc_sync_exit(Global.notificationsLock)
         }
     }
 
-    func rescheduleAllNotifications() {
-        removeAllScheduledNotifications()
+    func buildNotification(for event: Event) -> UILocalNotification {
+        let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * minutesBefore)) as Date
 
+        let notification = UILocalNotification()
+        notification.alertTitle = notificationTitle(for: event)
+        notification.alertBody = notificationBody(for: event)
+        notification.fireDate = notificationDate
+
+        return notification
+    }
+
+    func rescheduleAllNotifications() {
         let context = dataController.managedObjectContext
 
         let fetchRequest: NSFetchRequest<Event> = NSFetchRequest(entityName: "Event")
@@ -74,12 +70,28 @@ class NotificationScheduler: NSObject {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "start", ascending: true)
         ]
+
+        var notifications: Array<UILocalNotification> = []
+
         if let events = try? context.fetch(fetchRequest) {
             for event in events {
-                scheduleNotification(for: event)
+                print("enumerating")
+                notifications.append(buildNotification(for: event))
             }
+            print("done enumerating")
         }
 
-        print("Rescheduled all notifications")
+        DispatchQueue.main.async {
+            // Lock this object to avoid others trampling on the notifications we're creating
+            objc_sync_enter(Global.notificationsLock)
+
+            UIApplication.shared.cancelAllLocalNotifications()
+            for notification in notifications {
+                print("Scheduling notification '\(notification.alertTitle!)' at \(notification.fireDate!)")
+                UIApplication.shared.scheduleLocalNotification(notification)
+            }
+
+            objc_sync_exit(Global.notificationsLock)
+        }
     }
 }

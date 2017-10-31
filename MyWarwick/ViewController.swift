@@ -78,10 +78,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
                 preferences.timetableToken = nil
 
-                let dataController = DataController()
-                dataController.load {
-                    EventFetcher(dataController: dataController, preferences: self.preferences).deleteAllEvents()
-                    NotificationScheduler(dataController: dataController).removeAllScheduledNotifications()
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        EventFetcher(dataController: dataController, preferences: self.preferences).deleteAllEvents()
+                        NotificationScheduler(dataController: dataController).removeAllScheduledNotifications()
+                    }
                 }
             }
         }

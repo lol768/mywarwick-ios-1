@@ -62,9 +62,11 @@ class MyWarwickPreferences {
             userDefaults.synchronize()
 
             if token != nil {
-                let dataController = DataController()
-                dataController.load {
-                    EventFetcher(dataController: dataController, preferences: self).updateEvents() { (success) in
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        EventFetcher(dataController: dataController, preferences: self).updateEvents() { (success) in
+                        }
                     }
                 }
             }

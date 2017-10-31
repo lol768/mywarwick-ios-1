@@ -26,9 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
 
-        let dataController = DataController()
-        dataController.load {
-            EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+        Global.backgroundQueue.async {
+            let dataController = DataController()
+            dataController.load {
+                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+                }
             }
         }
 
