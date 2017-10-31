@@ -12,7 +12,8 @@ class NotificationScheduler: NSObject {
     init(dataController: DataController) {
         self.dataController = dataController
         super.init()
-        timeFormatter.dateFormat = "HH:mm"
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
     }
 
     func notificationBody(for event: Event, at notificationDate: Date) -> String? {
