@@ -67,8 +67,7 @@ class NotificationScheduler: NSObject {
     func rescheduleAllNotifications() {
         removeAllScheduledNotifications()
 
-        let container = dataController.persistentContainer
-        let context = container.viewContext
+        let context = dataController.managedObjectContext
 
         let fetchRequest: NSFetchRequest<Event> = NSFetchRequest(entityName: "Event")
         fetchRequest.fetchLimit = 64

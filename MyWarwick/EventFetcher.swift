@@ -37,7 +37,7 @@ class EventFetcher: NSObject {
     }
 
     func deleteAllEvents() {
-        let context = dataController.persistentContainer.viewContext
+        let context = dataController.managedObjectContext
 
         if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
             for event in events {
@@ -55,7 +55,7 @@ class EventFetcher: NSObject {
 
     func didReceiveEventData(response: [String: AnyObject]) {
         if let data = response["data"] as? [String: AnyObject], let events = data["items"] as? [[String: AnyObject]] {
-            let context = dataController.persistentContainer.viewContext
+            let context = dataController.managedObjectContext
 
             if let events = try? context.fetch(NSFetchRequest<Event>(entityName: "Event")) {
                 for event in events {
