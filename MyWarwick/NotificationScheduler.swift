@@ -15,29 +15,32 @@ class NotificationScheduler: NSObject {
         timeFormatter.dateFormat = "HH:mm"
     }
 
-    func notificationBody(for event: Event) -> String {
-        let parts = [
-            event.parentFullName,
-            event.title
-        ].flatMap {
-            $0
-        }
+    func notificationBody(for event: Event, at notificationDate: Date) -> String? {
+        if let start = event.start {
+            let time = timeFormatter.string(from: start as Date)
 
-        return "Your " + parts.joined(separator: " ") + " \(event.type!.lowercased()) starts in \(minutesBefore) minutes."
-    }
+            let day = Calendar.current.isDate(start as Date, inSameDayAs: notificationDate) ? "Today" : "Tomorrow"
 
-    func notificationTitle(for event: Event) -> String {
-        let time = timeFormatter.string(from: event.start! as Date)
-
-        if let type = event.type {
-            if let parentShortName = event.parentShortName {
-                return "\(parentShortName) \(type.lowercased()) at \(time)"
+            if let location = event.location {
+                return "\(location)\n\(day) at \(time)"
             }
 
-            return "\(type) at \(time)"
+            return "\(day) at \(time)"
         }
 
-        return "Event at \(time)"
+        return nil
+    }
+
+    func notificationTitle(for event: Event) -> String? {
+        if let type = event.type {
+            if let parentShortName = event.parentShortName {
+                return "\(parentShortName) \(type)"
+            }
+
+            return "\(type)"
+        }
+
+        return nil
     }
 
     func removeAllScheduledNotifications() {
@@ -51,15 +54,19 @@ class NotificationScheduler: NSObject {
         }
     }
 
-    func buildNotification(for event: Event) -> UILocalNotification {
+    func buildNotification(for event: Event) -> UILocalNotification? {
         let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * minutesBefore)) as Date
 
-        let notification = UILocalNotification()
-        notification.alertTitle = notificationTitle(for: event)
-        notification.alertBody = notificationBody(for: event)
-        notification.fireDate = notificationDate
+        if let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
+            let notification = UILocalNotification()
+            notification.alertTitle = title
+            notification.alertBody = body
+            notification.fireDate = notificationDate
 
-        return notification
+            return notification
+        }
+
+        return nil
     }
 
     func rescheduleAllNotifications() {
@@ -75,10 +82,12 @@ class NotificationScheduler: NSObject {
 
         if let events = try? context.fetch(fetchRequest) {
             for event in events {
-                print("enumerating")
-                notifications.append(buildNotification(for: event))
+                if let notification = buildNotification(for: event) {
+                    notifications.append(notification)
+                } else {
+                    print("Notification for \(event) was nil")
+                }
             }
-            print("done enumerating")
         }
 
         DispatchQueue.main.async {
