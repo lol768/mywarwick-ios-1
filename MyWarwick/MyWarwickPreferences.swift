@@ -73,4 +73,47 @@ class MyWarwickPreferences {
         }
     }
 
+    var timetableNotificationsEnabled: Bool {
+        get {
+            return !userDefaults.bool(forKey: "TimetableNotificationsDisabled")
+        }
+
+        set(enabled) {
+            if (enabled != timetableNotificationsEnabled) {
+                userDefaults.set(!enabled, forKey: "TimetableNotificationsDisabled")
+                userDefaults.synchronize()
+
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                    }
+                }
+            }
+        }
+    }
+
+    var timetableNotificationTiming: Int {
+        get {
+            if let timing = userDefaults.object(forKey: "TimetableNotificationTiming") as! Int? {
+                return timing
+            }
+
+            return 15
+        }
+
+        set(timing) {
+            if (timing != timetableNotificationTiming) {
+                userDefaults.set(timing, forKey: "TimetableNotificationTiming")
+                userDefaults.synchronize()
+
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                    }
+                }
+            }
+        }
+    }
 }

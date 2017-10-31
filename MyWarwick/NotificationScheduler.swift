@@ -6,11 +6,11 @@ import UserNotifications
 class NotificationScheduler: NSObject {
     let timeFormatter = DateFormatter()
     var dataController: DataController
+    var preferences: MyWarwickPreferences
 
-    var minutesBefore = 10
-
-    init(dataController: DataController) {
+    init(dataController: DataController, preferences: MyWarwickPreferences) {
         self.dataController = dataController
+        self.preferences = preferences
         super.init()
         timeFormatter.dateStyle = .none
         timeFormatter.timeStyle = .short
@@ -56,7 +56,7 @@ class NotificationScheduler: NSObject {
     }
 
     func buildNotification(for event: Event) -> UILocalNotification? {
-        let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * minutesBefore)) as Date
+        let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * preferences.timetableNotificationTiming)) as Date
 
         if let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
             let notification = UILocalNotification()
@@ -71,17 +71,18 @@ class NotificationScheduler: NSObject {
     }
 
     func rescheduleAllNotifications() {
-        let context = dataController.managedObjectContext
-
-        let fetchRequest: NSFetchRequest<Event> = NSFetchRequest(entityName: "Event")
-        fetchRequest.fetchLimit = 64
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "start", ascending: true)
-        ]
-
         var notifications: Array<UILocalNotification> = []
 
-        if let events = try? context.fetch(fetchRequest) {
+        let context = dataController.managedObjectContext
+
+        if preferences.timetableNotificationsEnabled {
+            let fetchRequest: NSFetchRequest<Event> = NSFetchRequest(entityName: "Event")
+            fetchRequest.fetchLimit = 64
+            fetchRequest.sortDescriptors = [
+                NSSortDescriptor(key: "start", ascending: true)
+            ]
+
+            if let events = try? context.fetch(fetchRequest) {
             for event in events {
                 if let notification = buildNotification(for: event) {
                     notifications.append(notification)
@@ -89,6 +90,7 @@ class NotificationScheduler: NSObject {
                     print("Notification for \(event) was nil")
                 }
             }
+        }
         }
 
         DispatchQueue.main.async {

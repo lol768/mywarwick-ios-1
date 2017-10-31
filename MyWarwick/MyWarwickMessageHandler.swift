@@ -71,6 +71,14 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManag
                     print("Setting timetable token to \(token)")
                     preferences.timetableToken = token
                 }
+            case "setTimetableNotificationsEnabled":
+                if let enabled = body["enabled"] as? Bool {
+                    preferences.timetableNotificationsEnabled = enabled
+                }
+            case "setTimetableNotificationTiming":
+                if let timing = body["timing"] as? Int {
+                    preferences.timetableNotificationTiming = timing
+                }
             default:
                 break
             }

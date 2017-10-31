@@ -82,7 +82,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                     let dataController = DataController()
                     dataController.load {
                         EventFetcher(dataController: dataController, preferences: self.preferences).deleteAllEvents()
-                        NotificationScheduler(dataController: dataController).removeAllScheduledNotifications()
+                        NotificationScheduler(dataController: dataController, preferences: self.preferences).removeAllScheduledNotifications()
                     }
                 }
             }

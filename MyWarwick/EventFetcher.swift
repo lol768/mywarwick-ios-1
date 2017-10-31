@@ -78,7 +78,7 @@ class EventFetcher: NSObject {
                     print("Error saving the context with new events: \(e)")
                 }
 
-                NotificationScheduler(dataController: self.dataController).rescheduleAllNotifications()
+                NotificationScheduler(dataController: self.dataController, preferences: self.preferences).rescheduleAllNotifications()
             }
         } else {
             print("Response from timetable endpoint was in an unexpected format")
