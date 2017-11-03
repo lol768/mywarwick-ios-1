@@ -235,11 +235,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     }
     
     func isIPhoneX() -> Bool {
-        if (UIDevice().userInterfaceIdiom == .phone) {
-            if ( UIScreen.main.nativeBounds.height == 2436 ) {
-                print("it's iphone x")
-                return true
-            }
+        if UIDevice().userInterfaceIdiom == .phone {
+            return UIScreen.main.nativeBounds.height == 2436
         }
         return false
     }
