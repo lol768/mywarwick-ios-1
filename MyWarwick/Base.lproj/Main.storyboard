@@ -48,7 +48,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VRa-SI-7wL" firstAttribute="trailing" secondItem="Bah-MO-y8k" secondAttribute="trailing" id="Cc4-pR-xVi"/>
-                            <constraint firstItem="VRa-SI-7wL" firstAttribute="bottom" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
+                            <constraint firstAttribute="bottom" secondItem="Bah-MO-y8k" secondAttribute="bottom" id="JiH-eO-cQv"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="leading" secondItem="VRa-SI-7wL" secondAttribute="leading" id="eqo-y1-zia"/>
                             <constraint firstItem="dWW-yM-le3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oIV-v5-KCJ"/>
                             <constraint firstItem="Bah-MO-y8k" firstAttribute="leading" secondItem="VRa-SI-7wL" secondAttribute="leading" id="oKl-Vi-BbQ"/>
@@ -190,9 +190,9 @@
                         <viewLayoutGuide key="safeArea" id="0IH-zb-LPT"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Lma-No-RBs"/>
                                 <exclude reference="I6a-87-Bil"/>
                                 <exclude reference="JZX-WV-zL3"/>
+                                <exclude reference="Lma-No-RBs"/>
                             </mask>
                         </variation>
                     </view>
