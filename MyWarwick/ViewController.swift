@@ -260,15 +260,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         view.addSubview(webView)
         view.sendSubview(toBack: webView)
 
-        view.addConstraints([
-                NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        ])
-
-        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
-
+        var viewBottomConstraintConstant: CGFloat = 0
         if isIPhoneX() {
             // adjust space between webview and status bar
             for constraint in behindStatusBarView.constraints {
@@ -276,11 +268,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                     constraint.constant = 44 // this is a magic number
                 }
             }
-            
-        
+            viewBottomConstraintConstant = -36
         }
+        view.addConstraints([
+            NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: viewBottomConstraintConstant)
+            ])
         
-        
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         loadWebView()
     }
 
