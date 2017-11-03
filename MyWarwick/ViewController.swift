@@ -276,6 +276,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                     constraint.constant = 44 // this is a magic number
                 }
             }
+            
         
         }
         
