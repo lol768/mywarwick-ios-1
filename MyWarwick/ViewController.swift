@@ -234,6 +234,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
     
+    func isIPhoneX() -> Bool {
+        if (UIDevice().userInterfaceIdiom == .phone) {
+            if ( UIScreen.main.nativeBounds.height == 2436 ) {
+                print("it's iphone x")
+                return true
+            }
+        }
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         behindStatusBarView.backgroundColor = brandColour1
@@ -259,6 +269,17 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
         webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
 
+        if isIPhoneX() {
+            // adjust space between webview and status bar
+            for constraint in behindStatusBarView.constraints {
+                if constraint.identifier == "behind status bar height" {
+                    constraint.constant = 44 // this is a magic number
+                }
+            }
+        
+        }
+        
+        
         loadWebView()
     }
 
