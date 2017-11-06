@@ -110,7 +110,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
-
+    @IBOutlet weak var behindHeaderBarView: UIView!
+    
     let preferences = MyWarwickPreferences(userDefaults: UserDefaults.standard)
     let invoker = JavaScriptInvoker()
 
@@ -185,14 +186,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         self.loadWebView()
     }
     
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
-            // Status bar is hidden on iPhone when in landscape
-            view.addConstraint(hideStatusBarBackground!)
-        } else {
-            view.removeConstraint(hideStatusBarBackground!)
-        }
-    }
+//    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+//        if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
+//            // Status bar is hidden on iPhone when in landscape
+//            view.addConstraint(hideStatusBarBackground!)
+//        } else {
+//            view.removeConstraint(hideStatusBarBackground!)
+//        }
+//    }
 
     var hideStatusBarBackground: NSLayoutConstraint? = nil
 
@@ -231,6 +232,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func updateStatusBarViewBackgroundColour() {
         let bgId = preferences.chosenBackgroundId ?? 1
         behindStatusBarView.backgroundColor = getColourForBackground(bgId: bgId)
+        behindHeaderBarView.backgroundColor = getColourForBackground(bgId: bgId)
     }
     
     private func getColourForBackground(bgId: Int) -> UIColor {
@@ -251,11 +253,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         behindStatusBarView.backgroundColor = brandColour1
+        behindHeaderBarView.backgroundColor = brandColour1
         renderBackground()
         
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
-        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+//        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
         setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         loadWebView()
