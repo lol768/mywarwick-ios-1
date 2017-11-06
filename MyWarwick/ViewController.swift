@@ -249,14 +249,20 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
         hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-
+        setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
 
+       
+        loadWebView()
+    }
+    
+    func setLayout() {
         webView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(webView)
         view.sendSubview(toBack: webView)
-
+        
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         if isIPhoneX() {
             // adjust space between webview and status bar
             for constraint in behindStatusBarView.constraints {
@@ -265,15 +271,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
                 }
             }
         }
-        view.addConstraints([
-            NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-            ])
+        let webViewTop = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0)
+        let webViewLeading = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
+        let webViewWidth = NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
+        let webViewBottom = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        
+        view.addConstraints([webViewTop, webViewLeading, webViewWidth, webViewBottom])
         
         webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
-        loadWebView()
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
