@@ -15,6 +15,16 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     }
 
+    func isIPhoneX() -> Bool {
+        var isx = false
+        if #available(iOS 11.0, *) {
+            if  (UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero) {
+                isx = true;
+            }
+        }
+        return isx;
+    }
+    
     internal func setAppCached(_ cached: Bool) {
         preferences.canWorkOffline = cached
 
@@ -232,13 +242,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         default:
             return brandColour1
         }
-    }
-    
-    func isIPhoneX() -> Bool {
-        if UIDevice().userInterfaceIdiom == .phone {
-            return UIScreen.main.nativeBounds.height == 2436
-        }
-        return false
     }
     
     override func viewDidLoad() {
