@@ -54,12 +54,15 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
         if path == "/" || path.hasPrefix("/edit") || path.hasPrefix("/tiles") {
             webView.backgroundColor = UIColor.clear
+            renderBackground()
         } else {
             // Wait for the page to have changed - avoid visible background change on tiles view
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 // If the path hasn't been changed since 0.5 seconds ago
                 if (localLastPathChange == self.lastPathChange) {
-                    self.webView.backgroundColor = UIColor(white: 249 / 255, alpha: 1)
+                    let bgColour = UIColor(white: 249 / 255, alpha: 1)
+                    self.webView.backgroundColor = bgColour
+                    self.view.backgroundColor = bgColour
                 }
             }
         }
