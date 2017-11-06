@@ -185,15 +185,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func accessibilitySettingChanges() {
         self.loadWebView()
     }
-    
-//    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-//        if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
-//            // Status bar is hidden on iPhone when in landscape
-//            view.addConstraint(hideStatusBarBackground!)
-//        } else {
-//            view.removeConstraint(hideStatusBarBackground!)
-//        }
-//    }
 
     var hideStatusBarBackground: NSLayoutConstraint? = nil
 
