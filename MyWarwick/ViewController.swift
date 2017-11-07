@@ -4,16 +4,16 @@ import WebKit
 import CoreLocation
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
-
+    func setWebSignOnURLs(signIn: String, signOut: String) {}
+    
     var firstRunAfterTour = false
 
+    let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
+    
     @IBOutlet weak var webViewContainer: UIView!
+    
     func ready() {
         invoker.ready()
-    }
-
-    func setWebSignOnURLs(signIn: String, signOut: String) {
-
     }
 
 //    func isIPhoneX() -> Bool {
@@ -60,9 +60,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 // If the path hasn't been changed since 0.5 seconds ago
                 if (localLastPathChange == self.lastPathChange) {
-                    let bgColour = UIColor(white: 249 / 255, alpha: 1)
-                    self.webView.backgroundColor = bgColour
-                    self.view.backgroundColor = bgColour
+                    self.webView.backgroundColor = self.bgColourForNonMeView
+                    self.view.backgroundColor = self.bgColourForNonMeView
                 }
             }
         }
@@ -258,13 +257,12 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func setLayout() {
         webView.translatesAutoresizingMaskIntoConstraints = false
         webViewContainer.addSubview(webView)
-        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
         let webViewTop = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: webViewContainer, attribute: .top, multiplier: 1, constant: 0)
         let webViewLeading = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: webViewContainer, attribute: .leading, multiplier: 1, constant: 0)
         let webViewWidth = NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: webViewContainer, attribute: .width, multiplier: 1, constant: 0)
         let webViewBottom = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: webViewContainer, attribute: .bottom, multiplier: 1, constant: 0)
         view.addConstraints([webViewTop, webViewLeading, webViewWidth, webViewBottom])
-        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: view.layoutMargins.bottom, right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
