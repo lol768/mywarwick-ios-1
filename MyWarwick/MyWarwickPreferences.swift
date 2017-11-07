@@ -59,6 +59,7 @@ class MyWarwickPreferences {
 
         set(token) {
             userDefaults.set(token, forKey: "TimetableToken")
+            userDefaults.set(false, forKey: "NeedsTimetableTokenRefresh")
             userDefaults.synchronize()
 
             if token != nil {
@@ -114,6 +115,17 @@ class MyWarwickPreferences {
                     }
                 }
             }
+        }
+    }
+
+    var needsTimetableTokenRefresh: Bool {
+        get {
+            return userDefaults.bool(forKey: "NeedsTimetableTokenRefresh")
+        }
+
+        set(refresh) {
+            userDefaults.set(refresh, forKey: "NeedsTimetableTokenRefresh")
+            userDefaults.synchronize()
         }
     }
 }

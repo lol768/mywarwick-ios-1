@@ -81,31 +81,38 @@ class EventFetcher: NSObject {
                 NotificationScheduler(dataController: self.dataController, preferences: self.preferences).rescheduleAllNotifications()
             }
         } else {
+
             print("Response from timetable endpoint was in an unexpected format")
         }
     }
 
     func updateEvents(completionHandler: @escaping (Bool) -> ()) {
-        var request = URLRequest(url: Config.appURL.appendingPathComponent("/api/timetable"))
         if let token = preferences.timetableToken {
+            var request = URLRequest(url: Config.appURL.appendingPathComponent("/api/timetable"))
             request.addValue(token, forHTTPHeaderField: "X-Timetable-Token")
-        }
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-            if let e = error {
-                print("Error in URLSession: \(e)")
-                completionHandler(false)
-            } else {
-                do {
-                    let response = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: AnyObject]
-                    self.didReceiveEventData(response: response)
-                    completionHandler(true)
-                } catch let e {
-                    print("Error parsing JSON: \(e)")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+                if let e = error {
+                    print("Error in URLSession: \(e)")
                     completionHandler(false)
+                } else if let res = response as? HTTPURLResponse {
+                    if res.statusCode < 200 || res.statusCode > 299 {
+                        print("Server returned non-2xx status code \(res.statusCode)")
+                        self.preferences.needsTimetableTokenRefresh = true
+                    } else {
+                        do {
+                            self.preferences.needsTimetableTokenRefresh = false
+                            let response = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: AnyObject]
+                            self.didReceiveEventData(response: response)
+                            completionHandler(true)
+                        } catch let e {
+                            print("Error parsing JSON: \(e)")
+                            completionHandler(false)
+                        }
+                    }
                 }
             }
+            task.resume()
         }
-        task.resume()
     }
 }

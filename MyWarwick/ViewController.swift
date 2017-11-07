@@ -72,7 +72,9 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
                 registerForPushNotifications()
 
-                invoker.invokeIfAvailable(method: "registerForTimetable")
+                if preferences.timetableToken == nil || preferences.needsTimetableTokenRefresh {
+                    invoker.invokeIfAvailable(method: "registerForTimetable")
+                }
             } else {
                 removeDeviceTokenFromServer()
 
