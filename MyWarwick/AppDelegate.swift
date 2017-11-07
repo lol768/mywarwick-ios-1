@@ -24,6 +24,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Global.didLaunchFromRemoteNotification = true
         }
 
+        UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
+
+        Global.backgroundQueue.async {
+            let dataController = DataController()
+            dataController.load {
+                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+                }
+            }
+        }
+
         return true
     }
 
@@ -53,6 +63,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let dataController = DataController()
+        dataController.load {
+            EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+                completionHandler(success ? .newData : .failed)
+            }
+        }
+
     }
 
 }

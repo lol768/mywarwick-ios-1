@@ -52,4 +52,80 @@ class MyWarwickPreferences {
         }
     }
 
+    var timetableToken: String? {
+        get {
+            return userDefaults.string(forKey: "TimetableToken")
+        }
+
+        set(token) {
+            userDefaults.set(token, forKey: "TimetableToken")
+            userDefaults.set(false, forKey: "NeedsTimetableTokenRefresh")
+            userDefaults.synchronize()
+
+            if token != nil {
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        EventFetcher(dataController: dataController, preferences: self).updateEvents() { (success) in
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    var timetableNotificationsEnabled: Bool {
+        get {
+            return !userDefaults.bool(forKey: "TimetableNotificationsDisabled")
+        }
+
+        set(enabled) {
+            if (enabled != timetableNotificationsEnabled) {
+                userDefaults.set(!enabled, forKey: "TimetableNotificationsDisabled")
+                userDefaults.synchronize()
+
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                    }
+                }
+            }
+        }
+    }
+
+    var timetableNotificationTiming: Int {
+        get {
+            if let timing = userDefaults.object(forKey: "TimetableNotificationTiming") as! Int? {
+                return timing
+            }
+
+            return 15
+        }
+
+        set(timing) {
+            if (timing != timetableNotificationTiming) {
+                userDefaults.set(timing, forKey: "TimetableNotificationTiming")
+                userDefaults.synchronize()
+
+                Global.backgroundQueue.async {
+                    let dataController = DataController()
+                    dataController.load {
+                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                    }
+                }
+            }
+        }
+    }
+
+    var needsTimetableTokenRefresh: Bool {
+        get {
+            return userDefaults.bool(forKey: "NeedsTimetableTokenRefresh")
+        }
+
+        set(refresh) {
+            userDefaults.set(refresh, forKey: "NeedsTimetableTokenRefresh")
+            userDefaults.synchronize()
+        }
+    }
 }

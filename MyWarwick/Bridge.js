@@ -76,6 +76,27 @@
         });
     };
 
+    native.setTimetableToken = function setTimetableToken(token) {
+        handler.postMessage({
+            kind: 'setTimetableToken',
+            token: token,
+        });
+    };
+
+    native.setTimetableNotificationsEnabled = function setTimetableNotificationsEnabled(enabled) {
+        handler.postMessage({
+            kind: 'setTimetableNotificationsEnabled',
+            enabled: enabled,
+        });
+    };
+
+    native.setTimetableNotificationTiming = function setTimetableNotificationTiming(timing) {
+        handler.postMessage({
+            kind: 'setTimetableNotificationTiming',
+            timing: timing,
+        });
+    };
+
     native.openMailApp = function openMailApp(externalApp) {
         if (externalApp === "mail") {
             global.location = "message://"
