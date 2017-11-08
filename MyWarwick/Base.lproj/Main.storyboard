@@ -114,26 +114,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKe-di-OTy">
-                                <rect key="frame" x="16" y="249.66666666666663" width="343" height="64.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKe-di-OTy">
+                                <rect key="frame" x="16" y="627.33333333333337" width="343" height="108.33333333333337"/>
                                 <string key="text">My Warwick is your window into lots of different activities at Warwick. Here you can get coursework reminders, see traffic alerts, use our interactive map, search for people, web pages and much more. Take a tour...</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Welcome to My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-qS-fjF">
-                                <rect key="frame" x="16" y="198.33333333333331" width="343" height="31.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Welcome to My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-qS-fjF">
+                                <rect key="frame" x="16" y="576" width="343" height="31.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" ambiguous="YES" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="w7e-OJ-ibq">
-                                <rect key="frame" x="16" y="0.0" width="343" height="178.33333333333334"/>
+                            <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="w7e-OJ-ibq">
+                                <rect key="frame" x="16" y="44" width="343" height="512"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kxL-td-QEo" firstAttribute="bottom" secondItem="vKe-di-OTy" secondAttribute="bottom" constant="40" id="0ZK-fu-1c5"/>
+                            <constraint firstItem="vKe-di-OTy" firstAttribute="bottom" secondItem="kxL-td-QEo" secondAttribute="bottom" constant="-42.329999999999998" id="859-NE-N0Y"/>
                             <constraint firstItem="vKe-di-OTy" firstAttribute="top" secondItem="0Co-qS-fjF" secondAttribute="bottom" constant="20" id="FR4-3w-tug"/>
                             <constraint firstItem="0Co-qS-fjF" firstAttribute="top" secondItem="w7e-OJ-ibq" secondAttribute="bottom" constant="20" id="FYB-hq-Gel"/>
                             <constraint firstItem="w7e-OJ-ibq" firstAttribute="top" secondItem="kxL-td-QEo" secondAttribute="top" symbolic="YES" id="SIK-G3-hkK"/>
@@ -279,14 +279,14 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="MeScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="bfv-Tz-jHX">
-                                <rect key="frame" x="16" y="44" width="343" height="534.66666666666663"/>
+                                <rect key="frame" x="16" y="64" width="343" height="514.66666666666663"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BPn-XD-Jan" firstAttribute="bottom" secondItem="KfP-vx-JaA" secondAttribute="bottom" constant="40" id="8sR-II-y7x"/>
                             <constraint firstItem="bfv-Tz-jHX" firstAttribute="leading" secondItem="pda-Hb-QhT" secondAttribute="leadingMargin" id="9R9-Ed-KI2"/>
-                            <constraint firstItem="bfv-Tz-jHX" firstAttribute="top" secondItem="BPn-XD-Jan" secondAttribute="top" symbolic="YES" id="HVM-zc-In8"/>
+                            <constraint firstItem="bfv-Tz-jHX" firstAttribute="top" secondItem="BPn-XD-Jan" secondAttribute="top" constant="20" id="HVM-zc-In8"/>
                             <constraint firstItem="KfP-vx-JaA" firstAttribute="leading" secondItem="pda-Hb-QhT" secondAttribute="leadingMargin" id="HvD-YC-8cz"/>
                             <constraint firstItem="Vqa-4K-Vj7" firstAttribute="centerX" secondItem="BPn-XD-Jan" secondAttribute="centerX" id="VTY-cU-OBD"/>
                             <constraint firstItem="KfP-vx-JaA" firstAttribute="top" secondItem="Vqa-4K-Vj7" secondAttribute="bottom" constant="20" id="YMX-yy-Dsy"/>
@@ -309,20 +309,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
-                                <rect key="frame" x="16" y="241.66666666666663" width="343" height="20.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
+                                <rect key="frame" x="16" y="628.66666666666663" width="343" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AOD-dB-YKJ">
-                                <rect key="frame" x="16" y="190.66666666666669" width="343" height="31.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AOD-dB-YKJ">
+                                <rect key="frame" x="16" y="576" width="343" height="31.666666666666629"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" ambiguous="YES" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B4e-4P-aOg">
-                                <rect key="frame" x="16" y="0.0" width="343" height="170.66666666666666"/>
+                            <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B4e-4P-aOg">
+                                <rect key="frame" x="16" y="44" width="343" height="512"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="du8-Mn-6HB">
                                 <rect key="frame" x="16" y="694" width="343" height="64"/>
@@ -344,10 +344,9 @@
                             <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" secondItem="B4e-4P-aOg" secondAttribute="bottom" constant="20" id="G9i-Me-VDQ"/>
                             <constraint firstItem="B4e-4P-aOg" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="HbP-x9-7Wk"/>
                             <constraint firstItem="AOD-dB-YKJ" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="IsX-h1-2Jk"/>
-                            <constraint firstItem="B4e-4P-aOg" firstAttribute="top" secondItem="Ka3-CI-HbN" secondAttribute="top" constant="8" symbolic="YES" id="K7h-Zu-ax6"/>
+                            <constraint firstItem="B4e-4P-aOg" firstAttribute="top" secondItem="Ka3-CI-HbN" secondAttribute="top" symbolic="YES" id="K7h-Zu-ax6"/>
                             <constraint firstItem="gSb-Ll-DbZ" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="bss-vg-PoC"/>
                             <constraint firstItem="du8-Mn-6HB" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="eYD-Lq-tAC"/>
-                            <constraint firstItem="du8-Mn-6HB" firstAttribute="top" secondItem="gSb-Ll-DbZ" secondAttribute="bottom" constant="8" symbolic="YES" id="eca-OR-Vcp"/>
                             <constraint firstItem="du8-Mn-6HB" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="pfe-41-UXr"/>
                             <constraint firstItem="gSb-Ll-DbZ" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="sTm-NG-bCE"/>
                             <constraint firstItem="gSb-Ll-DbZ" firstAttribute="top" secondItem="AOD-dB-YKJ" secondAttribute="bottom" constant="20" id="sxa-79-uN8"/>
@@ -389,12 +388,12 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="NotificationsScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="7hK-g4-4Qc">
-                                <rect key="frame" x="16" y="44" width="343" height="512.66666666666663"/>
+                                <rect key="frame" x="16" y="64.000000000000028" width="343" height="492.66666666666674"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7hK-g4-4Qc" firstAttribute="top" secondItem="pp8-bL-saH" secondAttribute="top" symbolic="YES" id="3CG-A5-5Pg"/>
+                            <constraint firstItem="7hK-g4-4Qc" firstAttribute="top" secondItem="pp8-bL-saH" secondAttribute="top" constant="20" id="3CG-A5-5Pg"/>
                             <constraint firstItem="iNR-Ql-1RX" firstAttribute="leading" secondItem="qQ9-Sr-f6k" secondAttribute="leadingMargin" id="7XE-78-rbw"/>
                             <constraint firstItem="OEe-Sf-g2a" firstAttribute="centerX" secondItem="pp8-bL-saH" secondAttribute="centerX" id="LpA-xy-ybt"/>
                             <constraint firstItem="OEe-Sf-g2a" firstAttribute="top" secondItem="7hK-g4-4Qc" secondAttribute="bottom" constant="20" id="MVz-4X-H4W"/>
@@ -440,7 +439,7 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="ActivityScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="wRr-ow-itH">
-                                <rect key="frame" x="16" y="44" width="343" height="556.66666666666663"/>
+                                <rect key="frame" x="16" y="64" width="343" height="536.66666666666663"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -449,7 +448,7 @@
                             <constraint firstItem="xEt-58-Q8d" firstAttribute="trailing" secondItem="Hbd-qP-14h" secondAttribute="trailingMargin" id="4gI-Lr-DWl"/>
                             <constraint firstItem="xEt-58-Q8d" firstAttribute="top" secondItem="U77-ey-AAf" secondAttribute="bottom" constant="20" id="IpI-o1-1KM"/>
                             <constraint firstItem="wRr-ow-itH" firstAttribute="trailing" secondItem="Hbd-qP-14h" secondAttribute="trailingMargin" id="Opj-TV-qxi"/>
-                            <constraint firstItem="wRr-ow-itH" firstAttribute="top" secondItem="I2A-aQ-sBf" secondAttribute="top" symbolic="YES" id="Umc-Mi-iiK"/>
+                            <constraint firstItem="wRr-ow-itH" firstAttribute="top" secondItem="I2A-aQ-sBf" secondAttribute="top" constant="20" id="Umc-Mi-iiK"/>
                             <constraint firstItem="wRr-ow-itH" firstAttribute="leading" secondItem="Hbd-qP-14h" secondAttribute="leadingMargin" id="WaC-xZ-Tmd"/>
                             <constraint firstItem="I2A-aQ-sBf" firstAttribute="bottom" secondItem="xEt-58-Q8d" secondAttribute="bottom" constant="40" id="ldQ-rt-aJb"/>
                             <constraint firstItem="xEt-58-Q8d" firstAttribute="leading" secondItem="Hbd-qP-14h" secondAttribute="leadingMargin" id="nYX-kE-RDV"/>
@@ -491,12 +490,12 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="NewsScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="Tf1-TM-j5p">
-                                <rect key="frame" x="16" y="44" width="343" height="556.66666666666663"/>
+                                <rect key="frame" x="16" y="64" width="343" height="536.66666666666663"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Tf1-TM-j5p" firstAttribute="top" secondItem="gWs-22-Cmb" secondAttribute="top" symbolic="YES" id="0fI-U6-3hm"/>
+                            <constraint firstItem="Tf1-TM-j5p" firstAttribute="top" secondItem="gWs-22-Cmb" secondAttribute="top" constant="20" id="0fI-U6-3hm"/>
                             <constraint firstItem="Tf1-TM-j5p" firstAttribute="leading" secondItem="qwy-fp-5Iy" secondAttribute="leadingMargin" id="3Z5-Jw-MW1"/>
                             <constraint firstItem="Tf1-TM-j5p" firstAttribute="trailing" secondItem="qwy-fp-5Iy" secondAttribute="trailingMargin" id="Lrj-6P-jgA"/>
                             <constraint firstItem="29s-HB-KsV" firstAttribute="top" secondItem="KXD-2z-9mK" secondAttribute="bottom" constant="20" id="PYx-67-RBp"/>
@@ -542,13 +541,13 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="SearchScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="R1N-Yg-nD7">
-                                <rect key="frame" x="16" y="44" width="343" height="534.66666666666663"/>
+                                <rect key="frame" x="16" y="64" width="343" height="514.66666666666663"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="L3Z-ep-m0W" firstAttribute="centerX" secondItem="l81-G4-Fqg" secondAttribute="centerX" id="DZ5-ff-RDM"/>
-                            <constraint firstItem="R1N-Yg-nD7" firstAttribute="top" secondItem="l81-G4-Fqg" secondAttribute="top" constant="8" symbolic="YES" id="Dmy-YW-h1e"/>
+                            <constraint firstItem="R1N-Yg-nD7" firstAttribute="top" secondItem="l81-G4-Fqg" secondAttribute="top" constant="20" id="Dmy-YW-h1e"/>
                             <constraint firstItem="l81-G4-Fqg" firstAttribute="bottom" secondItem="Yxm-n0-g16" secondAttribute="bottom" constant="40" id="Jmi-Kx-Dkb"/>
                             <constraint firstItem="R1N-Yg-nD7" firstAttribute="trailing" secondItem="ykR-xV-GKJ" secondAttribute="trailingMargin" id="OjL-3L-fWW"/>
                             <constraint firstItem="Yxm-n0-g16" firstAttribute="trailing" secondItem="ykR-xV-GKJ" secondAttribute="trailingMargin" id="Wbp-Kx-MtR"/>
@@ -594,7 +593,7 @@
                                 </subviews>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="FeedbackScreenshot" translatesAutoresizingMaskIntoConstraints="NO" id="7Nz-JA-95F">
-                                <rect key="frame" x="16" y="44" width="343" height="534.66666666666663"/>
+                                <rect key="frame" x="16" y="64" width="343" height="514.66666666666663"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -606,7 +605,7 @@
                             <constraint firstItem="G7D-mu-Jcr" firstAttribute="leading" secondItem="wvo-cd-gRd" secondAttribute="leadingMargin" id="kt9-wB-Ntg"/>
                             <constraint firstItem="hgO-Ew-pjJ" firstAttribute="top" secondItem="7Nz-JA-95F" secondAttribute="bottom" constant="20" id="mvk-A6-dOf"/>
                             <constraint firstItem="7Nz-JA-95F" firstAttribute="leading" secondItem="wvo-cd-gRd" secondAttribute="leadingMargin" id="n76-H5-mVQ"/>
-                            <constraint firstItem="7Nz-JA-95F" firstAttribute="top" secondItem="Trp-V4-z9O" secondAttribute="top" constant="8" symbolic="YES" id="tlc-PZ-MAB"/>
+                            <constraint firstItem="7Nz-JA-95F" firstAttribute="top" secondItem="Trp-V4-z9O" secondAttribute="top" constant="20" id="tlc-PZ-MAB"/>
                             <constraint firstItem="G7D-mu-Jcr" firstAttribute="top" secondItem="hgO-Ew-pjJ" secondAttribute="bottom" constant="20" id="wot-wl-PyH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Trp-V4-z9O"/>
