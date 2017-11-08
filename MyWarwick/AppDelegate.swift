@@ -6,17 +6,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func isIPhoneX() -> Bool {
-        var isx = false
         if #available(iOS 11.0, *) {
             if UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero {
-                isx = true
-                
+                return true
             }
         }
-        return isx
+        return false
     }
 
-    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
