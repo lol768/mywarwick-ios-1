@@ -4,17 +4,18 @@ import WebKit
 import CoreLocation
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
-
+    func setWebSignOnURLs(signIn: String, signOut: String) {}
+    
     var firstRunAfterTour = false
 
+    let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
+    
+    @IBOutlet weak var webViewContainer: UIView!
+    
     func ready() {
         invoker.ready()
     }
-
-    func setWebSignOnURLs(signIn: String, signOut: String) {
-
-    }
-
+    
     internal func setAppCached(_ cached: Bool) {
         preferences.canWorkOffline = cached
 
@@ -43,12 +44,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
         if path == "/" || path.hasPrefix("/edit") || path.hasPrefix("/tiles") {
             webView.backgroundColor = UIColor.clear
+            renderBackground()
         } else {
             // Wait for the page to have changed - avoid visible background change on tiles view
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 // If the path hasn't been changed since 0.5 seconds ago
                 if (localLastPathChange == self.lastPathChange) {
-                    self.webView.backgroundColor = UIColor(white: 249 / 255, alpha: 1)
+                    self.webView.backgroundColor = self.bgColourForNonMeView
+                    self.view.backgroundColor = self.bgColourForNonMeView
                 }
             }
         }
@@ -110,7 +113,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var behindStatusBarView: UIView!
-
+    @IBOutlet weak var behindHeaderBarView: UIView!
+    
     let preferences = MyWarwickPreferences(userDefaults: UserDefaults.standard)
     let invoker = JavaScriptInvoker()
 
@@ -183,15 +187,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func accessibilitySettingChanges() {
         self.loadWebView()
     }
-    
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        if toInterfaceOrientation != .portrait && UIDevice.current.userInterfaceIdiom == .phone {
-            // Status bar is hidden on iPhone when in landscape
-            view.addConstraint(hideStatusBarBackground!)
-        } else {
-            view.removeConstraint(hideStatusBarBackground!)
-        }
-    }
 
     var hideStatusBarBackground: NSLayoutConstraint? = nil
 
@@ -230,6 +225,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func updateStatusBarViewBackgroundColour() {
         let bgId = preferences.chosenBackgroundId ?? 1
         behindStatusBarView.backgroundColor = getColourForBackground(bgId: bgId)
+        behindHeaderBarView.backgroundColor = getColourForBackground(bgId: bgId)
     }
     
     private func getColourForBackground(bgId: Int) -> UIColor {
@@ -250,29 +246,26 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         behindStatusBarView.backgroundColor = brandColour1
+        behindHeaderBarView.backgroundColor = brandColour1
         renderBackground()
         
         // Layout constraint used to collapse the status bar background view
         // when the status bar is hidden
-        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-
+//        hideStatusBarBackground = NSLayoutConstraint(item: behindStatusBarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+        setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
-
-        webView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(webView)
-        view.sendSubview(toBack: webView)
-
-        view.addConstraints([
-                NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: behindStatusBarView, attribute: .bottom, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        ])
-
-        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 48, right: 0)
-
         loadWebView()
+    }
+    
+    func setLayout() {
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webViewContainer.addSubview(webView)
+        let webViewTop = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: webViewContainer, attribute: .top, multiplier: 1, constant: 0)
+        let webViewLeading = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: webViewContainer, attribute: .leading, multiplier: 1, constant: 0)
+        let webViewWidth = NSLayoutConstraint(item: webView, attribute: .width, relatedBy: .equal, toItem: webViewContainer, attribute: .width, multiplier: 1, constant: 0)
+        let webViewBottom = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: webViewContainer, attribute: .bottom, multiplier: 1, constant: 0)
+        view.addConstraints([webViewTop, webViewLeading, webViewWidth, webViewBottom])
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: view.layoutMargins.bottom, right: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {

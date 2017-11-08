@@ -5,12 +5,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func isIPhoneX() -> Bool {
+        if #available(iOS 11.0, *) {
+            if UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero {
+                return true
+            }
+        }
+        return false
+    }
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
         NotificationCenter.default.post(name: Notification.Name(rawValue: "DidRegisterForRemoteNotifications"), object: self, userInfo: [
                 "deviceToken": token
         ])
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
+    {
+        if isIPhoneX() {
+            return UIInterfaceOrientationMask.portrait
+        }
+        return UIInterfaceOrientationMask.all
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
