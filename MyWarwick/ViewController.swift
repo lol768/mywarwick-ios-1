@@ -15,16 +15,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func ready() {
         invoker.ready()
     }
-
-//    func isIPhoneX() -> Bool {
-//        var isx = false
-//        if #available(iOS 11.0, *) {
-//            if  (UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero) {
-//                isx = true;
-//            }
-//        }
-//        return isx;
-//    }
     
     internal func setAppCached(_ cached: Bool) {
         preferences.canWorkOffline = cached
