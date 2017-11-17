@@ -243,7 +243,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        behindStatusBarView.backgroundColor = brandColour1
         renderBackground()
         
         setLayout()
