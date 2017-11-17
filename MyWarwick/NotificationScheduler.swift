@@ -60,7 +60,7 @@ class NotificationScheduler: NSObject {
 
         if let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
             let notification = UILocalNotification()
-            notification.soundName = "TimetableAlarm"
+            notification.soundName = "TimetableAlarm.wav"
             notification.alertTitle = title
             notification.alertBody = body
             notification.fireDate = notificationDate
