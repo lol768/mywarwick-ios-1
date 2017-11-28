@@ -4,7 +4,24 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var eventTimetableUpdateTimer: DispatchSourceTimer?
+    
+    func startEventTimetableUpdateTimer() {
+        let timeTableEventUpdateQ = DispatchQueue(label: "timeTableEventUpdateQ")
+        eventTimetableUpdateTimer?.cancel()
+        eventTimetableUpdateTimer = DispatchSource.makeTimerSource(queue: timeTableEventUpdateQ)
+        eventTimetableUpdateTimer?.scheduleRepeating(deadline: .now(), interval: .seconds(60), leeway: .seconds(1))
+        eventTimetableUpdateTimer?.setEventHandler { [weak self] in
+            self?.updateTimetableEvents()
+        }
+        eventTimetableUpdateTimer?.resume()
+    }
+    
+    func stopEventTimetableUpdateTimer() {
+        eventTimetableUpdateTimer?.cancel()
+        eventTimetableUpdateTimer = nil
+    }
+    
     func isIPhoneX() -> Bool {
         if #available(iOS 11.0, *) {
             if UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero {
@@ -42,9 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
+//        startTimer()
         return true
     }
 
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         if (application.applicationState == .inactive || application.applicationState == .background) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
@@ -59,14 +78,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        // stop periodical timetable update
+        stopEventTimetableUpdateTimer()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        updateTimetableEvents()
+        startEventTimetableUpdateTimer()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -84,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func updateTimetableEvents() {
-         Global.backgroundQueue.async {
+        Global.backgroundQueue.async {
             let dataController = DataController()
             dataController.load {
                 EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
