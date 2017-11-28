@@ -57,17 +57,14 @@ class NotificationScheduler: NSObject {
 
     func buildNotification(for event: Event) -> UILocalNotification? {
         let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * preferences.timetableNotificationTiming)) as Date
-
-        if let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
+        if notificationDate >= Date(), let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
             let notification = UILocalNotification()
             notification.soundName = "TimetableAlarm.wav"
             notification.alertTitle = title
             notification.alertBody = body
             notification.fireDate = notificationDate
-
             return notification
         }
-
         return nil
     }
 
@@ -82,7 +79,7 @@ class NotificationScheduler: NSObject {
             fetchRequest.sortDescriptors = [
                 NSSortDescriptor(key: "start", ascending: true)
             ]
-
+            fetchRequest.predicate = NSPredicate(format: "start >= %@", Date() as NSDate)
             if let events = try? context.fetch(fetchRequest) {
                 for event in events {
                     if let notification = buildNotification(for: event) {
