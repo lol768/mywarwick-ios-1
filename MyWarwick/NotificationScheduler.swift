@@ -79,7 +79,7 @@ class NotificationScheduler: NSObject {
             fetchRequest.sortDescriptors = [
                 NSSortDescriptor(key: "start", ascending: true)
             ]
-            fetchRequest.predicate = NSPredicate(format: "start > %@", Date() as NSDate)
+            fetchRequest.predicate = NSPredicate(format: "start >= %@", Date() as NSDate)
             if let events = try? context.fetch(fetchRequest) {
                 for event in events {
                     if let notification = buildNotification(for: event) {
