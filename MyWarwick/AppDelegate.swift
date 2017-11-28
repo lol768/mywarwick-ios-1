@@ -4,7 +4,24 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var eventTimetableUpdateTimer: DispatchSourceTimer?
+    
+    func startEventTimetableUpdateTimer() {
+        let timeTableEventUpdateQ = DispatchQueue(label: "timeTableEventUpdateQ")
+        eventTimetableUpdateTimer?.cancel()
+        eventTimetableUpdateTimer = DispatchSource.makeTimerSource(queue: timeTableEventUpdateQ)
+        eventTimetableUpdateTimer?.scheduleRepeating(deadline: .now(), interval: .seconds(60), leeway: .seconds(1))
+        eventTimetableUpdateTimer?.setEventHandler { [weak self] in
+            self?.updateTimetableEvents()
+        }
+        eventTimetableUpdateTimer?.resume()
+    }
+    
+    func stopEventTimetableUpdateTimer() {
+        eventTimetableUpdateTimer?.cancel()
+        eventTimetableUpdateTimer = nil
+    }
+    
     func isIPhoneX() -> Bool {
         if #available(iOS 11.0, *) {
             if UIApplication.shared.keyWindow?.safeAreaInsets != UIEdgeInsets.zero {
@@ -42,18 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
-
-        Global.backgroundQueue.async {
-            let dataController = DataController()
-            dataController.load {
-                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
-                }
-            }
-        }
-
         return true
     }
 
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         if (application.applicationState == .inactive || application.applicationState == .background) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
@@ -63,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+         stopEventTimetableUpdateTimer()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -73,9 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        startEventTimetableUpdateTimer()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -91,6 +101,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
     }
-
+    
+    func updateTimetableEvents() {
+        Global.backgroundQueue.async {
+            let dataController = DataController()
+            dataController.load {
+                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+                }
+            }
+        }
+    }
 }
 
