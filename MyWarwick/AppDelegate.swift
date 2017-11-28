@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
-        updateTimetableEvents()
         return true
     }
 
