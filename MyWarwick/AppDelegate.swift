@@ -42,15 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
-
-        Global.backgroundQueue.async {
-            let dataController = DataController()
-            dataController.load {
-                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
-                }
-            }
-        }
-
+        updateTimetableEvents()
         return true
     }
 
@@ -75,12 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        let dataController = DataController()
-        dataController.load {
-            EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
-            }
-        }
-        
+        updateTimetableEvents()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -95,6 +82,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+    }
+    
+    func updateTimetableEvents() {
+         Global.backgroundQueue.async {
+            let dataController = DataController()
+            dataController.load {
+                EventFetcher(dataController: dataController, preferences: MyWarwickPreferences(userDefaults: UserDefaults.standard)).updateEvents() { (success) in
+                }
+            }
+        }
     }
 }
 
