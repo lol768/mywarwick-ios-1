@@ -104,23 +104,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKe-di-OTy">
-                                <rect key="frame" x="16" y="473.5" width="343" height="108.5"/>
+                                <rect key="frame" x="16" y="498.5" width="343" height="108.5"/>
                                 <string key="text">My Warwick is your window into lots of different activities at Warwick. Here you can get coursework reminders, see traffic alerts, use our interactive map, search for people, web pages and much more. Take a tour...</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Welcome to My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-qS-fjF">
-                                <rect key="frame" x="50" y="385" width="274.5" height="31.5"/>
+                                <rect key="frame" x="50" y="457" width="274.5" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="w7e-OJ-ibq">
-                                <rect key="frame" x="40" y="90" width="295" height="295"/>
+                                <rect key="frame" x="40" y="40" width="295" height="295"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="dmZ-q9-1nr"/>
-                                    <constraint firstAttribute="width" constant="295" id="s0R-b7-LYV"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="295" id="8qM-mc-JyG"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="295" id="uLr-wW-zVd"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -128,14 +128,14 @@
                         <constraints>
                             <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="0Co-qS-fjF" secondAttribute="trailing" constant="50.670000000000002" id="2hp-CA-Yun"/>
                             <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="vKe-di-OTy" secondAttribute="trailing" constant="16" id="3LU-B5-K8p"/>
-                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kxL-td-QEo" secondAttribute="top" constant="20" id="CnY-hb-rS8"/>
+                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="40" id="Hf4-aB-dte"/>
                             <constraint firstItem="0Co-qS-fjF" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="50" id="Huk-Z5-1ab"/>
-                            <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="w7e-OJ-ibq" secondAttribute="trailing" constant="40" id="POh-uX-HeY"/>
-                            <constraint firstItem="kxL-td-QEo" firstAttribute="bottom" secondItem="vKe-di-OTy" secondAttribute="bottom" constant="85" id="QQe-2B-l0J"/>
-                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="40" id="Uvo-q6-4pG"/>
-                            <constraint firstItem="0Co-qS-fjF" firstAttribute="top" secondItem="w7e-OJ-ibq" secondAttribute="bottom" id="eom-OE-9l2"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="bottom" secondItem="vKe-di-OTy" secondAttribute="bottom" constant="60" id="QQe-2B-l0J"/>
                             <constraint firstItem="vKe-di-OTy" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="16" id="lOO-eh-aFz"/>
-                            <constraint firstItem="vKe-di-OTy" firstAttribute="top" secondItem="0Co-qS-fjF" secondAttribute="bottom" constant="56.829999999999998" id="r15-Wi-xff"/>
+                            <constraint firstItem="0Co-qS-fjF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="w7e-OJ-ibq" secondAttribute="bottom" constant="85" id="p6W-if-A8u"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="w7e-OJ-ibq" secondAttribute="trailing" constant="40" id="qYb-fi-gLz"/>
+                            <constraint firstItem="vKe-di-OTy" firstAttribute="top" secondItem="0Co-qS-fjF" secondAttribute="bottom" constant="10" id="r15-Wi-xff"/>
+                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="top" secondItem="kxL-td-QEo" secondAttribute="top" constant="20" id="vmy-4M-UpX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kxL-td-QEo"/>
                     </view>
@@ -303,26 +303,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
-                                <rect key="frame" x="16" y="441.5" width="343" height="64.5"/>
+                                <rect key="frame" x="16" y="496.5" width="343" height="64.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AOD-dB-YKJ">
-                                <rect key="frame" x="119" y="368" width="136" height="31.5"/>
+                                <rect key="frame" x="119" y="455" width="136" height="31.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B4e-4P-aOg">
-                                <rect key="frame" x="40" y="73" width="295" height="295"/>
+                                <rect key="frame" x="40" y="40" width="295" height="330"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="295" id="Jfu-v0-poI"/>
-                                    <constraint firstAttribute="height" constant="295" id="j3R-cn-IQe"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="Jfu-v0-poI"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="du8-Mn-6HB">
-                                <rect key="frame" x="16" y="611" width="343" height="36"/>
+                                <rect key="frame" x="16" y="571" width="343" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <state key="normal" title="Finish"/>
                                 <connections>
@@ -332,19 +331,19 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="top" secondItem="AOD-dB-YKJ" secondAttribute="bottom" constant="42" id="2vF-96-R7H"/>
+                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="top" secondItem="AOD-dB-YKJ" secondAttribute="bottom" constant="10" id="2vF-96-R7H"/>
                             <constraint firstItem="du8-Mn-6HB" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="16" id="3Ai-ic-dQQ"/>
                             <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="du8-Mn-6HB" secondAttribute="trailing" constant="16" id="9bN-rW-Txt"/>
-                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" secondItem="B4e-4P-aOg" secondAttribute="bottom" id="A2e-QH-CN1"/>
+                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" secondItem="B4e-4P-aOg" secondAttribute="bottom" constant="85" id="A2e-QH-CN1"/>
                             <constraint firstItem="gSb-Ll-DbZ" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="16" id="B8s-Go-9i0"/>
                             <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="gSb-Ll-DbZ" secondAttribute="trailing" constant="16" id="Dr3-3b-VPF"/>
                             <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="AOD-dB-YKJ" secondAttribute="trailing" constant="120" id="Ic8-X0-K3h"/>
                             <constraint firstItem="AOD-dB-YKJ" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="119" id="Kty-VH-yxv"/>
                             <constraint firstItem="B4e-4P-aOg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ka3-CI-HbN" secondAttribute="top" constant="20" id="Rwe-1y-DeO"/>
                             <constraint firstItem="B4e-4P-aOg" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="40" id="Y9j-j6-5eY"/>
-                            <constraint firstItem="du8-Mn-6HB" firstAttribute="top" secondItem="gSb-Ll-DbZ" secondAttribute="bottom" constant="105" id="bte-DR-0gk"/>
+                            <constraint firstItem="du8-Mn-6HB" firstAttribute="top" secondItem="gSb-Ll-DbZ" secondAttribute="bottom" constant="10" id="bte-DR-0gk"/>
                             <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="B4e-4P-aOg" secondAttribute="trailing" constant="40" id="j7X-hL-ev2"/>
-                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="bottom" secondItem="du8-Mn-6HB" secondAttribute="bottom" constant="20" id="wSK-nU-Bcn"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="bottom" secondItem="du8-Mn-6HB" secondAttribute="bottom" constant="60" id="wSK-nU-Bcn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ka3-CI-HbN"/>
                     </view>
