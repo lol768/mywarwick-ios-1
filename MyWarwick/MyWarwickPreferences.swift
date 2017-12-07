@@ -76,12 +76,12 @@ class MyWarwickPreferences {
 
     var timetableNotificationsEnabled: Bool {
         get {
-            return !userDefaults.bool(forKey: "TimetableNotificationsDisabled")
+            return userDefaults.bool(forKey: "TimetableNotificationsEnabled")
         }
 
         set(enabled) {
             if (enabled != timetableNotificationsEnabled) {
-                userDefaults.set(!enabled, forKey: "TimetableNotificationsDisabled")
+                userDefaults.set(enabled, forKey: "TimetableNotificationsEnabled")
                 userDefaults.synchronize()
 
                 Global.backgroundQueue.async {
