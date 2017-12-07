@@ -77,6 +77,9 @@ class MyWarwickPreferences {
 
     var timetableNotificationsEnabled: Bool {
         get {
+            if userDefaults.bool(forKey: "TimetableNotificationsDisabled") {
+                return false
+            }
             return userDefaults.bool(forKey: "TimetableNotificationsEnabled")
         }
 
