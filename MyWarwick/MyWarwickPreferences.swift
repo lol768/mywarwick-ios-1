@@ -6,6 +6,7 @@ class MyWarwickPreferences {
 
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
+        self.userDefaults.register(defaults: ["TimetableNotificationsEnabled" : true])
     }
 
     var canWorkOffline: Bool {
