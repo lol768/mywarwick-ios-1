@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4dZ-fE-UYo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4dZ-fE-UYo">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -104,41 +104,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKe-di-OTy">
-                                <rect key="frame" x="16" y="627.33333333333337" width="343" height="108.33333333333337"/>
+                                <rect key="frame" x="16" y="609.66666666666663" width="343" height="108.33333333333337"/>
                                 <string key="text">My Warwick is your window into lots of different activities at Warwick. Here you can get coursework reminders, see traffic alerts, use our interactive map, search for people, web pages and much more. Take a tour...</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Welcome to My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-qS-fjF">
-                                <rect key="frame" x="16" y="576" width="343" height="31.333333333333371"/>
+                                <rect key="frame" x="50" y="568.33333333333337" width="274.66666666666669" height="31.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="w7e-OJ-ibq">
-                                <rect key="frame" x="16" y="44" width="343" height="512"/>
+                                <rect key="frame" x="40" y="104" width="295" height="295"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="295" id="8qM-mc-JyG"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="295" id="uLr-wW-zVd"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vKe-di-OTy" firstAttribute="bottom" secondItem="kxL-td-QEo" secondAttribute="bottom" constant="-42.329999999999998" id="859-NE-N0Y"/>
-                            <constraint firstItem="vKe-di-OTy" firstAttribute="top" secondItem="0Co-qS-fjF" secondAttribute="bottom" constant="20" id="FR4-3w-tug"/>
-                            <constraint firstItem="0Co-qS-fjF" firstAttribute="top" secondItem="w7e-OJ-ibq" secondAttribute="bottom" constant="20" id="FYB-hq-Gel"/>
-                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="top" secondItem="kxL-td-QEo" secondAttribute="top" symbolic="YES" id="SIK-G3-hkK"/>
-                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="trailing" secondItem="7M2-96-Gck" secondAttribute="trailingMargin" id="TMU-09-up0"/>
-                            <constraint firstItem="0Co-qS-fjF" firstAttribute="trailing" secondItem="7M2-96-Gck" secondAttribute="trailingMargin" id="dWP-QP-4Nc"/>
-                            <constraint firstItem="vKe-di-OTy" firstAttribute="leading" secondItem="7M2-96-Gck" secondAttribute="leadingMargin" id="k07-zS-t64"/>
-                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="leading" secondItem="7M2-96-Gck" secondAttribute="leadingMargin" id="uxM-tb-9Db"/>
-                            <constraint firstItem="0Co-qS-fjF" firstAttribute="leading" secondItem="7M2-96-Gck" secondAttribute="leadingMargin" id="vMK-5x-LRe"/>
-                            <constraint firstItem="vKe-di-OTy" firstAttribute="trailing" secondItem="7M2-96-Gck" secondAttribute="trailingMargin" id="zxc-J0-1Sk"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="0Co-qS-fjF" secondAttribute="trailing" constant="50.670000000000002" id="2hp-CA-Yun"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="vKe-di-OTy" secondAttribute="trailing" constant="16" id="3LU-B5-K8p"/>
+                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="40" id="Hf4-aB-dte"/>
+                            <constraint firstItem="0Co-qS-fjF" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="50" id="Huk-Z5-1ab"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="bottom" secondItem="vKe-di-OTy" secondAttribute="bottom" constant="60" id="QQe-2B-l0J"/>
+                            <constraint firstItem="vKe-di-OTy" firstAttribute="leading" secondItem="kxL-td-QEo" secondAttribute="leading" constant="16" id="lOO-eh-aFz"/>
+                            <constraint firstItem="0Co-qS-fjF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="w7e-OJ-ibq" secondAttribute="bottom" constant="40" id="p6W-if-A8u"/>
+                            <constraint firstItem="kxL-td-QEo" firstAttribute="trailing" secondItem="w7e-OJ-ibq" secondAttribute="trailing" constant="40" id="qYb-fi-gLz"/>
+                            <constraint firstItem="vKe-di-OTy" firstAttribute="top" secondItem="0Co-qS-fjF" secondAttribute="bottom" constant="10" id="r15-Wi-xff"/>
+                            <constraint firstItem="w7e-OJ-ibq" firstAttribute="top" secondItem="kxL-td-QEo" secondAttribute="top" constant="60" id="vmy-4M-UpX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kxL-td-QEo"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oZE-YC-mDl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565.60000000000002" y="855.9220389805098"/>
+            <point key="canvasLocation" x="565.60000000000002" y="855.02248875562225"/>
         </scene>
         <!--Account Setting View Controller-->
         <scene sceneID="dhw-9I-4gp">
@@ -246,7 +250,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfP-vx-JaA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfP-vx-JaA">
                                 <rect key="frame" x="16" y="651.66666666666663" width="343" height="86.333333333333371"/>
                                 <string key="text">Tiles on your 'Me' screen give you a quick summary of things that are relevant to you. You can resize and rearrange the tiles to suit your needs.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -298,26 +302,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
-                                <rect key="frame" x="16" y="628.66666666666663" width="343" height="20.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="That's it! We hope you enjoy My Warwick. Touch 'Finish' when you're done with this tour.  " lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Ll-DbZ">
+                                <rect key="frame" x="16" y="607.66666666666663" width="343" height="64.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AOD-dB-YKJ">
-                                <rect key="frame" x="16" y="576" width="343" height="31.666666666666629"/>
+                                <rect key="frame" x="119" y="566.33333333333337" width="136" height="31.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B4e-4P-aOg">
-                                <rect key="frame" x="16" y="44" width="343" height="512"/>
+                                <rect key="frame" x="40" y="104" width="295" height="295"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="295" id="6eH-9e-5kK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="Jfu-v0-poI"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="du8-Mn-6HB">
-                                <rect key="frame" x="16" y="694" width="343" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="YxR-V1-vwm"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="682" width="343" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <state key="normal" title="Finish"/>
                                 <connections>
@@ -327,25 +332,26 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="bottom" secondItem="du8-Mn-6HB" secondAttribute="bottom" constant="20" id="95K-jt-OK0"/>
-                            <constraint firstItem="B4e-4P-aOg" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="BJn-EM-Bjs"/>
-                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="EdS-s5-Cqc"/>
-                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" secondItem="B4e-4P-aOg" secondAttribute="bottom" constant="20" id="G9i-Me-VDQ"/>
-                            <constraint firstItem="B4e-4P-aOg" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="HbP-x9-7Wk"/>
-                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="IsX-h1-2Jk"/>
-                            <constraint firstItem="B4e-4P-aOg" firstAttribute="top" secondItem="Ka3-CI-HbN" secondAttribute="top" symbolic="YES" id="K7h-Zu-ax6"/>
-                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="bss-vg-PoC"/>
-                            <constraint firstItem="du8-Mn-6HB" firstAttribute="trailing" secondItem="Ifh-YL-a9N" secondAttribute="trailingMargin" id="eYD-Lq-tAC"/>
-                            <constraint firstItem="du8-Mn-6HB" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="pfe-41-UXr"/>
-                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="leading" secondItem="Ifh-YL-a9N" secondAttribute="leadingMargin" id="sTm-NG-bCE"/>
-                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="top" secondItem="AOD-dB-YKJ" secondAttribute="bottom" constant="20" id="sxa-79-uN8"/>
+                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="top" secondItem="AOD-dB-YKJ" secondAttribute="bottom" constant="10" id="2vF-96-R7H"/>
+                            <constraint firstItem="du8-Mn-6HB" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="16" id="3Ai-ic-dQQ"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="du8-Mn-6HB" secondAttribute="trailing" constant="16" id="9bN-rW-Txt"/>
+                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B4e-4P-aOg" secondAttribute="bottom" constant="40" id="A2e-QH-CN1"/>
+                            <constraint firstItem="gSb-Ll-DbZ" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="16" id="B8s-Go-9i0"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="gSb-Ll-DbZ" secondAttribute="trailing" constant="16" id="Dr3-3b-VPF"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="AOD-dB-YKJ" secondAttribute="trailing" constant="120" id="Ic8-X0-K3h"/>
+                            <constraint firstItem="AOD-dB-YKJ" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="119" id="Kty-VH-yxv"/>
+                            <constraint firstItem="B4e-4P-aOg" firstAttribute="top" secondItem="Ka3-CI-HbN" secondAttribute="top" constant="60" id="Rwe-1y-DeO"/>
+                            <constraint firstItem="B4e-4P-aOg" firstAttribute="leading" secondItem="Ka3-CI-HbN" secondAttribute="leading" constant="40" id="Y9j-j6-5eY"/>
+                            <constraint firstItem="du8-Mn-6HB" firstAttribute="top" secondItem="gSb-Ll-DbZ" secondAttribute="bottom" constant="10" id="bte-DR-0gk"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="trailing" secondItem="B4e-4P-aOg" secondAttribute="trailing" constant="40" id="j7X-hL-ev2"/>
+                            <constraint firstItem="Ka3-CI-HbN" firstAttribute="bottom" secondItem="du8-Mn-6HB" secondAttribute="bottom" constant="60" id="wSK-nU-Bcn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ka3-CI-HbN"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiK-uL-K6d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1863" y="1518"/>
+            <point key="canvasLocation" x="1861.5999999999999" y="1517.9910044977512"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="lD0-9h-Fpm">
@@ -355,7 +361,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNR-Ql-1RX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNR-Ql-1RX">
                                 <rect key="frame" x="16" y="629.66666666666663" width="343" height="108.33333333333337"/>
                                 <string key="text">Just-in-time reminders like Submit your coursework or Return your library books. Alerts pop up on your phone's lock screen like messages, with a history on this screen in the app</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -407,7 +413,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A summary of tasks that you've completed, like submitting your assignment or filling in a form." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEt-58-Q8d">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A summary of tasks that you've completed, like submitting your assignment or filling in a form." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEt-58-Q8d">
                                 <rect key="frame" x="16" y="673.66666666666663" width="343" height="64.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
@@ -458,14 +464,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A personalised list of news items. You can select which categories of news you'd like to see." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29s-HB-KsV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A personalised list of news items. You can select which categories of news you'd like to see." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29s-HB-KsV">
                                 <rect key="frame" x="16" y="673.66666666666663" width="343" height="64.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KXD-2z-9mK">
-                                <rect key="frame" x="142.33333333333334" y="620.66666666666663" width="90.333333333333343" height="33"/>
+                                <rect key="frame" x="142.66666666666666" y="620.66666666666663" width="90.333333333333343" height="33"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="NewsTour" translatesAutoresizingMaskIntoConstraints="NO" id="kNd-9L-PXz">
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
@@ -509,7 +515,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find web pages, see buildings and rooms on the campus map, get peoples' contact details, search the Library catalogue and more." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yxm-n0-g16">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find web pages, see buildings and rooms on the campus map, get peoples' contact details, search the Library catalogue and more." lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yxm-n0-g16">
                                 <rect key="frame" x="16" y="651.66666666666663" width="343" height="86.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
@@ -560,7 +566,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7D-mu-Jcr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7D-mu-Jcr">
                                 <rect key="frame" x="16" y="651.66666666666663" width="343" height="86.333333333333371"/>
                                 <string key="text">At any time, if you have any problems using the app, or you have an idea you'd like to tell us, touch the feedback button to send us a message.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
