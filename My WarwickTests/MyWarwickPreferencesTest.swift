@@ -57,5 +57,15 @@ class MyWarwickPreferencesTest: XCTestCase {
         XCTAssert(oldPref.object(forKey: oldKey) == nil)
     }
     
+    func testTimetableNotificationIsSetCorrectlyToTrue() {
+        preferences.timetableNotificationsEnabled = true
+        XCTAssert(preferences.timetableNotificationsEnabled == true)
+    }
+    
+    func testTimetableNotificationIsSetCorrectlyToFalse() {
+        preferences.timetableNotificationsEnabled = false
+        XCTAssert(preferences.timetableNotificationsEnabled == false)
+    }
+    
 
 }
