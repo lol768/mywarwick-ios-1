@@ -12,22 +12,51 @@ import CoreData
 class MyWarwickPreferencesTest: XCTestCase {
     
     
-    let preferences = MyWarwickPreferences(userDefaults: UserDefaults.standard)
-    
+    var preferences: MyWarwickPreferences!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        preferences = MyWarwickPreferences(userDefaults: UserDefaults.standard)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
     func testTimetableNotificationShouldBeEnabledByDefault() {
-        XCTAssert(preferences.timetableNotificationsEnabled)
+        XCTAssert(preferences.timetableNotificationsEnabled == true)
     }
- 
+    
+    func testTimeTableNotificationShouldBeDisabledIfUserPreviouslySetTheValueOfTheOldKeyToTrue() {
+        
+        let oldPref = UserDefaults.standard
+        let oldKey = "TimetableNotificationsDisabled"
+        oldPref.set(true, forKey: oldKey)
+        preferences = MyWarwickPreferences(userDefaults: oldPref)
+    
+        XCTAssert(preferences.timetableNotificationsEnabled == false)
+    
+    }
+    
+    func testTimeTableNotificationShouldBeEnabledIfUserPreviouslySetTheValueOfTheOldKeyToFalse() {
+        let oldPref = UserDefaults.standard
+        let oldKey = "TimetableNotificationsDisabled"
+        oldPref.set(false, forKey: oldKey)
+        preferences = MyWarwickPreferences(userDefaults: oldPref)
+        
+        XCTAssert(preferences.timetableNotificationsEnabled == true)
+    }
+
+    func testTheOldKeyShouldBeRemovedAfterAccessValueOfTheNewKey() {
+
+        let oldPref = UserDefaults.standard
+        let oldKey = "TimetableNotificationsDisabled"
+        oldPref.set(true, forKey: oldKey)
+        preferences = MyWarwickPreferences(userDefaults: oldPref)
+        
+        XCTAssert(preferences.timetableNotificationsEnabled == false)
+        XCTAssert(oldPref.object(forKey: oldKey) == nil)
+    }
+    
 
 }
