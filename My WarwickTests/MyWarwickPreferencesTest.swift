@@ -47,14 +47,13 @@ class MyWarwickPreferencesTest: XCTestCase {
         XCTAssert(preferences.timetableNotificationsEnabled == true)
     }
 
-    func testTheOldKeyShouldBeRemovedAfterAccessValueOfTheNewKey() {
+    func testTheOldKeyShouldBeRemovedAfterInit() {
 
         let oldPref = UserDefaults.standard
         let oldKey = "TimetableNotificationsDisabled"
         oldPref.set(true, forKey: oldKey)
         preferences = MyWarwickPreferences(userDefaults: oldPref)
         
-        XCTAssert(preferences.timetableNotificationsEnabled == false)
         XCTAssert(oldPref.object(forKey: oldKey) == nil)
     }
     
