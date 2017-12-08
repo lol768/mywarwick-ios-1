@@ -38,7 +38,6 @@
 		B51A9C781E6853F40006C2F9 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C771E6853F40006C2F9 /* PhotosViewController.swift */; };
 		B51A9C7A1E686EC30006C2F9 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C791E686EC30006C2F9 /* Helper.swift */; };
 		B536884E1F793EB800F808BE /* MWUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536884D1F793EB800F808BE /* MWUINavigationController.swift */; };
-		B5AEBFD01FDAAB420057E4BF /* My_WarwickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBFCF1FDAAB420057E4BF /* My_WarwickTests.swift */; };
 		B5AEBFD81FDAABB10057E4BF /* MyWarwickPreferencesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBFD71FDAABB10057E4BF /* MyWarwickPreferencesTest.swift */; };
 		B5AEBFD91FDAABFE0057E4BF /* MyWarwickPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */; };
 		B5AEBFDA1FDAAE5C0057E4BF /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042C38F1C43B0BD0060C76A /* Global.swift */; };
@@ -94,7 +93,6 @@
 		B51A9C791E686EC30006C2F9 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B536884D1F793EB800F808BE /* MWUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWUINavigationController.swift; sourceTree = "<group>"; };
 		B5AEBFCD1FDAAB420057E4BF /* My WarwickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My WarwickTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5AEBFCF1FDAAB420057E4BF /* My_WarwickTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_WarwickTests.swift; sourceTree = "<group>"; };
 		B5AEBFD11FDAAB420057E4BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AEBFD71FDAABB10057E4BF /* MyWarwickPreferencesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWarwickPreferencesTest.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				B5AEBFD71FDAABB10057E4BF /* MyWarwickPreferencesTest.swift */,
-				B5AEBFCF1FDAAB420057E4BF /* My_WarwickTests.swift */,
 				B5AEBFD11FDAAB420057E4BF /* Info.plist */,
 			);
 			path = "My WarwickTests";
@@ -371,7 +368,6 @@
 				B5CC404B1FDAAF3900F51C92 /* NotificationScheduler.swift in Sources */,
 				B5CC404C1FDAAF4C00F51C92 /* Model.xcdatamodeld in Sources */,
 				B5AEBFDE1FDAAEC60057E4BF /* Config.swift in Sources */,
-				B5AEBFD01FDAAB420057E4BF /* My_WarwickTests.swift in Sources */,
 				B5AEBFD81FDAABB10057E4BF /* MyWarwickPreferencesTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,7 +550,7 @@
 				DEVELOPMENT_TEAM = F49ADCXC5P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "My WarwickTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.warwick.my.My-WarwickTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -579,7 +575,7 @@
 				DEVELOPMENT_TEAM = F49ADCXC5P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "My WarwickTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.warwick.my.My-WarwickTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
