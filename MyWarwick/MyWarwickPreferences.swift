@@ -6,7 +6,6 @@ class MyWarwickPreferences {
 
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
-        self.userDefaults.register(defaults: ["TimetableNotificationsEnabled" : true])
     }
 
     var canWorkOffline: Bool {
@@ -79,6 +78,11 @@ class MyWarwickPreferences {
         get {
             let oldKey = "TimetableNotificationsDisabled"
             let newKey = "TimetableNotificationsEnabled"
+            
+            if UserDefaults.standard.object(forKey: oldKey) == nil {
+                userDefaults.set(true, forKey: newKey)
+            }
+            
             if UserDefaults.standard.object(forKey: oldKey) != nil {
                 userDefaults.set(!userDefaults.bool(forKey: oldKey), forKey: newKey)
                 userDefaults.removeObject(forKey: oldKey)
