@@ -16,9 +16,7 @@ class MyWarwickPreferences {
         
         if UserDefaults.standard.object(forKey: oldKey) == nil {
             userDefaults.set(true, forKey: newKey)
-        }
-        
-        if UserDefaults.standard.object(forKey: oldKey) != nil {
+        } else {
             userDefaults.set(!userDefaults.bool(forKey: oldKey), forKey: newKey)
             userDefaults.removeObject(forKey: oldKey)
         }
