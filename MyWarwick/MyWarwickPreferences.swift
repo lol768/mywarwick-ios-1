@@ -6,6 +6,20 @@ class MyWarwickPreferences {
 
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
+        setDefaultValue()
+        
+    }
+    
+    func setDefaultValue() {
+        let oldKey = "TimetableNotificationsDisabled"
+        let newKey = "TimetableNotificationsEnabled"
+        
+        if UserDefaults.standard.object(forKey: oldKey) == nil {
+            userDefaults.set(true, forKey: newKey)
+        } else {
+            userDefaults.set(!userDefaults.bool(forKey: oldKey), forKey: newKey)
+            userDefaults.removeObject(forKey: oldKey)
+        }
     }
 
     var canWorkOffline: Bool {
@@ -76,14 +90,12 @@ class MyWarwickPreferences {
 
     var timetableNotificationsEnabled: Bool {
         get {
-            return !userDefaults.bool(forKey: "TimetableNotificationsDisabled")
+            return userDefaults.bool(forKey: "TimetableNotificationsEnabled")
         }
-
         set(enabled) {
             if (enabled != timetableNotificationsEnabled) {
-                userDefaults.set(!enabled, forKey: "TimetableNotificationsDisabled")
+                userDefaults.set(enabled, forKey: "TimetableNotificationsEnabled")
                 userDefaults.synchronize()
-
                 Global.backgroundQueue.async {
                     let dataController = DataController()
                     dataController.load {

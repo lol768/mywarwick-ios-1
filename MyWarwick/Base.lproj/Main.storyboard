@@ -111,7 +111,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Welcome to My Warwick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-qS-fjF">
-                                <rect key="frame" x="50" y="568.33333333333337" width="274.66666666666669" height="31.333333333333371"/>
+                                <rect key="frame" x="50" y="568.33333333333337" width="274.33333333333331" height="31.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.35686274509999999" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -471,7 +471,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KXD-2z-9mK">
-                                <rect key="frame" x="142.66666666666666" y="620.66666666666663" width="90.333333333333343" height="33"/>
+                                <rect key="frame" x="142.33333333333334" y="620.66666666666663" width="90.333333333333343" height="33"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="NewsTour" translatesAutoresizingMaskIntoConstraints="NO" id="kNd-9L-PXz">
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
