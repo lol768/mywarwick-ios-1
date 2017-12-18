@@ -36,6 +36,8 @@
 	<string>My Warwick uses your camera for updating your photo.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>My Warwick uses your location to show your position on the campus map, and to provide location-related information.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>My Warwick needs permission to access to your photo library for completing this action.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>My Warwick uses your photo library for updating your photo.</string>
 	<key>UIBackgroundModes</key>
