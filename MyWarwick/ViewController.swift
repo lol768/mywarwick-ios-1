@@ -63,6 +63,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         }
     }
 
+    var currentUser: User = AnonymousUser(authoritative: false)
+    
     internal func setUser(_ user: User) {
         let items = tabBar.items!
 
@@ -73,7 +75,10 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             if (user.signedIn) {
                 firstRunAfterTour = false
 
-                registerForPushNotifications()
+                if (user.usercode != currentUser.usercode) {
+                    currentUser = user
+                    registerForPushNotifications()
+                }
 
                 if preferences.timetableToken == nil || preferences.needsTimetableTokenRefresh {
                     invoker.invokeIfAvailable(method: "registerForTimetable")
@@ -176,7 +181,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidRegisterForRemoteNotifications"), object: nil, queue: OperationQueue.main) { (notification) -> Void in
             if let deviceToken = (notification as NSNotification).userInfo?["deviceToken"] as? String {
                 self.preferences.deviceToken = deviceToken
-
                 self.invoker.invoke("registerForAPNs('\(deviceToken)')")
             }
         }
