@@ -125,12 +125,16 @@ class MyWarwickPreferences {
                 userDefaults.set(timing, forKey: "TimetableNotificationTiming")
                 userDefaults.synchronize()
 
-                Global.backgroundQueue.async {
-                    let dataController = DataController()
-                    dataController.load {
-                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                // this should not be possible throught the ui, but let's just be safe
+                if (userDefaults.bool(forKey: "TimetableNotificationsEnabled")) {
+                    Global.backgroundQueue.async {
+                        let dataController = DataController()
+                        dataController.load {
+                            NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                        }
                     }
                 }
+                
             }
         }
     }
