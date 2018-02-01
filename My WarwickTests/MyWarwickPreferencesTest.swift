@@ -67,5 +67,10 @@ class MyWarwickPreferencesTest: XCTestCase {
         XCTAssert(preferences.timetableNotificationsEnabled == false)
     }
     
+    func testTimetableNotificationIsSetCorrectlyToExistingVauleIfOldKeyIsNotPresent() {
+        preferences.timetableNotificationsEnabled = false
+        preferences.setDefaultValue()
+        XCTAssert(preferences.timetableNotificationsEnabled == false)
+    }
 
 }
