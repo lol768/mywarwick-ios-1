@@ -99,7 +99,12 @@ class MyWarwickPreferences {
                 Global.backgroundQueue.async {
                     let dataController = DataController()
                     dataController.load {
-                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                        if (enabled) {
+                            NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
+                        } else {
+                            NotificationScheduler(dataController: dataController, preferences: self).removeAllScheduledNotifications()
+                        }
+                        
                     }
                 }
             }
