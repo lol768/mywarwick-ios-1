@@ -69,6 +69,9 @@ class NotificationScheduler: NSObject {
         return nil
     }
 
+    
+     // reschedule alerts for all events, if alert is enabled.
+     // otherwise remove all existing alerts
     func rescheduleAllNotifications() {
         var notifications: Array<UILocalNotification> = []
 
@@ -90,19 +93,20 @@ class NotificationScheduler: NSObject {
                     }
                 }
             }
-        }
-
-        DispatchQueue.main.async {
-            // Lock this object to avoid others trampling on the notifications we're creating
-            objc_sync_enter(Global.notificationsLock)
-
-            UIApplication.shared.cancelAllLocalNotifications()
-            for notification in notifications {
-                print("Scheduling notification '\(notification.alertTitle!)' at \(notification.fireDate!)")
-                UIApplication.shared.scheduleLocalNotification(notification)
+            DispatchQueue.main.async {
+                // Lock this object to avoid others trampling on the notifications we're creating
+                objc_sync_enter(Global.notificationsLock)
+                
+                UIApplication.shared.cancelAllLocalNotifications()
+                for notification in notifications {
+                    print("Scheduling notification '\(notification.alertTitle!)' at \(notification.fireDate!)")
+                    UIApplication.shared.scheduleLocalNotification(notification)
+                }
+                
+                objc_sync_exit(Global.notificationsLock)
             }
-
-            objc_sync_exit(Global.notificationsLock)
+        } else {
+            self.removeAllScheduledNotifications()
         }
     }
 }
