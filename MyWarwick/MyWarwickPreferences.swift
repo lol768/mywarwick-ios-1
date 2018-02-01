@@ -15,7 +15,9 @@ class MyWarwickPreferences {
         let newKey = "TimetableNotificationsEnabled"
         
         if UserDefaults.standard.object(forKey: oldKey) == nil {
-            userDefaults.set(true, forKey: newKey)
+            if UserDefaults.standard.object(forKey: newKey) == nil {
+                userDefaults.set(true, forKey: newKey)
+            }
         } else {
             userDefaults.set(!userDefaults.bool(forKey: oldKey), forKey: newKey)
             userDefaults.removeObject(forKey: oldKey)
@@ -99,12 +101,7 @@ class MyWarwickPreferences {
                 Global.backgroundQueue.async {
                     let dataController = DataController()
                     dataController.load {
-                        if (enabled) {
-                            NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
-                        } else {
-                            NotificationScheduler(dataController: dataController, preferences: self).removeAllScheduledNotifications()
-                        }
-                        
+                        NotificationScheduler(dataController: dataController, preferences: self).rescheduleAllNotifications()
                     }
                 }
             }
