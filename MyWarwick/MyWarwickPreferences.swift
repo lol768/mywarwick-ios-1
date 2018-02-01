@@ -7,7 +7,6 @@ class MyWarwickPreferences {
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
         setDefaultValue()
-        
     }
     
     func setDefaultValue() {

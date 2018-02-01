@@ -24,6 +24,9 @@ class MyWarwickPreferencesTest: XCTestCase {
     }
     
     func testTimetableNotificationShouldBeEnabledByDefault() {
+        let oldPref = UserDefaults.standard
+        oldPref.removeObject(forKey: "TimetableNotificationsEnabled")
+        preferences = MyWarwickPreferences(userDefaults: oldPref)
         XCTAssert(preferences.timetableNotificationsEnabled == true)
     }
     
