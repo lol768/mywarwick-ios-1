@@ -74,6 +74,11 @@ class MyWarwickPreferencesTest: XCTestCase {
         preferences.timetableNotificationsEnabled = false
         preferences.setDefaultValue()
         XCTAssert(preferences.timetableNotificationsEnabled == false)
+        
+        preferences.timetableNotificationsEnabled = true
+        preferences.setDefaultValue()
+        XCTAssert(preferences.timetableNotificationsEnabled == true)
+        
     }
 
 }
