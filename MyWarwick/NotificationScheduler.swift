@@ -47,9 +47,11 @@ class NotificationScheduler: NSObject {
     func removeAllScheduledNotifications() {
         DispatchQueue.main.async {
             objc_sync_enter(Global.notificationsLock)
-            print("Canceling all existing timetable alerts")
+            print("Canceling all existing timetable alerts.")
+           
             // This method must be called on the main thread
             UIApplication.shared.cancelAllLocalNotifications()
+            
             objc_sync_exit(Global.notificationsLock)
         }
     }
