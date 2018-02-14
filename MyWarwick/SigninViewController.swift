@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 import SafariServices
-import SafariServices
 import WebKit
 
 class SigninViewController: WebViewController {
