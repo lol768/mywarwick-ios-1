@@ -21,6 +21,10 @@ class MyWarwickPreferences {
             userDefaults.set(!userDefaults.bool(forKey: oldKey), forKey: newKey)
             userDefaults.removeObject(forKey: oldKey)
         }
+        
+        if UserDefaults.standard.object(forKey: "TimetableNotificationsSoundEnabled") == nil {
+            userDefaults.set(true, forKey: "TimetableNotificationsSoundEnabled")
+        }
     }
 
     var canWorkOffline: Bool {
@@ -131,6 +135,18 @@ class MyWarwickPreferences {
                     }
                 }
                 
+            }
+        }
+    }
+    
+    var timetableNotificationsSoundEnabled: Bool {
+        get {
+            return userDefaults.bool(forKey: "TimetableNotificationsSoundEnabled")
+        }
+        set(enabled) {
+            if (enabled != timetableNotificationsSoundEnabled) {
+                userDefaults.set(enabled, forKey: "TimetableNotificationsSoundEnabled")
+                userDefaults.synchronize()
             }
         }
     }
