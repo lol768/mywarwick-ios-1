@@ -96,6 +96,13 @@
             timing: timing,
         });
     };
+ 
+    native.setTimetableNotificationsSoundEnabled = function setTimetableNotificationsSoundEnabled(enabled) {
+        handler.postMessage({
+            kind: 'setTimetableNotificationsSoundEnabled',
+            enabled: enabled,
+        });
+    };
 
     native.openMailApp = function openMailApp(externalApp) {
         if (externalApp === "mail") {

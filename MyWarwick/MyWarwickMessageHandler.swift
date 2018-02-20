@@ -79,6 +79,10 @@ class MyWarwickMessageHandler: NSObject, WKScriptMessageHandler, CLLocationManag
                 if let timing = body["timing"] as? Int {
                     preferences.timetableNotificationTiming = timing
                 }
+            case "setTimetableNotificationsSoundEnabled":
+                if let enabled = body["enabled"] as? Bool {
+                    preferences.timetableNotificationsSoundEnabled = enabled
+                }
             default:
                 break
             }

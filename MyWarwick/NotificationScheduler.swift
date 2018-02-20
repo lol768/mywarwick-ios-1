@@ -60,7 +60,9 @@ class NotificationScheduler: NSObject {
         let notificationDate = event.start!.addingTimeInterval(TimeInterval(-60 * preferences.timetableNotificationTiming)) as Date
         if notificationDate >= Date(), let title = notificationTitle(for: event), let body = notificationBody(for: event, at: notificationDate) {
             let notification = UILocalNotification()
-            notification.soundName = "TimetableAlarm.wav"
+            if preferences.timetableNotificationsSoundEnabled {
+                notification.soundName = "TimetableAlarm.wav"
+            }
             notification.alertTitle = title
             notification.alertBody = body
             notification.fireDate = notificationDate
