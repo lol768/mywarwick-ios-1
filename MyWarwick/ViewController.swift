@@ -2,8 +2,9 @@ import UIKit
 import SafariServices
 import WebKit
 import CoreLocation
+import UserNotifications
 
-class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
+class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource, UNUserNotificationCenterDelegate {
     func setWebSignOnURLs(signIn: String, signOut: String) {}
     
     var firstRunAfterTour = false
@@ -252,6 +253,39 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         loadWebView()
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+        }
+        
+    }
+
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let remoteNotification = response.notification
+        let priority = response.notification.request.content.userInfo["priority"] as? String ?? "normal"
+        print("here!! priority")
+        print(priority)
+        if priority == "high"  {
+            // now we create a local notification with high priority
+            let notification = UILocalNotification()
+            let content = remoteNotification.request.content
+            notification.alertTitle = content.title
+            notification.alertBody = content.body
+            notification.userInfo = ["priority": "high"]
+            UIApplication.shared.scheduleLocalNotification(notification)
+        }
+        completionHandler()
+    }
+    
+    
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let priority = notification.request.content.userInfo["priority"] as? String ?? "normal"
+        
+        if priority == "high"  {
+            completionHandler([.alert, .badge, .sound])
+        }
     }
     
     func setLayout() {
