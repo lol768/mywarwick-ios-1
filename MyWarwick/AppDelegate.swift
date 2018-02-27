@@ -1,4 +1,5 @@
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,7 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return false
     }
-
+    
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if notification.request.content.userInfo["priority"] as! String == "high"  {
+            completionHandler([.alert, .badge, .sound])
+        }
+    }
+    
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
