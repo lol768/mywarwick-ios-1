@@ -5,7 +5,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var eventTimetableUpdateTimer: DispatchSourceTimer?
-
     
     func startEventTimetableUpdateTimer() {
         let timeTableEventUpdateQ = DispatchQueue(label: "timeTableEventUpdateQ")
@@ -65,11 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-//        if (application.applicationState == .inactive || application.applicationState == .background) {
-//            NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
-//        }
-//    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        if (application.applicationState == .inactive || application.applicationState == .background) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
+        }
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
