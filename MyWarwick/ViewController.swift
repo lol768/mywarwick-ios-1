@@ -11,6 +11,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
 
     let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
     
+    let userNotificationController = UserNotificationController()
+    
     @IBOutlet weak var webViewContainer: UIView!
     
     func ready() {
@@ -245,7 +247,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             return brandColour1
         }
     }
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         renderBackground()
@@ -253,12 +256,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         loadWebView()
-        
-        
-        if #available(iOS 10.0, *) {
-            let userNotificationController = UserNotificationController()
-            UNUserNotificationCenter.current().delegate = userNotificationController
-        }
+    
+        UNUserNotificationCenter.current().delegate = userNotificationController
         
     }
     

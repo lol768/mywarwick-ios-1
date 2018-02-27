@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         if (application.applicationState == .inactive || application.applicationState == .background) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
