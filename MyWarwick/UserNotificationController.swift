@@ -18,6 +18,8 @@ class UserNotificationController: NSObject, UNUserNotificationCenterDelegate {
         
         if priority == "high"  {
             completionHandler([.alert, .badge, .sound])
+        } else {
+            completionHandler()
         }
     }
 }
