@@ -8,6 +8,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     func setWebSignOnURLs(signIn: String, signOut: String) {}
     
     var firstRunAfterTour = false
+    
+    var userNotificationController:NSDictionary = ["get": ""]
 
     let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
     
@@ -256,8 +258,8 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         
         if #available(iOS 10.0, *) {
-            let userNotificationController = UserNotificationController()
-            UNUserNotificationCenter.current().delegate = userNotificationController
+            self.userNotificationController = ["get": UserNotificationController()]
+            UNUserNotificationCenter.current().delegate = self.userNotificationController.value(forKey: "get") as! UNUserNotificationCenterDelegate
         }
         
     }
