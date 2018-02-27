@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 

@@ -9,7 +9,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
     
     var firstRunAfterTour = false
     
-    var userNotificationController:NSDictionary = [NSNull(): NSNull()]
+    var userNotificationController:NSDictionary = NSMutableDictionary()
 
     let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
     
@@ -258,7 +258,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         
         if #available(iOS 10.0, *) {
-            userNotificationController = ["get": UserNotificationController()]
+            userNotificationController.setValue(UserNotificationController(), forKey: "get")
             UNUserNotificationCenter.current().delegate = (userNotificationController.value(forKey: "get") as! UNUserNotificationCenterDelegate)
         }
         
