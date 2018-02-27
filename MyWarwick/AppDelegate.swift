@@ -34,7 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        if notification.request.content.userInfo["priority"] as! String == "high"  {
+        
+        let priority = notification.request.content.userInfo["priority"] as? String ?? "normal"
+        
+        if priority == "high"  {
             completionHandler([.alert, .badge, .sound])
         }
     }
