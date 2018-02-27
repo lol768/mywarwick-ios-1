@@ -259,7 +259,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         if #available(iOS 10.0, *) {
             self.userNotificationController = ["get": UserNotificationController()]
-            UNUserNotificationCenter.current().delegate = self.userNotificationController.value(forKey: "get") as! UNUserNotificationCenterDelegate
+            UNUserNotificationCenter.current().delegate = (self.userNotificationController.value(forKey: "get") as! UNUserNotificationCenterDelegate)
         }
         
     }
