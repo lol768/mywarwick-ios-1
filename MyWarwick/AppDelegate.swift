@@ -54,10 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appearance.pageIndicatorTintColor = UIColor(red: 91 / 255, green: 48 / 255, blue: 105 / 255, alpha: 1 / 4)
         appearance.currentPageIndicatorTintColor = UIColor(red: 91 / 255, green: 48 / 255, blue: 105 / 255, alpha: 1)
         
-        if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] != nil {
-            Global.didLaunchFromRemoteNotification = true
+        let remoteNotification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
+        
+        if remoteNotification != nil {
+            if !(remoteNotification!["transient"] as? Bool ?? false) {
+                Global.didLaunchFromRemoteNotification = true
+            }
         }
-
+        
         UIApplication.shared.setMinimumBackgroundFetchInterval(12 * 60 * 60)
         return true
     }
@@ -65,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         let transient = userInfo["transient"] as? Bool ?? false
-        if ((application.applicationState == .inactive || application.applicationState == .background) && !transient) {
+        if ((application.applicationState == .inactive || application.applicationState == .background) && transient) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
         }
     }
