@@ -64,7 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        if (application.applicationState == .inactive || application.applicationState == .background) {
+        let transient = userInfo["transient"] as? Bool ?? false
+        if ((application.applicationState == .inactive || application.applicationState == .background) && !transient) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
         }
     }
