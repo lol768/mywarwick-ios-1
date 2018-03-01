@@ -24,7 +24,7 @@ class UserNotificationController: NSObject, UNUserNotificationCenterDelegate {
         if (state == .inactive || state == .background)  {
             if (response.notification.request.content.userInfo["transient"] as? Bool ?? false) {
                 let content = response.notification.request.content
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceivetransientRemoteNotification"), object: self, userInfo: ["title": content.title, "body": content.body])
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: ["title": content.title, "body": content.body])
             } else {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
             }
