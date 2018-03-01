@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class Helper {
 
@@ -18,6 +19,12 @@ class Helper {
 
     static func regexMatch(for regex: String, in text: String) -> Bool {
         return !Helper.regexMatches(for: regex, in: text).isEmpty
+    }
+    
+    static func makeTransientNotificationAlert(title: String, body: String, viewController: ViewController ) {
+        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`))
+        viewController.present(alert, animated: true, completion: nil)
     }
 
 }
