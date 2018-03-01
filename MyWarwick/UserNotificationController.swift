@@ -34,10 +34,8 @@ class UserNotificationController: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let priority = notification.request.content.userInfo["priority"] as? String ?? "normal"
         
-        if priority == "high"  {
-            if (notification.request.content.userInfo["transient"] as? Bool ?? false) {
-                completionHandler([.badge, .sound, .alert])
-            } 
+        if priority == "high" && (notification.request.content.userInfo["transient"] as? Bool ?? false)  {
+            completionHandler([.badge, .sound, .alert])
         } else {
             completionHandler([.badge])
         }
