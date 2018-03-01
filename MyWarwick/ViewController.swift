@@ -176,6 +176,14 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: nil, queue: OperationQueue.main) { _ -> Void in
             self.navigateWithinApp("/notifications")
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceivetransientRemoteNotification"), object: nil, queue: OperationQueue.main) { notification -> Void in
+            
+            let title = (notification as NSNotification).userInfo?["title"] as! String
+            let body = (notification as NSNotification).userInfo?["body"] as! String
+            // show an alert view
+            Helper.makeTransientNotificationAlert(title: title, body: body, viewController: self)
+        }
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { _ -> Void in
             self.invoker.invoke("onApplicationDidBecomeActive()")
@@ -258,7 +266,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         
         
         if #available(iOS 10.0, *) {
-            userNotificationController = UserNotificationController()
+            userNotificationController = UserNotificationController(viewController: self)
             UNUserNotificationCenter.current().delegate = (userNotificationController as! UNUserNotificationCenterDelegate)
         }
         
