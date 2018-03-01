@@ -177,7 +177,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             self.navigateWithinApp("/notifications")
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: nil, queue: OperationQueue.main) { notification -> Void in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: nil, queue: OperationQueue.main) { (notification) -> Void in
             
             let title = (notification as NSNotification).userInfo?["title"] as! String
             let body = (notification as NSNotification).userInfo?["body"] as! String

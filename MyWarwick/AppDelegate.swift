@@ -61,15 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if !(remoteNotification!["transient"] as? Bool ?? false) {
                 Global.didLaunchFromRemoteNotification = true
             } else {
-                
                 if let aps = remoteNotification!["aps"] as? NSDictionary {
                     if let alert = aps["alert"] as? NSDictionary {
                         let title  = alert["title"] as! NSString
                         let body = alert["body"] as! NSString
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: [
-                              "title": title,
-                              "body": body
-                            ])
+                        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: [
+                                "title": title,
+                                "body": body
+                                ])
+                        })
+                        
                     }
                 }
             }
