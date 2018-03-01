@@ -55,10 +55,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appearance.currentPageIndicatorTintColor = UIColor(red: 91 / 255, green: 48 / 255, blue: 105 / 255, alpha: 1)
         
         let remoteNotification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
-        
+
+    
         if remoteNotification != nil {
             if !(remoteNotification!["transient"] as? Bool ?? false) {
                 Global.didLaunchFromRemoteNotification = true
+            } else {
+                
+                if let aps = remoteNotification!["aps"] as? NSDictionary {
+                    if let alert = aps["alert"] as? NSDictionary {
+                        let title  = alert["title"] as! NSString
+                        let body = alert["body"] as! NSString
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceivetransientRemoteNotification"), object: self, userInfo: [
+                            "title": title,
+                            "body": body
+                            ])
+                    }
+                }
             }
         }
         
@@ -66,13 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        let transient = userInfo["transient"] as? Bool ?? false
-        if ((application.applicationState == .inactive || application.applicationState == .background) && transient) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveRemoteNotification"), object: self, userInfo: nil)
-        }
-    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
