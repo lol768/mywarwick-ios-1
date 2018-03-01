@@ -66,9 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if let alert = aps["alert"] as? NSDictionary {
                         let title  = alert["title"] as! NSString
                         let body = alert["body"] as! NSString
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceivetransientRemoteNotification"), object: self, userInfo: [
-                            "title": title,
-                            "body": body
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: [
+                              "title": title,
+                              "body": body
                             ])
                     }
                 }
