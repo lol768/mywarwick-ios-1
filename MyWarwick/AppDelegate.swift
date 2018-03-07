@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     } else if let alert = aps["alert"] as? NSString { // if we only have body or title
                         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: [
-                                "title": alert
+                                "body": alert // title for the alert view
                                 ])
                         })
                     }
