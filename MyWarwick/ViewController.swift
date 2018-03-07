@@ -181,7 +181,6 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
             
             let title = (notification as NSNotification).userInfo?["title"] as? String ?? ""
             let body = (notification as NSNotification).userInfo?["body"] as? String ?? ""
-            // show an alert view
             Helper.makeTransientNotificationAlert(title: title, body: body, viewController: self)
         }
 

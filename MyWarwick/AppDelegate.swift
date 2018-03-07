@@ -63,8 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 if let aps = remoteNotification!["aps"] as? NSDictionary {
                     if let alert = aps["alert"] as? NSDictionary { // for the case we have both title and body
-                        let title  = alert["title"] as! NSString
-                        let body = alert["body"] as! NSString
+                        let title  = alert["title"] as? NSString ?? ""
+                        let body = alert["body"] as? NSString ?? ""
                         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: self, userInfo: [
                                 "title": title,
