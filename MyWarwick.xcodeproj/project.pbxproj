@@ -32,6 +32,7 @@
 		70CC93B91DABE74E005B6E14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93B81DABE74E005B6E14 /* User.swift */; };
 		70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */; };
 		70CC93BD1DABE7BB005B6E14 /* MyWarwickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */; };
+		B51A897F20459127007D69EF /* UserNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A897E20459127007D69EF /* UserNotificationController.swift */; };
 		B51A9C721E65813F0006C2F9 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C711E65813F0006C2F9 /* SigninViewController.swift */; };
 		B51A9C741E6828BE0006C2F9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C731E6828BE0006C2F9 /* WebViewController.swift */; };
 		B51A9C761E68345E0006C2F9 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */; };
@@ -86,6 +87,7 @@
 		70CC93B81DABE74E005B6E14 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		70CC93BA1DABE763005B6E14 /* MyWarwickMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickMessageHandler.swift; sourceTree = "<group>"; };
 		70CC93BC1DABE7BB005B6E14 /* MyWarwickDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickDelegate.swift; sourceTree = "<group>"; };
+		B51A897E20459127007D69EF /* UserNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationController.swift; sourceTree = "<group>"; };
 		B51A9C711E65813F0006C2F9 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		B51A9C731E6828BE0006C2F9 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B51A9C751E68345E0006C2F9 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				2DBA0A3E9CE65F4E2871323A /* DataController.swift */,
 				70B75C3E1F9FA09700CDBDA6 /* NotificationScheduler.swift */,
 				70B75C401F9FA0AD00CDBDA6 /* EventFetcher.swift */,
+				B51A897E20459127007D69EF /* UserNotificationController.swift */,
 			);
 			path = MyWarwick;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 			files = (
 				702CC1CE1C3D61CA0088BF34 /* ViewController.swift in Sources */,
 				70B75C411F9FA0AD00CDBDA6 /* EventFetcher.swift in Sources */,
+				B51A897F20459127007D69EF /* UserNotificationController.swift in Sources */,
 				70CC93BB1DABE763005B6E14 /* MyWarwickMessageHandler.swift in Sources */,
 				B536884E1F793EB800F808BE /* MWUINavigationController.swift in Sources */,
 				702047061C3ED6B9004487FE /* Config.swift in Sources */,

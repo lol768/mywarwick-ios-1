@@ -2,11 +2,14 @@ import UIKit
 import SafariServices
 import WebKit
 import CoreLocation
+import UserNotifications
 
 class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, WKUIDelegate, MyWarwickDelegate, WebViewDelegate, WebViewDataSource {
     func setWebSignOnURLs(signIn: String, signOut: String) {}
     
     var firstRunAfterTour = false
+    
+    var userNotificationController: AnyObject?
 
     let bgColourForNonMeView = UIColor(white: 249 / 255, alpha: 1)
     
@@ -173,6 +176,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: nil, queue: OperationQueue.main) { _ -> Void in
             self.navigateWithinApp("/notifications")
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "DidReceiveTransientRemoteNotification"), object: nil, queue: OperationQueue.main) { (notification) -> Void in
+            
+            let title = (notification as NSNotification).userInfo?["title"] as? String ?? ""
+            let body = (notification as NSNotification).userInfo?["body"] as? String ?? ""
+            Helper.makeTransientNotificationAlert(title: title, body: body, viewController: self)
+        }
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { _ -> Void in
             self.invoker.invoke("onApplicationDidBecomeActive()")
@@ -252,6 +262,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         setLayout()
         unreachableViewController = storyboard!.instantiateViewController(withIdentifier: "CannotConnect")
         loadWebView()
+        
+        
+        if #available(iOS 10.0, *) {
+            userNotificationController = UserNotificationController(viewController: self)
+            UNUserNotificationCenter.current().delegate = (userNotificationController as! UNUserNotificationCenterDelegate)
+        }
+        
     }
     
     func setLayout() {
