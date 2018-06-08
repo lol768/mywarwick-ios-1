@@ -10,6 +10,8 @@
 		2DBA005D854FFC861FFEB13C /* MyWarwickPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */; };
 		2DBA04C31F345A2473F1FC96 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA0A3E9CE65F4E2871323A /* DataController.swift */; };
 		2DBA0EB40BA2DD24676E262B /* JavaScriptInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */; };
+		58F7B18020C82CE900F7DBD4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58F7B17F20C82CE800F7DBD4 /* GoogleService-Info.plist */; };
+		5983F08D7E841A2A62AED1BA /* Pods_MyWarwick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FECD41D416A1CA56BD81240E /* Pods_MyWarwick.framework */; };
 		700271D21EEE97BB004705DB /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D11EEE97BB004705DB /* TourViewController.swift */; };
 		700271D41EEEA14D004705DB /* FinalTourSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */; };
 		700271D61EEEA32D004705DB /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700271D51EEEA32D004705DB /* InitialViewController.swift */; };
@@ -63,6 +65,8 @@
 		2DBA060C232C3B1968940F17 /* MyWarwickPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWarwickPreferences.swift; sourceTree = "<group>"; };
 		2DBA0A3E9CE65F4E2871323A /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		2DBA0CF19B017C5A55F99C51 /* JavaScriptInvoker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptInvoker.swift; sourceTree = "<group>"; };
+		58F7B17F20C82CE800F7DBD4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5EB59E15B4E3D7AB21E8F1F8 /* Pods-MyWarwick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyWarwick.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyWarwick/Pods-MyWarwick.release.xcconfig"; sourceTree = "<group>"; };
 		700271D11EEE97BB004705DB /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
 		700271D31EEEA14D004705DB /* FinalTourSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalTourSlideViewController.swift; sourceTree = "<group>"; };
 		700271D51EEEA32D004705DB /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 		B5AEBFD11FDAAB420057E4BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AEBFD71FDAABB10057E4BF /* MyWarwickPreferencesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWarwickPreferencesTest.swift; sourceTree = "<group>"; };
 		B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWarwick.entitlements; sourceTree = "<group>"; };
+		CC368E0F06EC0CB74DA0BE33 /* Pods-MyWarwick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyWarwick.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyWarwick/Pods-MyWarwick.debug.xcconfig"; sourceTree = "<group>"; };
+		FECD41D416A1CA56BD81240E /* Pods_MyWarwick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyWarwick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				700D4B2B1F978C8300C4412E /* CoreData.framework in Frameworks */,
+				5983F08D7E841A2A62AED1BA /* Pods_MyWarwick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +133,7 @@
 				B5AEBFCE1FDAAB420057E4BF /* My WarwickTests */,
 				702CC1C91C3D61CA0088BF34 /* Products */,
 				B5DB7AE41DA525E100403815 /* Frameworks */,
+				D7E94A5B0C0D7B56622E083D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +149,7 @@
 		702CC1CA1C3D61CA0088BF34 /* MyWarwick */ = {
 			isa = PBXGroup;
 			children = (
+				58F7B17F20C82CE800F7DBD4 /* GoogleService-Info.plist */,
 				7013B7771DABB6390079DCF1 /* Bridge.js */,
 				B5DB7AE31DA5247400403815 /* MyWarwick.entitlements */,
 				70C82DD81C9AF34E00398F94 /* Alert.wav */,
@@ -191,8 +200,18 @@
 			isa = PBXGroup;
 			children = (
 				700D4B2A1F978C8300C4412E /* CoreData.framework */,
+				FECD41D416A1CA56BD81240E /* Pods_MyWarwick.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7E94A5B0C0D7B56622E083D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CC368E0F06EC0CB74DA0BE33 /* Pods-MyWarwick.debug.xcconfig */,
+				5EB59E15B4E3D7AB21E8F1F8 /* Pods-MyWarwick.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,10 +221,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 702CC1DA1C3D61CA0088BF34 /* Build configuration list for PBXNativeTarget "MyWarwick" */;
 			buildPhases = (
+				130246E74B3396BD3A02D201 /* [CP] Check Pods Manifest.lock */,
 				702CC1C41C3D61CA0088BF34 /* Sources */,
 				702CC1C51C3D61CA0088BF34 /* Frameworks */,
 				702CC1C61C3D61CA0088BF34 /* Resources */,
 				70FC1E4B1E6452850049F826 /* Remove Settings bundle from release app */,
+				BA166D5C7BB265B9A889DDE4 /* [CP] Embed Pods Frameworks */,
+				0535FB12330697DB465E2777 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				702CC1D61C3D61CA0088BF34 /* LaunchScreen.storyboard in Resources */,
+				58F7B18020C82CE900F7DBD4 /* GoogleService-Info.plist in Resources */,
 				70A1E1201FA8D2E700CF8F80 /* TimetableAlarm.wav in Resources */,
 				7013B7781DABB6390079DCF1 /* Bridge.js in Resources */,
 				70C82DD91C9AF34E00398F94 /* Alert.wav in Resources */,
@@ -313,6 +336,39 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0535FB12330697DB465E2777 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyWarwick/Pods-MyWarwick-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		130246E74B3396BD3A02D201 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyWarwick-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		70FC1E4B1E6452850049F826 /* Remove Settings bundle from release app */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -326,6 +382,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n    echo \"Build is for $CONFIGURATION configuration; removing Settings.bundle\"\n    rm -rf \"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Settings.bundle\"\nelse\n    echo \"Leaving Settings.bundle in place for $CONFIGURATION configuration\"\nfi";
+		};
+		BA166D5C7BB265B9A889DDE4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyWarwick/Pods-MyWarwick-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyWarwick/Pods-MyWarwick-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -433,7 +511,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -508,11 +586,13 @@
 		};
 		702CC1DB1C3D61CA0088BF34 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC368E0F06EC0CB74DA0BE33 /* Pods-MyWarwick.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MyWarwick/MyWarwick.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F49ADCXC5P;
 				INFOPLIST_FILE = MyWarwick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -525,6 +605,7 @@
 		};
 		702CC1DC1C3D61CA0088BF34 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EB59E15B4E3D7AB21E8F1F8 /* Pods-MyWarwick.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MyWarwick/MyWarwick.entitlements;
