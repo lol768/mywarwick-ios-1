@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 class EventFetcher: NSObject {
-    let isoDateFormatter = DateFormatter()
+    let isoDateFormatter = DateFormatter() // If we ever change to iOS 10 or above only, change this to ISODateFormatter
     var dataController: DataController
     var preferences: MyWarwickPreferences
 
@@ -11,6 +11,7 @@ class EventFetcher: NSObject {
         self.preferences = preferences
         super.init()
         isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
+        isoDateFormatter.locale  = Locale(identifier: "en_GB")
     }
 
     func initialise(_ event: Event, from item: [String: AnyObject]) {
