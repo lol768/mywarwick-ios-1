@@ -163,6 +163,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         webView = WKWebView(frame: CGRect.zero, configuration: configuration)
 
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         webView.isOpaque = false
         webView.backgroundColor = UIColor.clear
     }
@@ -356,6 +357,13 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         let wrappingNavController = MWUINavigationController(rootViewController: viewController)
         wrappingNavController.navigationBar.isTranslucent = false
         present(wrappingNavController, animated: true)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if let url = navigationAction.request.url {
+            presentSafariWebView(url)
+        }
+        return nil
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
