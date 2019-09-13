@@ -38,6 +38,7 @@
                                     <tabBarItem title="Me" image="Me" selectedImage="Me Selected" id="FYK-qj-4EQ"/>
                                     <tabBarItem enabled="NO" title="Alerts" image="Notifications" selectedImage="Notifications Selected" id="2ca-rf-gTH"/>
                                     <tabBarItem enabled="NO" title="Activity" image="Activity" selectedImage="Activity Selected" id="2f1-wH-UNo"/>
+                                    <tabBarItem title="News" image="News" selectedImage="News Selected" id="JU3-4S-xZH"/>
                                     <tabBarItem title="Search" image="Search" selectedImage="Search Selected" id="XdG-rl-5Lz"/>
                                 </items>
                                 <connections>
@@ -623,6 +624,8 @@
         <image name="Me Selected" width="25" height="25"/>
         <image name="MeScreenshot" width="250" height="444"/>
         <image name="MeTour" width="33" height="33"/>
+        <image name="News" width="25" height="25"/>
+        <image name="News Selected" width="25" height="25"/>
         <image name="NewsScreenshot" width="250" height="444"/>
         <image name="NewsTour" width="33" height="33"/>
         <image name="Notifications" width="25" height="25"/>
