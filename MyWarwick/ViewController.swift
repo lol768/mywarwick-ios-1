@@ -491,7 +491,7 @@ class ViewController: UIViewController, UITabBarDelegate, WKNavigationDelegate, 
         case "/news": // news will be back in the future
             return tabBar.items![3]
         case "/search":
-            return tabBar.items![3]
+            return tabBar.items![4]
         default:
             return nil
         }
