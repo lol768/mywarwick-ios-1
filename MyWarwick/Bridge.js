@@ -1,6 +1,8 @@
 (function iosBridge(global, handler) {
     var native = {};
     global.MyWarwickNative = native;
+ 
+    native.latestBackgroundId = 8;
 
     native.ready = function ready() {
         handler.postMessage({
