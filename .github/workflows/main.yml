@@ -10,5 +10,6 @@ jobs:
       - name: Build and test
         run: |
           sudo xcode-select --switch /Applications/Xcode_10.1.app/Contents/Developer
+          pod install
           xcodebuild clean test -project MyWarwick.xcodeproj -scheme MyWarwick -destination "platform=iOS Simulator,name=iPhone X" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
           bash <(curl -s https://codecov.io/bash)
